@@ -48,10 +48,12 @@ Route::group([
     })->name('backend.categories.show');
     
  });
+ 
 Route::get('/', function () {
   
     return view('welcome');
 })->name('home');
+
 Route::get('/backend/dashboard', function () {
     return view('category.dashboard');
 })->name('backend.dashboard.index');
@@ -93,9 +95,4 @@ Route::group([
     })->name('backend.posts.show');
     
  });
-
-
-
-
-
 
