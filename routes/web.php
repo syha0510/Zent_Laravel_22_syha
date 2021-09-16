@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,11 +55,45 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+
+// Dashboard
 Route::get('/backend/dashboard', function () {
-    return view('category.dashboard');
+    return view('backend.dashboard');
 })->name('backend.dashboard.index');
 
+// user
+Route::group([
+    'prefix' => 'users'
+ ], function (){ 
+    Route::get('/list', function () {
+        return view('backend.user.list');
+    
+    })->name('backend.users.list');
+    
+    Route::get('/create', function () {
+        return view('backend.user.create');
+    
+    })->name('backend.users.create');
+    
+    Route::post('/store', function () {
+        return redirect()->route('backend.dashboard.index');
+    })->name('backend.users.store');
+    
+    Route::get('/edit/{id}', function ($id) {
+        return view('backend.user.edit');
+    })->name('backend.users.edit');
+    
+    Route::post('/update/{id}', function ($id) {
+        return redirect()->route('backend.dashboard.index');
+    })->name('backend.users.update');
+    
+    Route::delete('/delete/{id}', function ($id) {
+        return redirect()->route('backend.dashboard.index');
+    })->name('backend.users.delete');
+    
+    
 
+ });
 
 // post
 Route::group([
