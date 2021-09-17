@@ -100,12 +100,12 @@ Route::group([
     'prefix' => 'posts'
  ], function (){
     Route::get('/list', function () {
-        return view('post.list');
+        return view('backend.post.list');
     
     })->name('backend.posts.list');
     
     Route::get('/create', function () {
-        return view('post.create');
+        return view('backend.post.create');
     
     })->name('backend.posts.create');
     
@@ -114,7 +114,7 @@ Route::group([
     })->name('backend.posts.store');
     
     Route::get('/edit/{id}', function ($id) {
-        return view('post.edit');
+        return view('backend.post.edit');
     })->name('backend.posts.edit');
     
     Route::post('/update/{id}', function ($id) {
@@ -125,9 +125,6 @@ Route::group([
         return redirect()->route('backend.dashboard.index');
     })->name('backend.posts.delete');
     
-    Route::get('/show/{id}', function ($id) {
-        return view('category.show');
-    })->name('backend.posts.show');
     
  });
 
