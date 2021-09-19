@@ -30,15 +30,16 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form">
+                <form role="form" method="post" action="{{route('backend.posts.store')}}">
+                  @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tiêu đề</label>
-                            <input type="text" class="form-control" id="" placeholder="Tiêu đề">
+                            <input name="name" type="text" class="form-control" id="" placeholder="Tiêu đề">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nội dung</label>
-                            <textarea cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
+                            <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
                                           style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         </div>
                         
@@ -65,7 +66,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-default">Huỷ bỏ</button>
+                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
                         <button type="submit" class="btn btn-success">Tạo mới</button>
                     </div>
                 </form>

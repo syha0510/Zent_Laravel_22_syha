@@ -50,6 +50,7 @@ Route::group([
     
  });
  
+
 Route::get('/', function () {
   
     return view('welcome');
@@ -57,73 +58,46 @@ Route::get('/', function () {
 
 
 // Dashboard
-Route::get('/backend/dashboard', function () {
-    return view('backend.dashboard');
-})->name('backend.dashboard.index');
+Route::get('/backend/dashboard', 'backend\DashboardController@index')->name('backend.dashboard.index');
 
 // user
 Route::group([
-    'prefix' => 'users'
+    'prefix' => 'users',
+    'namespace'=> 'backend'
  ], function (){ 
-    Route::get('/list', function () {
-        return view('backend.user.list');
+    Route::get('/list', 'UserController@index')->name('backend.users.list');
     
-    })->name('backend.users.list');
+    Route::get('/create', 'UserController@create')->name('backend.users.create');
     
-    Route::get('/create', function () {
-        return view('backend.user.create');
+    Route::post('/store','UserController@store')->name('backend.users.store');
     
-    })->name('backend.users.create');
+    Route::get('/edit/{id}', 'UserController@edit')->name('backend.users.edit');
     
-    Route::post('/store', function () {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.users.store');
+    Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
     
-    Route::get('/edit/{id}', function ($id) {
-        return view('backend.user.edit');
-    })->name('backend.users.edit');
-    
-    Route::post('/update/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.users.update');
-    
-    Route::delete('/delete/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.users.delete');
+    Route::delete('/delete/{id}', 'UserController@destroy')->name('backend.users.delete');
     
     
 
  });
 
 // post
+
 Route::group([
-    'prefix' => 'posts'
+    'prefix' => 'posts',
+    'namespace'=> 'backend'
  ], function (){
-    Route::get('/list', function () {
-        return view('backend.post.list');
+    Route::get('/list', 'PostController@index')->name('backend.posts.list');
     
-    })->name('backend.posts.list');
+    Route::get('/create', 'PostController@create')->name('backend.posts.create');
     
-    Route::get('/create', function () {
-        return view('backend.post.create');
+    Route::post('/store', 'PostController@store')->name('backend.posts.store');
     
-    })->name('backend.posts.create');
+    Route::get('/edit/{id}', 'PostController@edit')->name('backend.posts.edit');
     
-    Route::post('/store', function () {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.posts.store');
+    Route::post('/update/{id}', 'PostController@update')->name('backend.posts.update');
     
-    Route::get('/edit/{id}', function ($id) {
-        return view('backend.post.edit');
-    })->name('backend.posts.edit');
-    
-    Route::post('/update/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.posts.update');
-    
-    Route::delete('/delete/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.posts.delete');
+    Route::delete('/delete/{id}', 'PostController@destroy')->name('backend.posts.delete');
     
     
  });

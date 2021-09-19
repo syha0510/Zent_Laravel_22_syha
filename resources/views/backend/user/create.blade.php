@@ -8,7 +8,7 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
           <li class="breadcrumb-item active">Tạo mới</li>
         </ol>
       </div><!-- /.col -->
@@ -32,19 +32,20 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form">
+                <form role="form" method="post" action="{{route('backend.users.store')}}">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên</label>
-                            <input type="text" class="form-control" id="" placeholder="Tên người dùng">
+                            <input name="name" type="text" class="form-control" id="" placeholder="Tên người dùng">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input type="email" class="form-control" id="" placeholder="Email">
+                            <input name="email" type="email" class="form-control" id="" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
-                            <input type="password" class="form-control" id="">
+                            <input name="password" type="password" class="form-control" id="">
                         </div>
                         <div class="form-group">
                             <label>Quyền</label>
@@ -58,8 +59,9 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-default">Huỷ bỏ</button>
-                        <button type="submit" class="btn btn-success">Tạo mới</button>
+                        
+                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
+                        <button  type="submit" class="btn btn-success">Tạo mới</button>
                     </div>
                 </form>
             </div>

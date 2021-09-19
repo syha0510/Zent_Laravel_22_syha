@@ -35,7 +35,9 @@
           </a>
           </li>
         <li class="nav-header">Quản lý chung</li>
-        <li class="nav-item">
+        <li class="nav-item @if (request()->routeIs('backend.posts.*'))
+          menu-open
+        @endif">
           <a href="#2" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -46,13 +48,17 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('backend.posts.create')}}" class="nav-link ">
+              <a href="{{route('backend.posts.create')}}" class="nav-link @if (request()->routeIs('backend.posts.create'))
+                active
+              @endif ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Tạo mới Blog</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('backend.posts.list')}}" class="nav-link">
+              <a href="{{route('backend.posts.list')}}" class="nav-link @if (request()->routeIs('backend.posts.list'))
+                active
+              @endif ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Danh sách Blog</p>
               </a>
@@ -71,13 +77,17 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('backend.users.create')}}" class="nav-link ">
+              <a href="{{route('backend.users.create')}}" class="nav-link @if (request()->routeIs('backend.users.create'))
+                active
+              @endif  ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Tạo mới người dùng</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('backend.users.list')}}" class="nav-link">
+              <a href="{{route('backend.users.list')}}" class="nav-link @if (request()->routeIs('backend.users.list'))
+                active
+              @endif ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Danh sách người dùng</p>
               </a>
