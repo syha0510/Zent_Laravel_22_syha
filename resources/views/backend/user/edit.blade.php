@@ -46,6 +46,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form role="form" method="post" action="{{route('backend.users.update',1)}}">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên</label>
