@@ -4,12 +4,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Danh sách bài viết</h1>
+        <h1 class="m-0">Danh sách danh mục</h1>
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Danh sách bài viết</li>
+          <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
+          <li class="breadcrumb-item active">Danh sách danh mục</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -24,7 +24,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <a href="{{route('backend.posts.create')}}" class="btn btn-success">Tạo bài viết</a>
+          {{-- <a href="" class="btn btn-success">Tạo bài viết</a> --}}
 
           <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
@@ -43,22 +43,25 @@
           <table class="table table-head-fixed text-nowrap">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Tên bài viết</th>
-                <th>Danh mục</th>
-                <th>Người tạo</th>
-                <th >Ngày tạo</th>
+                <th>STT</th>
+                <th>Tên danh mục</th>
+                <th>Mô tả</th>
                 <th class="text-center">Hành động</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>183</td>
-                <td>Quang Hải liệu có ghi bàn ?</td>
-                <td>Thể Thao</td>
-                <td><span class="tag tag-success">Sỹ Hà</span></td>
-                <td>05-11-20020</td>
-                <td class="text-center"><a  style="margin-right:10px;" href="{{route('backend.posts.edit',1)}}" class="btn btn-warning ">Sửa </a><a href="" class="btn btn-danger">Xóa </a></td> 
+                <td>1</td>
+                <td>Thể thao</td>
+                <td>Chuyên mục thể thao</td>
+                <td class="text-center"><a  style="margin-right:10px;" href="{{route('backend.categories.edit',1)}}" class="btn btn-warning ">Sửa </a><a href="" class="btn btn-danger">Xóa </a></td> 
+               
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Giải trí</td>
+                <td>Chuyên mục giải trí</td>
+                <td class="text-center"><a  style="margin-right:10px;" href="{{route('backend.categories.edit',1)}}" class="btn btn-warning ">Sửa </a><a href="" class="btn btn-danger">Xóa </a></td> 
                
               </tr>
              

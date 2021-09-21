@@ -41,7 +41,7 @@
           <a href="#2" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Quản lý Blog
+              Quản lý bài viết
               <i class="fas fa-angle-left right"></i>
 
             </p>
@@ -52,7 +52,7 @@
                 active
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Tạo mới Blog</p>
+                <p>Tạo mới bài viết</p>
               </a>
             </li>
             <li class="nav-item">
@@ -60,17 +60,18 @@
                 active
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách Blog</p>
+                <p>Danh sách bài viết</p>
               </a>
             </li>
           </ul>
         </li>
         <li class="nav-header">Hệ thống</li>
+        {{-- user --}}
         <li class="nav-item">
           <a href="#2" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
-              Quản lý Users
+              Quản lý người dùng
               <i class="fas fa-angle-left right"></i>
 
             </p>
@@ -94,6 +95,40 @@
             </li>
             
           </ul>
+          
+        </li>
+
+        {{-- category --}}
+
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Quản lý danh mục
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('backend.categories.create')}}" class="nav-link @if (request()->routeIs('backend.categories.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới danh mục</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.categories.list')}}" class="nav-link @if (request()->routeIs('backend.categories.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách danh mục</p>
+              </a>
+            </li>
+            
+          </ul>
+          
         </li>
       </ul>
     </nav>

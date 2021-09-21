@@ -16,41 +16,26 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 Route::group([
-    'prefix' => 'categories'
- ], function (){
-    Route::get('/list', function () {
-        return view('category.list');
+    'prefix' => 'categories',
+    'namespace'=> 'backend'
+ ], function (){ 
+    Route::get('/list', 'CategoryController@index')->name('backend.categories.list');
     
-    })->name('backend.categories.list');
+    Route::get('/create', 'CategoryController@create')->name('backend.categories.create');
     
-    Route::get('/create', function () {
-        return view('category.create');
+    Route::post('/store','CategoryController@store')->name('backend.categories.store');
     
-    })->name('backend.categories.create');
+    Route::get('/edit/{id}', 'CategoryController@edit')->name('backend.categories.edit');
     
-    Route::post('/store', function () {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.categories.store');
+    Route::post('/update/{id}', 'CategoryController@update')->name('backend.categories.update');
     
-    Route::get('/edit/{id}', function ($id) {
-        return view('category.edit');
-    })->name('backend.categories.edit');
+    Route::delete('/delete/{id}', 'CategoryController@destroy')->name('backend.categories.delete');
     
-    Route::post('/update/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.categories.update');
     
-    Route::delete('/delete/{id}', function ($id) {
-        return redirect()->route('backend.dashboard.index');
-    })->name('backend.categories.delete');
-    
-    Route::get('/show/{id}', function ($id) {
-        return view('category.show');
-    })->name('backend.categories.show');
-    
+
  });
  
-
+// viewhome
 Route::get('/', function () {
   
     return view('welcome');
