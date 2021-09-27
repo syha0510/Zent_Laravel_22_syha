@@ -30,26 +30,31 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{route('backend.posts.update',1)}}">
+                <form role="form" method="post" action="{{route('backend.posts.update',$id)}}">
                   @csrf
+                   
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tiêu đề</label>
-                            <input name="name" type="text" class="form-control" id="" placeholder="Tiêu đề">
+                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề" value="{{$title}}">
                         </div>
                         <div class="form-group" >
                             <label for="exampleInputEmail1">Nội dung</label>
-                            <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
-                                          style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Vui lòng nhập vào đây">
+                                @isset($content)
+                                  {{$content}}
+                                @endisset
+                                
+                            </textarea>
                         </div>
                         
                         <div class="form-group " style="display:flex;justify-content: space-between">
                           <div style="width:48%" >
                             <label>Danh mục</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option>--Chọn danh mục---</option>
-                                <option>1</option>
-                                <option>2</option>
+                            <select class="form-control select2" style="width: 100%;" name="category_id" >
+                                @foreach ( $categories as $category )
+                                  <option value="{{ $category->id }}">{{$category->name}}</option>
+                                @endforeach
                             </select>
                           </div>
                           <div style="width:48%">

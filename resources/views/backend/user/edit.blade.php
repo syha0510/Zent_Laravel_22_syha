@@ -2,17 +2,7 @@
 @section('content-header')
 <div class="content-header">
   <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col-sm-6">
-        <h1 class="m-0">Chỉnh sửa</h1>
-      </div><!-- /.col -->
-      <div class="col-sm-6">
-        <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-          <li class="breadcrumb-item active">Cập nhật người dùng</li>
-        </ol>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
+    
   </div><!-- /.container-fluid -->
 </div>
 @endsection
@@ -22,13 +12,12 @@
 <div class="container-fluid">
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Cập nhật người dùng</h1>
+            <h3 class="m-0 text-dark">Chỉnh sửa người dùng</h3>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                <li class="breadcrumb-item"><a href="#">Người dùng</a></li>
-                <li class="breadcrumb-item active">Cập nhật</li>
+                <li class="breadcrumb-item active">Chỉnh sửa</li>
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
@@ -41,24 +30,32 @@
             <!-- general form elements -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Cập nhật người dùng</h3>
+                    <h3 class="card-title">Chỉnh sửa </h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{route('backend.users.update',1)}}">
+                <form role="form" method="post" action="{{route('backend.users.update',$user->id)}}">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tên</label>
-                            <input name="name" type="text" class="form-control" id="" placeholder="Tên người dùng">
+                            <input name="name" type="text" class="form-control" id="" placeholder="Tên người dùng" value="{{ $user->name }}">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
-                            <input name="email" type="email" class="form-control" id="" placeholder="Email">
+                            <input name="email" type="email" class="form-control" id="" placeholder="Email" value="{{ $user->email }}">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
                             <input name="password" type="password" class="form-control" id="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <input name="address" type="text" class="form-control" id="" placeholder="Địa chỉ" value="{{ $user->address }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            <input name="phone" type="text" class="form-control" id="" placeholder="Số điện thoại" value="{{ $user->phone }}">
                         </div>
                         <div class="form-group">
                             <label>Quyền</label>
@@ -68,6 +65,8 @@
                                 <option>User</option>
                             </select>
                         </div>
+                        
+
                     </div>
                     <!-- /.card-body -->
 

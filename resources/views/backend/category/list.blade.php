@@ -24,12 +24,12 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          {{-- <a href="" class="btn btn-success">Tạo bài viết</a> --}}
+          <a href="{{ route('backend.categories.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo danh mục</a>
 
           <div class="card-tools">
             <div class="input-group input-group-sm" style="width: 150px;">
               <input type="text" name="table_search" class="form-control float-right" placeholder="Tìm kiếm">
-
+              
               <div class="input-group-append">
                 <button type="submit" class="btn btn-default">
                   <i class="fas fa-search"></i>
@@ -40,30 +40,38 @@
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0" style="height: 300px;">
+          
           <table class="table table-head-fixed text-nowrap">
             <thead>
               <tr>
                 <th>STT</th>
                 <th>Tên danh mục</th>
-                <th>Mô tả</th>
+                <th>Thời gian tạo</th>
                 <th class="text-center">Hành động</th>
               </tr>
             </thead>
             <tbody>
+              @foreach ( $categories as $key=>$category )
               <tr>
-                <td>1</td>
-                <td>Thể thao</td>
-                <td>Chuyên mục thể thao</td>
-                <td class="text-center"><a  style="margin-right:10px;" href="{{route('backend.categories.edit',1)}}" class="btn btn-warning ">Sửa </a><a href="" class="btn btn-danger">Xóa </a></td> 
+                <td>{{ $key+1 }}</td>
+                <td> <a href="{{route('backend.categories.show',$category->id)}}">{{$category->name}}</a></td>
+                <td>{!! date('d/m/Y', strtotime($category->created_at)) !!}</td>
+                <td class="text-center">
+                  <a  style="margin-right:10px;" href="{{route('backend.categories.edit', $category->id)}}" class="btn btn-primary "><i class="fas fa-edit"></i> </a>
+                  <form style="display: inline-block" method="POST" action="{{route('backend.categories.delete',$category->id)}}">
+                    @csrf
+                    @method('DELETE')
+                    <button style="" class="btn btn-danger">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </form>
+                  
+                </td>
+                
                
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Giải trí</td>
-                <td>Chuyên mục giải trí</td>
-                <td class="text-center"><a  style="margin-right:10px;" href="{{route('backend.categories.edit',1)}}" class="btn btn-warning ">Sửa </a><a href="" class="btn btn-danger">Xóa </a></td> 
-               
-              </tr>
+              @endforeach
+              
              
 
             </tbody>

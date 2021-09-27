@@ -37,10 +37,6 @@
                             <label for="exampleInputEmail1">Danh mục</label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Danh mục">
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Mô tả</label>
-                            <input name="description" type="text" class="form-control" id="" placeholder="Mô tả">
-                        </div>
                         <div class="form-group" >
                             <label>Trạng thái</label>
                             <select class="form-control select2" style="width: 100%;">

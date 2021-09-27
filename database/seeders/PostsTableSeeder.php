@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostsTableSeeder extends Seeder
 {
@@ -23,7 +24,8 @@ class PostsTableSeeder extends Seeder
                     'content'=>"ok ",
                     'user_created_id'=>1,
                     'user_updated_id'=>1,
-                    'category_id'=>1
+                    'category_id'=>1,
+                    'created_at'=>Carbon::now()
 
                 ]
                 );

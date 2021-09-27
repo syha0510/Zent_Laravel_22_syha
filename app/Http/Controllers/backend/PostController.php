@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -14,7 +16,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('backend.post.list');
+        $posts=DB::table('posts')->get();
+        return view('backend.post.list')->with([
+            'posts'=>$posts
+        ]);
+        
     }
 
     /**
@@ -24,7 +30,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.post.create');
+        $categories=DB::table('categories')->get();
+        return view('backend.post.create')->with([
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -35,11 +44,19 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post=array();
-        $post['name']=$request->get('name');
-        $post['content']=$request->get('content');
-        dd($post);
-        return redirect()->route('backend.dashboard.index');
+        $data=$request->only(['title','content']);
+
+        DB::table('posts')->insert([
+            'title'=>$data['title'],
+            'slug'=> Str::slug($data['title']),
+            'content'=>$data['content'],
+            'user_created_id'=>1,
+            'user_updated_id'=>1,
+            'category_id'=>1,
+            'created_at'=>now()
+        ]);
+
+        return redirect()->route('backend.posts.list');
     }
 
     /**
@@ -50,7 +67,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post=DB::table('posts')->find($id);
+        return view('backend.post.show')->with([
+            'post'=>$post
+        ]);
     }
 
     /**
@@ -61,7 +81,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.post.edit');
+        $post=DB::table('posts')->find($id);
+        $categories=DB::table('categories')->get();
+        return view('backend.post.edit')->with([
+            'content'=>  $post->content,
+            'title' => $post->title,
+            'categories'=>$categories,
+            'id'=>$post->id
+            
+        ]);
+
     }
 
     /**
@@ -73,11 +102,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post=array();
-        $post['name']=$request->get('name');
-        $post['content']=$request->get('content');
-        dd($post);
-        return redirect()->route('backend.dashboard.index');
+       $data=$request->only(['title','content','category_id']);
+
+       DB::table('posts')->where('id',$id)
+       ->update([
+            'title'=>$data['title'],
+            'content'=>$data['content'],
+            'category_id'=>$data['category_id']
+       ]);
+       return redirect()->route('backend.posts.list');
     }
 
     /**
@@ -88,6 +121,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->route('backend.dashboard.index');
+        DB::table('posts')->where('id',$id)->delete();
+        return redirect()->route('backend.posts.list');
     }
 }

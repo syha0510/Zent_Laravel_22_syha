@@ -31,7 +31,7 @@ Route::group([
     
     Route::delete('/delete/{id}', 'CategoryController@destroy')->name('backend.categories.delete');
     
-    
+    Route::get('/show/{id}', 'CategoryController@show')->name('backend.categories.show');
 
  });
  
@@ -61,6 +61,9 @@ Route::group([
     Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
     
     Route::delete('/delete/{id}', 'UserController@destroy')->name('backend.users.delete');
+
+    Route::get('/show/{id}', 'UserController@show')->name('backend.users.show');
+
     
     
 
@@ -83,6 +86,8 @@ Route::group([
     Route::post('/update/{id}', 'PostController@update')->name('backend.posts.update');
     
     Route::delete('/delete/{id}', 'PostController@destroy')->name('backend.posts.delete');
+
+    Route::get('/show/{id}', 'PostController@show')->name('backend.posts.show');
     
     
  });

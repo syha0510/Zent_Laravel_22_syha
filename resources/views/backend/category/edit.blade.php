@@ -30,16 +30,12 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{route('backend.categories.update',1)}}">
+                <form role="form" method="post" action="{{route('backend.categories.update',$category->id)}}">
                   @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Danh mục</label>
-                            <input name="name" type="text" class="form-control" id="" placeholder="Danh mục">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Mô tả</label>
-                            <input name="description" type="text" class="form-control" id="" placeholder="Mô tả">
+                            <input name="name" type="text" class="form-control" id="" placeholder="Danh mục" value="{{ $category->name }}">
                         </div>
                         <div class="form-group" >
                             <label>Trạng thái</label>

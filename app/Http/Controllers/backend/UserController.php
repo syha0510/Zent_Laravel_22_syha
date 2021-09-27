@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,7 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.user.list');
+        $users=DB::table('users')->get();
+        return view('backend.user.list')->with([
+            'users'=>$users
+        ]);
     }
 
     /**
@@ -51,7 +55,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user=DB::table('users')->find($id);
+        return view('backend.user.show')->with([
+            'user'=>$user
+        ]);
+        
     }
 
     /**
@@ -62,8 +70,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        
-        return view('backend.user.edit');
+        $user=DB::table('users')->find($id);
+        return view('backend.user.edit')->with(compact('user'));
     }
 
     /**
@@ -75,12 +83,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=array();
-        $user['name']=$request->get('name');
-        $user['email']=$request->get('email');
-        $user['passwword']=$request->get('password');
-        dd($user);
-        return redirect()->route('backend.dashboard.index');
+        $data=$request->only(['name']);
+
+       DB::table('users')->where('id',$id)
+       ->update([
+            'name'=>$data['name'],
+            'email'=>$data['email'],
+            'phone'=>$data['phone'],
+            'address'=>$data['address']
+       ]);
+       return redirect()->route('backend.users.list');
     }
 
     /**
@@ -91,6 +103,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        return redirect()->route('backend.dashboard.index');
+        DB::table('users')->where('id',$id)->delete();
+        return redirect()->route('backend.users.list');
     }
 }

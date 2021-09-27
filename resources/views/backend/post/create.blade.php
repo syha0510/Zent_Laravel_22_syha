@@ -35,7 +35,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tiêu đề</label>
-                            <input name="name" type="text" class="form-control" id="" placeholder="Tiêu đề">
+                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nội dung</label>
@@ -46,18 +46,18 @@
                         <div class="form-group " style="display:flex;justify-content: space-between">
                           <div style="width:48%" >
                             <label>Danh mục</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option>--Chọn danh mục---</option>
-                                <option>1</option>
-                                <option>2</option>
+                            <select class="form-control select2" style="width: 100%;" name="category_id">
+                                @foreach ( $categories as $category )
+                              <option value="{{ $category->id }}">{{$category->name}}</option>
+                               @endforeach
                             </select>
                           </div>
                           <div style="width:48%">
                             <label>Trạng thái</label>
                             <select class="form-control select2" style="width: 100%;">
                                 <option>--Chọn trạng thái---</option>
+                                <option>0</option>
                                 <option>1</option>
-                                <option>2</option>
                             </select>
                           </div>
                            

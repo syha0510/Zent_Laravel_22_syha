@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Chi tiết bài viết</h1>
+                    <h1 class="m-0">Chi tiết người dùng</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Chi tiết bài viết</li>
+                        <li class="breadcrumb-item active">Chi tiết người dùng</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        
+                        <h3 class="card-title">Tài khoản</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -45,22 +45,25 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Tên bài viết</th>
-                                    <th class="text-center">Danh mục</th>
-                                    <th>Nội dung</th>
-                                    <th>Ngày tạo</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Trạng thái</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>{{$post->id}}</td>
-                                    <td >{{$post->title}}</td>
-                                    <td class="text-center">{{$post->category_id}}</td>
-                                    <td>{{$post->content}}</td>
-                                    <td>{{$post->created_at}}</td>
-                                    
-                                </tr>
-
+                              <tr>
+                                  <td>{{$user->id}}</td>
+                                  <td>{{$user->name}}</td>
+                                  <td>{{$user->email}}</td>
+                                  <td class="text-center">
+                                    @if ($user->status==0)
+                                    <i  class="fas fa-lock " ></i>
+                                    @else
+                                    <i class="fas fa-unlock text-primary"></i>
+                                    @endif  
+                                  </td>
+                              </tr>
                             </tbody>
                         </table>
                     </div>

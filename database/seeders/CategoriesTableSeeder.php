@@ -23,7 +23,7 @@ class CategoriesTableSeeder extends Seeder
         foreach($categories as $category){
             DB::table('categories')->insert([
                 'name' => $category,
-                'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
+                'created_at' => Carbon::now('Asia/Ho_Chi_Minh')
             ]);
         }
     }

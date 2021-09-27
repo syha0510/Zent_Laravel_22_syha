@@ -4,7 +4,8 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 class CategoryController extends Controller
 {
     /**
@@ -14,7 +15,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('backend.category.list');
+        $categories=DB::table('categories')->get();
+        return view('backend.category.list')->with([
+            'categories'=>$categories
+        ]);
+        
     }
 
     /**
@@ -35,11 +40,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category=array();
-        $category['name']=$request->get('name');
-        $category['description']=$request->get('description');
-        dd($category);
-        return redirect()->route('backend.dashboard.index');
+        $data=$request->only(['name']);
+
+        DB::table('categories')->insert([
+            'name'=>$data['name'],
+            'created_at'=>now()
+        ]);
+        return redirect()->route('backend.categories.list');
     }
 
     /**
@@ -50,7 +57,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $category=DB::table('categories')->find($id);
+        return view('backend.category.show')->with([
+            'category'=>$category
+        ]);
+        
     }
 
     /**
@@ -61,7 +72,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.category.edit');
+        $category=DB::table('categories')->find($id);
+        return view('backend.category.edit')->with([
+            'category'=>$category
+        ]);
     }
 
     /**
@@ -73,11 +87,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $category=array();
-        $category['name']=$request->get('name');
-        $category['description']=$request->get('description');
-        dd($category);
-        return redirect()->route('backend.dashboard.index');
+        $data=$request->only(['name']);
+
+       DB::table('categories')->where('id',$id)
+       ->update([
+            'name'=>$data['name']
+       ]);
+       return redirect()->route('backend.categories.list');
     }
 
     /**
@@ -88,6 +104,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        return view('backend.category.list');
+        DB::table('categories')->where('id',$id)->delete();
+        return redirect()->route('backend.categories.list');
     }
 }
