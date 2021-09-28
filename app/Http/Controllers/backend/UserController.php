@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -13,12 +15,30 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( Request $request)
     {
-        $users=DB::table('users')->get();
-        return view('backend.user.list')->with([
+        // $users=DB::table('users')->get();
+        // return view('backend.user.list')->with([
+        //     'users'=>$users
+        // ]);
+
+        $users_query= DB::table('users');
+        $name = $request -> get('name');
+        // dd($title);
+        if(!empty($name)) 
+        {
+            $users_query -> where('name', 'like', "%" . $name . "%");
+        }
+        $email = $request -> get('email');
+        if($email !== null){
+            $users_query -> where('email', $email);
+        }
+        $users = $users_query -> get();
+
+        return view('backend.user.list') -> with([
             'users'=>$users
         ]);
+        
     }
 
     /**

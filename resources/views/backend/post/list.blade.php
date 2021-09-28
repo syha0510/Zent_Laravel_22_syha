@@ -24,6 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+                        
                         <a href="{{ route('backend.posts.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo bài viết</a>
 
                         <div class="card-tools">
@@ -39,7 +40,24 @@
                             </div>
                         </div>
                     </div>
+                    <form style="margin: 20px 0" method="GET" action="{{ route('backend.posts.list')}}" class="form-inline"  >
+                        <div class="col-3">
+                          <input value="{{ request()->get('title')}}" name="title" type="text" class="form-control" placeholder="Nhập dữ liệu cần tìm..">
+                        </div>
+                        
+                        <div class="col-3">
+                          <input value="{{ request()->get('status')}}" name="status" type="text" class="form-control" placeholder=" Nhập trạng thái">
+                        </div>
+
+                        <div style="margin-right: 5px">
+                            <button class="btn btn-info">Lọc</button>
+                          </div>
+                        <div >
+                            <a href="{{ route('backend.posts.list')}}" class="btn btn-default"> Quay lại</a>
+                        </div>
+                    </form>
                     <!-- /.card-header -->
+                    
                     <div class="card-body table-responsive p-0" style="height: 300px;">
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
@@ -48,6 +66,7 @@
                                     <th>Tên bài viết</th>
                                     <th class="text-center">Danh mục</th>
                                     <th>Nội dung</th>
+                                    <th class="text-center">Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -61,6 +80,9 @@
                                     </td>
                                     <td class="text-center">{{ $post->category_id }}</td>
                                     <td><span class="tag tag-success">{!! $post->content !!}</span></td>
+                                    <td class="text-center">
+                                        {{$post->status}}
+                                    </td>
                                     <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                                     <td class="text-center">
                                         <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}"
@@ -82,6 +104,7 @@
                             </tbody>
                         </table>
                     </div>
+                   
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->

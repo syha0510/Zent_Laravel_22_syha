@@ -39,6 +39,21 @@
                             </div>
                         </div>
                     </div>
+                    <form style="margin: 20px 0" method="GET" action="{{ route('backend.users.list')}}" class="form-inline"  >
+                        <div class="col-3">
+                          <input value="{{ request()->get('name')}}" name="name" type="text" class="form-control" placeholder="Nhập tên cần tìm">
+                        </div>
+                        <div class="col-3">
+                          <input value="{{ request()->get('email')}}" name="email" type="text" class="form-control" placeholder="Nhập email cần tìm">
+                        </div>
+                        
+                        <div style="margin-right: 5px">
+                            <button class="btn btn-info">Lọc</button>
+                          </div>
+                        <div >
+                            <a href="{{ route('backend.users.list')}}" class="btn btn-default"> Quay lại</a>
+                        </div>
+                    </form>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0" style="height: 300px;">
                         <table class="table table-head-fixed text-nowrap">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -14,11 +15,22 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request )
     {
-        $posts=DB::table('posts')->get();
-        return view('backend.post.list')->with([
-            'posts'=>$posts
+        $posts_query= DB::table('posts');
+        $title = $request -> get('title');
+        // dd($title);
+        if(!empty($title)){
+            $posts_query -> where('title', 'like', "%" . $title . "%");
+        }
+        $status = $request -> get('status');
+        if($status !== null){
+            $posts_query -> where('status', $status);
+        }
+        $posts = $posts_query -> get();
+
+        return view('backend.post.list') -> with([
+            'posts' => $posts
         ]);
         
     }
@@ -45,16 +57,31 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data=$request->only(['title','content']);
+        // dd(1);
+        // DB::table('posts')->insert([
+        //     'tit'=>$data['title'],
+        //     'slug'=> Str::slug($data['title']),
+        //     'content'=>$data['content'],
+        //     'user_created_id'=>1,
+        //     'user_updated_id'=>1,
+        //     'category_id'=>1,
+        //     'created_at'=>now()
+        // ]);
 
-        DB::table('posts')->insert([
-            'title'=>$data['title'],
-            'slug'=> Str::slug($data['title']),
-            'content'=>$data['content'],
-            'user_created_id'=>1,
-            'user_updated_id'=>1,
-            'category_id'=>1,
-            'created_at'=>now()
-        ]);
+        try{
+            $insert = DB::table('posts')->insert([
+                'title' => $data['title'],
+                'slug' => Str::slug($data['title']),
+                'content' => $data['content'],
+                'user_created_id' => 1,
+                'user_updated_id' => 1,
+                'category_id'=>1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]); 
+        }catch(\Exception $ex){
+            Log::error($ex->getMessage());
+        }
 
         return redirect()->route('backend.posts.list');
     }

@@ -25,7 +25,8 @@ class PostsTableSeeder extends Seeder
                     'user_created_id'=>1,
                     'user_updated_id'=>1,
                     'category_id'=>1,
-                    'created_at'=>Carbon::now()
+                    'created_at'=>Carbon::now(),
+                    
 
                 ]
                 );
