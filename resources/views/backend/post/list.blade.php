@@ -45,9 +45,9 @@
                           <input value="{{ request()->get('title')}}" name="title" type="text" class="form-control" placeholder="Nhập dữ liệu cần tìm..">
                         </div>
                         
-                        <div class="col-3">
+                        {{-- <div class="col-3">
                           <input value="{{ request()->get('status')}}" name="status" type="text" class="form-control" placeholder=" Nhập trạng thái">
-                        </div>
+                        </div> --}}
 
                         <div style="margin-right: 5px">
                             <button class="btn btn-info">Lọc</button>
@@ -64,10 +64,12 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên bài viết</th>
+                                    <th>Đường dẫn</th>
                                     <th class="text-center">Danh mục</th>
                                     <th>Nội dung</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -76,14 +78,17 @@
                                 <tr>
                                     <td>{{$key+1}}</td>
                                     <td>
-                                        <a  href="{{ route('backend.posts.show', $post->id) }}">{{$post->title}}</a>
+                                        <a  href="{{ route('backend.posts.show', $post->id) }}">{{ $post->title }} </a>
+                                        
                                     </td>
+                                    <td> {{ $post->slug }}</td>
                                     <td class="text-center">{{ $post->category_id }}</td>
                                     <td><span class="tag tag-success">{!! $post->content !!}</span></td>
                                     <td class="text-center">
-                                        {{$post->status}}
+                                        {!! $post->status_text !!}
                                     </td>
                                     <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
+                                    <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
                                     <td class="text-center">
                                         <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}"
                                             class="btn btn-primary "> <i class="fas fa-edit"></i></a>
@@ -103,6 +108,10 @@
 
                             </tbody>
                         </table>
+                        <div class="mt-3 float-right mr-5">
+                            {!! $posts->appends(request()->input())->links() !!}
+                            {{-- ->appends(request()->input()) --}}
+                        </div>
                     </div>
                    
                     <!-- /.card-body -->

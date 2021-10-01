@@ -30,19 +30,19 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{route('backend.posts.update',$id)}}">
+                <form role="form" method="post" action="{{route('backend.posts.update',$post->id)}}">
                   @csrf
                    
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tiêu đề</label>
-                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề" value="{{$title}}">
+                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề" value="{{ $post->title }}">
                         </div>
                         <div class="form-group" >
                             <label for="exampleInputEmail1">Nội dung</label>
                             <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Vui lòng nhập vào đây">
                                 @isset($content)
-                                  {{$content}}
+                                  {{ $post->content }}
                                 @endisset
                                 
                             </textarea>
@@ -60,9 +60,9 @@
                           <div style="width:48%">
                             <label>Trạng thái</label>
                             <select class="form-control select2" style="width: 100%;" name="status">
-                              @foreach ( $posts as $post )
-                              <option value="{{ $post->status }}">{{ $post->status }}</option>
-                            @endforeach
+                              @foreach (\App\Models\Post::$status_text as $key => $value)
+                                  <option value="{{ $key }}">{{ $value }}</option>
+                              @endforeach
                             </select>
                           </div>
                            

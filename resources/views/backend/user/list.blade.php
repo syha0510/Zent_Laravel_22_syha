@@ -41,7 +41,7 @@
                     </div>
                     <form style="margin: 20px 0" method="GET" action="{{ route('backend.users.list')}}" class="form-inline"  >
                         <div class="col-3">
-                          <input value="{{ request()->get('name')}}" name="name" type="text" class="form-control" placeholder="Nhập tên cần tìm">
+                          <input value="{{ request()->get('name')}}" name="name" type="text" class="form-control" placeholder="Nhập tên cần tìm..">
                         </div>
                         <div class="col-3">
                           <input value="{{ request()->get('email')}}" name="email" type="text" class="form-control" placeholder="Nhập email cần tìm">
@@ -86,7 +86,7 @@
                                     <a style="margin-right:10px;" href="{{ route('backend.users.edit', $user->id ) }}"
                                         class="btn btn-primary "><i class="fas fa-edit"></i> 
                                     </a>
-                                    <form style="display: inline-block" method="POST" action="{{route('backend.users.delete',$user->id)}}">
+                                    <form style="display: inline-block" method="POST" action="{{route('backend.users.destroy',$user->id)}}">
                                         @csrf
                                         @method('DELETE')
                                         <button style="" class="btn btn-danger">
@@ -100,7 +100,13 @@
 
 
                             </tbody>
+
+
                         </table>
+                        <div class="mt-3 float-right mr-5">
+                            {!! $users->appends(request()->input())->links() !!}
+                            {{-- ->appends(request()->input()) --}}
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

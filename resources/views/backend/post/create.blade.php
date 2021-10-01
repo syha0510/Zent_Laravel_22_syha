@@ -54,10 +54,10 @@
                           </div>
                           <div style="width:48%">
                             <label>Trạng thái</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option>--Chọn trạng thái---</option>
-                                <option>0</option>
-                                <option>1</option>
+                            <select class="form-control select2" style="width: 100%;" name="status">
+                              @foreach (\App\Models\Post::$status_text as $key => $value)
+                                  <option value="{{ $key }}">{{ $value }}</option>
+                              @endforeach
                             </select>
                           </div>
                            

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=DB::table('categories')->get();
+        $categories=DB::table('categories')->paginate(3);
         return view('backend.category.list')->with([
             'categories'=>$categories
         ]);
@@ -42,10 +43,14 @@ class CategoryController extends Controller
     {
         $data=$request->only(['name']);
 
-        DB::table('categories')->insert([
-            'name'=>$data['name'],
-            'created_at'=>now()
-        ]);
+        // DB::table('categories')->insert([
+        //     'name'=>$data['name'],
+        //     'created_at'=>now()
+        // ]);
+        
+        $category=new Category();
+        $category->name= $data['name'];
+        $category->save();
         return redirect()->route('backend.categories.list');
     }
 
@@ -89,10 +94,16 @@ class CategoryController extends Controller
     {
         $data=$request->only(['name']);
 
-       DB::table('categories')->where('id',$id)
-       ->update([
-            'name'=>$data['name']
-       ]);
+    //    DB::table('categories')->where('id',$id)
+    //    ->update([
+    //         'name'=>$data['name']
+    //    ]);
+
+        $category= Category::find($id);
+        $category->name= $data['name'];
+        $category->save();
+        
+
        return redirect()->route('backend.categories.list');
     }
 
@@ -104,7 +115,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('categories')->where('id',$id)->delete();
+        Category::destroy($id);
         return redirect()->route('backend.categories.list');
     }
+
+    public function restore($id)
+    {
+        Category::withTrashed()->where('id',$id)->restore();
+
+        return redirect()->route('backend.categories.list');
+    }
+
+    public function delete( Request $request)
+    {
+        $categorydelete=Category::onlyTrashed()->get();
+        return view('backend.category.delete')->with([
+            'categorydelete'=>$categorydelete
+        ]);
+    }
+
 }

@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Chi tiết danh mục</h1>
+                    <h1 class="m-0">Danh sách người dùng bị xóa</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Chi tiết danh mục</li>
+                        <li class="breadcrumb-item active">Danh sách người dùng bị xóa</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tài khoản</h3>
+                        <h3 class="card-title"></h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -44,22 +44,41 @@
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
-                                    <th>STT</th>
-                                    <th>Tên danh mục</th>
-                                    <th>Đường dẫn</th>
-                                    <th >Ngày tạo</th>
-                                    <th>Ngày cập nhật</th>
-                                   
+                                    <th>ID</th>
+                                    <th>Tên người dùng</th>
+                                    <th>Email</th>
+                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
+                            {{-- delete --}}
                             <tbody>
-                              <tr>
-                                  <td>{{ $category->id }}</td>
-                                  <td>{{ $category->name }}</td>
-                                  <td>{{ $category->slug }}</td>
-                                  <td>{{ $category->created_at }}</td>
-                                  <td>{{ $category->updated_at }}</td>
-                              </tr>
+                                @foreach ($userdelete as $key => $user)
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td><a href="{{ route('backend.users.show', $user->id) }}">{{ $user->name }}</a>
+                                        </td>
+                                        <td>{{ $user->email }}</td>
+                                        <td class="text-center">
+                                            <span class="tag tag-success">
+                                                @if ($user->status == 0)
+                                                    <i class="fas fa-lock "></i>
+                                                @else
+                                                    <i class="fas fa-unlock text-primary"></i>
+                                                @endif
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a style="margin-right:10px;"
+                                                href="{{ route('backend.users.restore', $user->id) }}"
+                                                class="btn btn-primary "><i class="fas fa-sync-alt"></i>
+                                            </a>
+
+
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>

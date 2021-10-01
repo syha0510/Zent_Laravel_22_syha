@@ -46,18 +46,22 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Tên bài viết</th>
+                                    <th>Đường dẫn</th>
                                     <th class="text-center">Danh mục</th>
                                     <th>Nội dung</th>
                                     <th>Ngày tạo</th>
+                                    <th>Ngày cập nhật</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{$post->id}}</td>
                                     <td >{{$post->title}}</td>
-                                    <td class="text-center">{{$post->category_id}}</td>
+                                    <td>{{ $post->slug }}</td>
+                                    <td class="text-center">{!! $post->category_id !!}</td>
                                     <td>{{$post->content}}</td>
                                     <td>{{$post->created_at}}</td>
+                                    <td>{{$post->updated_at}}</td>
                                     
                                 </tr>
 

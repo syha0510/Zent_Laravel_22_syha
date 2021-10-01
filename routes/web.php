@@ -29,10 +29,13 @@ Route::group([
     
     Route::post('/update/{id}', 'CategoryController@update')->name('backend.categories.update');
     
-    Route::delete('/delete/{id}', 'CategoryController@destroy')->name('backend.categories.delete');
+    Route::delete('/destroy/{id}', 'CategoryController@destroy')->name('backend.categories.destroy');
     
     Route::get('/show/{id}', 'CategoryController@show')->name('backend.categories.show');
 
+    Route::get('/restore/{id}', 'CategoryController@restore')->name('backend.categories.restore');
+
+    Route::get('/delete', 'CategoryController@delete')->name('backend.categories.delete');
  });
  
 // viewhome
@@ -60,9 +63,13 @@ Route::group([
     
     Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
     
-    Route::delete('/delete/{id}', 'UserController@destroy')->name('backend.users.delete');
+    Route::delete('/destroy/{id}', 'UserController@destroy')->name('backend.users.destroy');
 
     Route::get('/show/{id}', 'UserController@show')->name('backend.users.show');
+
+    Route::get('/restore/{id}', 'UserController@restore')->name('backend.users.restore');
+
+    Route::get('/delete', 'UserController@delete')->name('backend.users.delete');
 
     
     

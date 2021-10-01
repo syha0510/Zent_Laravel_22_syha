@@ -93,6 +93,14 @@
                 <p>Danh sách người dùng</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{route('backend.users.delete')}}" class="nav-link @if (request()->routeIs('backend.users.delete'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách người dùng bị xóa </p>
+              </a>
+            </li>
             
           </ul>
           
@@ -124,6 +132,14 @@
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Danh sách danh mục</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.categories.delete')}}" class="nav-link @if (request()->routeIs('backend.categories.delete'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách danh mục bị xóa</p>
               </a>
             </li>
             

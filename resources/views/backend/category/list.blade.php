@@ -46,7 +46,9 @@
               <tr>
                 <th>STT</th>
                 <th>Tên danh mục</th>
+                <th>Đường dẫn</th>
                 <th>Thời gian tạo</th>
+                <th>Ngày cập nhật</th>
                 <th class="text-center">Hành động</th>
               </tr>
             </thead>
@@ -55,10 +57,12 @@
               <tr>
                 <td>{{ $key+1 }}</td>
                 <td> <a href="{{route('backend.categories.show',$category->id)}}">{{$category->name}}</a></td>
+                <td>{{ $category->slug }}</td>
                 <td>{!! date('d/m/Y', strtotime($category->created_at)) !!}</td>
+                <td>{!! date('d/m/Y', strtotime($category->updated_at)) !!}</td>
                 <td class="text-center">
                   <a  style="margin-right:10px;" href="{{route('backend.categories.edit', $category->id)}}" class="btn btn-primary "><i class="fas fa-edit"></i> </a>
-                  <form style="display: inline-block" method="POST" action="{{route('backend.categories.delete',$category->id)}}">
+                  <form style="display: inline-block" method="POST" action="{{route('backend.categories.destroy',$category->id)}}">
                     @csrf
                     @method('DELETE')
                     <button style="" class="btn btn-danger">
@@ -76,6 +80,10 @@
 
             </tbody>
           </table>
+          <div class="mt-3 float-right mr-5">
+            {!! $categories->appends(request()->input())->links() !!}
+            {{-- ->appends(request()->input()) --}}
+        </div>
         </div>
         <!-- /.card-body -->
       </div>
