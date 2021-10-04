@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\backend;
-
+use App\Http\Controllers\backend\Tag;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class PostController extends Controller
         $title = $request -> get('title');
 
         if(!empty($title)){
-            $posts_query = Post::where('title', 'like', "%" . $title . "%")->get();
+            $posts_query = Post::where('title', 'like', "%" . $title . "%")->paginate(1);
         }
         // $status = $request->get('status');
         // if($status !== null){
@@ -30,6 +30,7 @@ class PostController extends Controller
         // }
         $posts = $posts_query;
 
+        $posts = Post::where('status','=', Post::STATUS_SHOW)->paginate(3);
         return view('backend.post.list') -> with([
             'posts' => $posts
         ]);
@@ -43,9 +44,11 @@ class PostController extends Controller
      */
     public function create()
     {
+        // $tags=Tag::get();
         $categories=DB::table('categories')->get();
         return view('backend.post.create')->with([
-            'categories'=>$categories
+            'categories'=>$categories,
+            // 'tags'=> $tags
         ]);
     }
 
@@ -57,7 +60,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->only(['title','content','status','category_id']);
+        $data=$request->only(['title','content','status','category_id','user_id']);
         // dd(1);
         // DB::table('posts')->insert([
         //     'tit'=>$data['title'],
@@ -92,9 +95,11 @@ class PostController extends Controller
         $post->user_updated_id = 1;
         $post->category_id=$data['category_id'];
         $post->content=$data['content'];
+        $post->user_id = 1;
         $post->save();
 
 
+       
         return redirect()->route('backend.posts.list');
     }
 

@@ -49,6 +49,15 @@ class User extends Authenticatable
         return ucfirst($this->name);
     }
 
+    public function userInfo()
+    {
+        return $this->hasOne(Userinfo::class);
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     
     
 }

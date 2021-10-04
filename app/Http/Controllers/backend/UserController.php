@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Userinfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -26,16 +27,16 @@ class UserController extends Controller
         // $users_query= DB::table('users');
 
         
-        $users_query= User::orderBy('created_at','desc')->paginate(1);
+        $users_query= User::orderBy('created_at','desc')->paginate(3);
         $name = $request -> get('name');
    
         if(!empty($name)) 
         {
-            $users_query =User::where('name', 'like', "%" . $name . "%")->get();
+            $users_query =User::where('name', 'like', "%" . $name . "%")->paginate(1);
         }
         $email = $request -> get('email');
         if($email !== null){
-            $users_query=User:: where('email', $email)->get();
+            $users_query=User:: where('email', $email)->paginate(1);
         }
         $users = $users_query;
 
@@ -60,6 +61,7 @@ class UserController extends Controller
      */
     public function create()
     {
+
         return view('backend.user.create');
     }
 
@@ -71,11 +73,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user=array();
-        $user['name']=$request->get('name');
-        $user['email']=$request->get('email');
-        $user['passwword']=$request->get('password');
-        dd($user);
+        $data=$request->only(['name','address','phone','status','email']);
+        $user=new user();
+        $user->name= $data['name'];
+        $user->address= $data['address'];
+        $user->phone= $data['phone'];
+        $user->status= $data['status'];
+        $user->email= $data['email'];
+        $user->save();
         return redirect()->route('backend.dashboard.index');
     }
 
@@ -87,7 +92,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user=DB::table('users')->find($id);
+        // $user=User::find($id);
+        // $userInfo= $user->userInfo;
+        $posts = User::find($id)->posts;
+
+        $userInfo = Userinfo::where('phone','087979765')->first();
+        $user =$userInfo->user;
         return view('backend.user.show')->with([
             'user'=>$user
         ]);

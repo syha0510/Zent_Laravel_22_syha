@@ -19,4 +19,7 @@ class Category extends Model
         $this->attributes['name']=$name;
         $this->attributes['slug'] = Str::slug($name);
     }
+
+    
+
 }

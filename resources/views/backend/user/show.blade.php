@@ -47,6 +47,8 @@
                                     <th>ID</th>
                                     <th>Tên người dùng</th>
                                     <th>Email</th>
+                                    <th> Địa chỉ </th>
+                                    <th> Số điện thoại </th>
                                     <th class="text-center">Trạng thái</th>
                                    
                                 </tr>
@@ -56,6 +58,8 @@
                                   <td>{{$user->id}}</td>
                                   <td>{{$user->name}}</td>
                                   <td>{{$user->email}}</td>
+                                  <td>{{$user->userInfo->address}}</td>
+                                  <td> {{$user->userInfo->phone}}</td>
                                   <td class="text-center">
                                     @if ($user->status==0)
                                     <i  class="fas fa-lock " ></i>

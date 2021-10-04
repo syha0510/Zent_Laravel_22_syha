@@ -42,6 +42,17 @@
                             <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
                                           style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                         </div>
+                        {{-- <div class="col-sm-6">
+                          <!-- Select multiple-->
+                          <div class="form-group">
+                            <label>Tags</label>
+                            <select multiple="" class="form-control" name="tags[]">
+                              @foreach ($tags as $item )
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div> --}}
                         
                         <div class="form-group " style="display:flex;justify-content: space-between">
                           <div style="width:48%" >

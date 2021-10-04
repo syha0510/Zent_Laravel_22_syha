@@ -62,6 +62,8 @@
                                     <th>STT</th>
                                     <th>Tên người dùng</th>
                                     <th>Email</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -72,6 +74,8 @@
                                 <td>{{$key+1}}</td>
                                 <td><a href="{{ route('backend.users.show',$user->id ) }}">{{$user->name}}</a></td>
                                 <td>{{ $user->email }}</td>
+                                <td> {{ $user->userInfo->address }} </td>
+                                <td> {{ $user->userInfo->phone }}  </td>
                               <td class="text-center">
                                 <span class="tag tag-success">
                                   @if ($user->status==0)

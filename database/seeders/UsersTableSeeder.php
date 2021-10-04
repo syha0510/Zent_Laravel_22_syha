@@ -15,6 +15,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
+        DB::table('users_info')->truncate();
+
         for ($i=1; $i <=5 ; $i++) { 
             DB::table('users')->insert(
                 [
@@ -25,8 +27,19 @@ class UsersTableSeeder extends Seeder
 
                 ]
                 );
+                
         }
 
+        for ($i=1; $i <=5 ; $i++) { 
+            DB::table('users_info')->insert([
+                'user_id'=> $i,
+                'address' => 'Hanoi',
+                'phone'=>'087979765'
+            ]);
+        }
+        
+        
+        
         
        
     }

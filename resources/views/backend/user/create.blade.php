@@ -43,6 +43,7 @@
                             <label for="exampleInputEmail1">Email</label>
                             <input name="email" type="email" class="form-control" id="" placeholder="Email">
                         </div>
+                        
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
                             <input name="password" type="password" class="form-control" id="">

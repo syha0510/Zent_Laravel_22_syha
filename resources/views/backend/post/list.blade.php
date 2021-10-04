@@ -67,6 +67,9 @@
                                     <th>Đường dẫn</th>
                                     <th class="text-center">Danh mục</th>
                                     <th>Nội dung</th>
+                                    <th>Tags</th>
+                                    <th>Người tạo</th>
+                                    <th>Người cập nhật</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
@@ -82,8 +85,16 @@
                                         
                                     </td>
                                     <td> {{ $post->slug }}</td>
-                                    <td class="text-center">{{ $post->category_id }}</td>
+                                    <td class="text-center">{{ $post->category->name }}</td>
                                     <td><span class="tag tag-success">{!! $post->content !!}</span></td>
+                                    <td>
+                                        @foreach ($post->tags as $tag )
+                                            <span class="badge badge-info">{{ $tag->name }}</span>
+                                        @endforeach
+
+                                    </td>
+                                    <td>{{ $post->user->name }}</td>
+                                    <td> {{ $post->userUpdate->name }} </td>
                                     <td class="text-center">
                                         {!! $post->status_text !!}
                                     </td>
