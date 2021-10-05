@@ -15,6 +15,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 
 
+
 Route::group([
     'prefix' => 'categories',
     'namespace'=> 'backend'
@@ -98,4 +99,12 @@ Route::group([
     
     
  });
+
+//  fontend
+Route::group([
+   'namespace'=> 'Frontend'
+], function (){ 
+   Route::get('/','HomeController@index')->name('frontend.home');
+   
+});
 

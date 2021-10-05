@@ -1,0 +1,13 @@
+body {
+	font-family: Arial;
+}
+
+.btn {
+	text-transform: uppercase;
+	font-weight: bold;
+	border-radius: 0px;
+}
+
+.alert {
+	padding:32px;
+}
