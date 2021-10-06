@@ -106,5 +106,16 @@ Route::group([
 ], function (){ 
    Route::get('/','HomeController@index')->name('frontend.home');
    
+   Route::get('/post_category','PostController@postbycategory')->name('frontend.post.post_category');
+   
+   Route::get('/list','PostController@index')->name('frontend.posts.index');
+
+   Route::get('/show','PostController@show')->name('frontend.posts.show');
+
+   Route::get('/register','HomeController@register')->name('frontend.register');
 });
 
+
+// Route::get('/mail',function(){
+//        return view('frontend.register');
+//    });

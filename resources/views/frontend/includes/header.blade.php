@@ -158,7 +158,7 @@
                     <!--Main Menu-->
                     <ul class="tz-main-menu pull-left nav-collapse">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="{{ route('frontend.home') }}">Home</a>
                             <ul class="sub-menu">
                                 <li>
                                     <a href="home-boxed.html">Home Boxed</a>
@@ -193,7 +193,7 @@
                                     <a href="shop-checkout.html">Shop Checkout</a>
                                 </li>
                                 <li>
-                                    <a href="shop-register.html">Shop Register</a>
+                                    <a href="{{ route('frontend.register') }}">Shop Register</a>
                                 </li>
                                 <li>
                                     <a href="single-product.html">Shop Single</a>
@@ -201,16 +201,16 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="blog.html">
+                            <a href="{{ route('frontend.post.post_category') }}">
                                 Blog
                                 <span class="cyan-dark">Best off!</span>
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="blog-right.html">Blog Right</a>
+                                    <a href="{{ route('frontend.posts.index') }}"> List posts</a>
                                 </li>
                                 <li>
-                                    <a href="single-blog.html">Blog Single</a>
+                                    <a href="{{ route('frontend.posts.show') }}"> Detail post</a>
                                 </li>
                             </ul>
                         </li>
