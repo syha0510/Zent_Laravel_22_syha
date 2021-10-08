@@ -18,7 +18,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 Route::group([
     'prefix' => 'categories',
-    'namespace'=> 'backend'
+    'namespace'=> 'backend',
+      
  ], function (){ 
     Route::get('/list', 'CategoryController@index')->name('backend.categories.list');
     
@@ -47,7 +48,7 @@ Route::get('/', function () {
 
 
 // Dashboard
-Route::get('/backend/dashboard', 'backend\DashboardController@index')->name('backend.dashboard.index');
+Route::get('/backend/dashboard', 'backend\DashboardController@index')->middleware('auth')->name('backend.dashboard.index');
 
 // user
 Route::group([
@@ -72,7 +73,7 @@ Route::group([
 
     Route::get('/delete', 'UserController@delete')->name('backend.users.delete');
 
-    
+    Route::post('/login/user/{id}', 'UserController@loginWithUser')->name('backend.users.login');
     
 
  });
@@ -97,7 +98,7 @@ Route::group([
 
     Route::get('/show/{id}', 'PostController@show')->name('backend.posts.show');
     
-    
+    Route::post('/updatestatus/{id}', 'PostController@updatestatus')->name('backend.posts.updatestatus');
  });
 
 //  fontend
@@ -116,6 +117,27 @@ Route::group([
 });
 
 
+Route::group([
+   'prefix' => 'auth',
+   'namespace'=> 'Auth'
+], function (){
+   
+   Route::get('/register','RegisteredUserController@create')->name('auth.form-register');
+
+   Route::post('/register','RegisteredUserController@store')->name('auth.register');
+
+   Route::get('/login','LogInController@create')->name('auth.login');
+
+   Route::post('/login','LogInController@authenticate')->name('authenticate.login');
+
+   Route::post('/logout','LogInController@logout')->name('auth.logout');
+
+  
+   
+});
+
+
+
 // Route::get('/mail',function(){
-//        return view('frontend.register');
+//        return view('admin.permission.index');
 //    });

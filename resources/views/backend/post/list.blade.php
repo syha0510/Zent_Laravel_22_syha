@@ -96,7 +96,28 @@
                                     <td>{{ $post->user->name }}</td>
                                     <td> {{ $post->userUpdate->name }} </td>
                                     <td class="text-center">
-                                        {!! $post->status_text !!}
+                                        {{-- {{$post->status_text}} --}}
+                                        
+                                        <form action="{{ route('backend.posts.updatestatus' , $post->id ) }}" method="POST" class="formshow" 
+                                            
+                                            @if ($post->status==1)
+
+                                                  title="Hiện"
+
+                                                @else
+                                                
+                                                title="Ẩn"
+
+                                            @endif  
+                                            
+                                            >
+                                            @csrf
+                                            <div class="custom-control custom-switch">
+                                              <input   type="checkbox" class="custom-control-input showstatus" id="switch{{$key}}" {{$post->status==1?'checked':''}} >
+                                              <label class="custom-control-label" for="switch{{ $key }}" ></label>
+                                              
+                                            </div>
+                                        </form>
                                     </td>
                                     <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                                     <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
@@ -132,4 +153,19 @@
         </div>
 
     </div>
+
+    <script>
+        var showstatus = document.getElementsByClassName('showstatus');
+                console.log(showstatus)          
+                var formshow = document.getElementsByClassName('formshow');
+                
+                //console.log(formshow)
+                for(let i=0;i< showstatus.length;i++){
+                    showstatus[i].addEventListener('click',function(){
+                        formshow[i].submit();
+                    })
+                }
+                
+    </script>
+    
 @endsection

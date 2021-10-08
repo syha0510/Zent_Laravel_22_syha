@@ -7,6 +7,14 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{route("backend.dashboard.index")}}" class="nav-link">Trang chủ</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <form method="post" action="{{ route('auth.logout') }}">
+          @csrf
+          <a href="#" class="nav-link" onclick="this.closest('form').submit(); return false;">
+            Đăng xuất
+          </a>
+        </form>
+      </li>
      
     </ul>
 

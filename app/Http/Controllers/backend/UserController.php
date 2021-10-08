@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Userinfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
@@ -73,14 +74,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->only(['name','address','phone','status','email']);
+        $data=$request->only(['name','password','status','email']);
         $user=new user();
         $user->name= $data['name'];
-        $user->address= $data['address'];
-        $user->phone= $data['phone'];
+        $user->password= $data['password'];
+        // $user->address= $data['address'];
+        // $user->phone= $data['phone'];
         $user->status= $data['status'];
         $user->email= $data['email'];
+        // dd($user);
         $user->save();
+
+        $user_info=new Userinfo();
+        $user_info->user_id=$user->id;
+        $user_info->save();
         return redirect()->route('backend.dashboard.index');
     }
 
@@ -155,6 +162,13 @@ class UserController extends Controller
         User::withTrashed()->where('id',$id)->restore();
 
         return redirect()->route('backend.users.list');
+    }
+
+    public function loginWithUser($id)
+    {
+        Auth::loginUsingId($id);
+
+        return redirect()->route('backend.dashboard.index');
     }
     
 }

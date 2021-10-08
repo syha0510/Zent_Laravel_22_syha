@@ -5,7 +5,10 @@
         <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{$name}}</a>
+        <a href="#" class="d-block">
+            {{-- {{  Illuminate\Support\Facades\Auth::user()->name }} --}}
+            {{ auth()->user()->name }}
+        </a>
       </div>
     </div>
 
@@ -69,7 +72,7 @@
         {{-- user --}}
         <li class="nav-item">
           <a href="#2" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <i class="nav-icon fas fa-user"></i>
             <p>
               Quản lý người dùng
               <i class="fas fa-angle-left right"></i>
@@ -110,7 +113,7 @@
 
         <li class="nav-item">
           <a href="#2" class="nav-link">
-            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <i class="nav-icon fas fa-bookmark"></i>
             <p>
               Quản lý danh mục
               <i class="fas fa-angle-left right"></i>

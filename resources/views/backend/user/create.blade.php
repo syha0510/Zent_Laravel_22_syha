@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label>Quyền</label>
-                            <select class="form-control select2" style="width: 100%;">
+                            <select class="form-control select2" style="width: 100%;" name="status">
                                 <option>--Chọn quyền---</option>
                                 <option>Admin</option>
                                 <option>User</option>

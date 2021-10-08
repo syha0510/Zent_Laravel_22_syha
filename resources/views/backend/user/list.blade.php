@@ -74,8 +74,22 @@
                                 <td>{{$key+1}}</td>
                                 <td><a href="{{ route('backend.users.show',$user->id ) }}">{{$user->name}}</a></td>
                                 <td>{{ $user->email }}</td>
-                                <td> {{ $user->userInfo->address }} </td>
-                                <td> {{ $user->userInfo->phone }}  </td>
+                                <td>
+                                    @if ( $user->userInfo->address == null )
+                                        Đang cập nhật
+                                    @else
+                                    {{ $user->userInfo->address }}  
+                                    @endif
+                                </td>
+                                <td>
+
+                                    @if ($user->userInfo->phone == null)
+                                        Đang cập nhật
+                                    @else
+                                    {{ $user->userInfo->phone }}
+                                    @endif
+
+                                </td>
                               <td class="text-center">
                                 <span class="tag tag-success">
                                   @if ($user->status==0)
@@ -90,6 +104,14 @@
                                     <a style="margin-right:10px;" href="{{ route('backend.users.edit', $user->id ) }}"
                                         class="btn btn-primary "><i class="fas fa-edit"></i> 
                                     </a>
+
+                                    <form style="display: inline-block;margin-right:8px" method="POST" action="{{ route('backend.users.login', $user->id )}}">
+                                        @csrf
+                                        <button class="btn btn-outline-danger">
+                                          <i class="fas fa-user"></i>
+                                        </button>
+                                      </form>
+
                                     <form style="display: inline-block" method="POST" action="{{route('backend.users.destroy',$user->id)}}">
                                         @csrf
                                         @method('DELETE')

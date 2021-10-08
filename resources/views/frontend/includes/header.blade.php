@@ -49,7 +49,20 @@
                             <a href="shop-checkout.html">Checkout</a>
                         </li>
                         <li class="tz-header-login">
-                            <a href="#">Login</a>
+                            @if (auth()->check())
+                                <a href="#" style="font-size: 14px; padding: 0 18px;font-family: 'Lato', sans-serif;">
+                                    {{ auth()->user()->name }}
+                                </a>
+                                <li >
+                                    <form method="post" action="{{ route('auth.logout') }}">
+                                        @csrf
+                                        <a class="btn btn-danger" href="#" style="margin-left:15px;font-size: 14px; padding: 5px 10px;font-family: 'Lato', sans-serif;"  onclick="this.closest('form').submit(); return false;">
+                                            Đăng xuất
+                                        </a>
+                                      </form>
+                                </li>
+                            @else
+                            <a href="{{ route('auth.login') }}">Login</a>
                             <div class="tz-login-form">
                                 <form>
                                     <p class="form-content">
@@ -69,6 +82,9 @@
                                     </p>
                                 </form>
                             </div>
+                            @endif
+                            
+                            
                         </li>
                     </ul>
                 </div>

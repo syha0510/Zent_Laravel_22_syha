@@ -30,7 +30,8 @@ class PostController extends Controller
         // }
         $posts = $posts_query;
 
-        $posts = Post::where('status','=', Post::STATUS_SHOW)->paginate(3);
+        // $posts = Post::where('status','=', Post::STATUS_SHOW)->paginate(3);
+        $posts=Post::paginate(20);
         return view('backend.post.list') -> with([
             'posts' => $posts
         ]);
@@ -158,7 +159,7 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->title= $data['title'];
         // $post->slug= $data['title'];
-        $post->status=$data['status'];
+        // $post->status=$data['status'];
         $post->user_created_id = 1;
         $post->user_updated_id = 1;
         $post->category_id=$data['category_id'];
@@ -178,8 +179,21 @@ class PostController extends Controller
     public function destroy($id)
     {
         // DB::table('posts')->where('id',$id)->delete();
-        $post =Post::find($id);
+        $post = Post::find($id);
         $post->delete();
+        return redirect()->route('backend.posts.list');
+    }
+
+    public function updatestatus($id)
+    {
+        $post = Post::find($id);
+        if($post->status==1){
+            $post->status = 0;
+        }
+        else{
+            $post->status = 1;
+        }
+        $post->save();
         return redirect()->route('backend.posts.list');
     }
 }
