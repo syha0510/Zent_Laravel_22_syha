@@ -19,6 +19,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::group([
     'prefix' => 'categories',
     'namespace'=> 'backend',
+    'middleware' => ['auth','role:admin,admod'],
       
  ], function (){ 
     Route::get('/list', 'CategoryController@index')->name('backend.categories.list');
@@ -48,12 +49,13 @@ Route::get('/', function () {
 
 
 // Dashboard
-Route::get('/backend/dashboard', 'backend\DashboardController@index')->middleware('auth')->name('backend.dashboard.index');
+Route::get('/backend/dashboard', 'backend\DashboardController@index')->middleware(['auth','role:admin,admod'])->name('backend.dashboard.index');
 
 // user
 Route::group([
     'prefix' => 'users',
-    'namespace'=> 'backend'
+    'namespace'=> 'backend',
+    'middleware' => ['auth','role:admin,admod'],
  ], function (){ 
     Route::get('/list', 'UserController@index')->name('backend.users.list');
     
@@ -82,7 +84,8 @@ Route::group([
 
 Route::group([
     'prefix' => 'posts',
-    'namespace'=> 'backend'
+    'namespace'=> 'backend',
+    'middleware' => ['auth','role:admin,admod'],
  ], function (){
     Route::get('/list', 'PostController@index')->name('backend.posts.list');
     
@@ -119,7 +122,8 @@ Route::group([
 
 Route::group([
    'prefix' => 'auth',
-   'namespace'=> 'Auth'
+   'namespace'=> 'Auth',
+   
 ], function (){
    
    Route::get('/register','RegisteredUserController@create')->name('auth.form-register');
@@ -130,7 +134,7 @@ Route::group([
 
    Route::post('/login','LogInController@authenticate')->name('authenticate.login');
 
-   Route::post('/logout','LogInController@logout')->name('auth.logout');
+   Route::post('/logout','LogInController@logout')->name('auth.logout')->middleware('auth');
 
   
    

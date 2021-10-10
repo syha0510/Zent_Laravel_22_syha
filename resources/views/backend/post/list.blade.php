@@ -24,8 +24,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        
+                        @can('create', App\Models\Post::class)
                         <a href="{{ route('backend.posts.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo bài viết</a>
+                        @endcan
+                        
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -95,6 +97,7 @@
                                     </td>
                                     <td>{{ $post->user->name }}</td>
                                     <td> {{ $post->userUpdate->name }} </td>
+                                   
                                     <td class="text-center">
                                         {{-- {{$post->status_text}} --}}
                                         
@@ -122,15 +125,22 @@
                                     <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                                     <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
                                     <td class="text-center">
+                                        @can('update',$post)
                                         <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}"
-                                            class="btn btn-primary "> <i class="fas fa-edit"></i></a>
+                                            class="btn btn-primary "> <i class="fas fa-edit"></i>
+                                        </a>
+                                        @endcan
+
+                                        @can('delete',$post)
                                         <form style="display: inline-block" method="POST" action="{{route('backend.posts.delete',$post->id)}}">
                                             @csrf
                                             @method('DELETE')
-                                            <button style="" class="btn btn-danger">
+                                            <button style="" class="btn btn-danger delete-confirm"
+                                            data-name="{{ $post->name }}">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                            </form>
+                                        </form>
+                                        @endcan
                                     </td>
 
                                 </tr> 
@@ -154,6 +164,9 @@
 
     </div>
 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <script>
         var showstatus = document.getElementsByClassName('showstatus');
                 console.log(showstatus)          
@@ -165,7 +178,28 @@
                         formshow[i].submit();
                     })
                 }
-                
+
+
+
+         $('.delete-confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Bạn có muốn xóa ${name}?`,
+                    text: "Nếu bạn xóa nó, bạn sẽ không thể khôi phục lại được",
+                    icon: "error",
+                    buttons: ["Không", "Xóa"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        }); 
     </script>
+
     
+
 @endsection

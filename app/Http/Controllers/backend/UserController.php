@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -152,8 +153,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $user = User::find($id);
+
+        if(! Gate::allows('delete-user',$user)){
+            abort(403);
+        }
         // DB::table('users')->where('id',$id)->delete();
         User::destroy($id);
+    
         return redirect()->route('backend.users.list');
     }
 

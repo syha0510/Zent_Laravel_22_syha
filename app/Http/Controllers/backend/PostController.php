@@ -5,9 +5,11 @@ use App\Http\Controllers\backend\Tag;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -16,6 +18,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     
+
     public function index(Request $request )
     {
         $posts_query= Post::orderBy('created_at','desc')->paginate(3);
@@ -61,6 +66,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // if($request->user()->cannot('create',Post::class))
+        // {
+        //     abort(403);
+        // }
+
+
         $data=$request->only(['title','content','status','category_id','user_id']);
         // dd(1);
         // DB::table('posts')->insert([
@@ -92,11 +103,11 @@ class PostController extends Controller
         $post->title= $data['title'];
         // $post->slug= $data['title'];
         $post->status=$data['status'];
-        $post->user_created_id = 1;
-        $post->user_updated_id = 1;
+        $post->user_created_id = Auth::user()->id;
+        $post->user_updated_id = Auth::user()->id;
         $post->category_id=$data['category_id'];
         $post->content=$data['content'];
-        $post->user_id = 1;
+        $post->user_id =Auth::user()->id;
         $post->save();
 
 
@@ -157,11 +168,21 @@ class PostController extends Controller
     //    ]);
 
         $post = Post::find($id);
+
+        // if(! Gate::allows('update-post',$post)){
+        //     abort(403);
+        // }
+
+        if($request->user()->cannot('update',$post)){
+            abort(403);
+        }
+
         $post->title= $data['title'];
         // $post->slug= $data['title'];
         // $post->status=$data['status'];
-        $post->user_created_id = 1;
-        $post->user_updated_id = 1;
+        // $post->user_id = 1;
+        $post->user_created_id = Auth::user()->id;
+        $post->user_updated_id = Auth::user()->id;
         $post->category_id=$data['category_id'];
         $post->content=$data['content'];
         $post->save();
@@ -180,6 +201,11 @@ class PostController extends Controller
     {
         // DB::table('posts')->where('id',$id)->delete();
         $post = Post::find($id);
+
+        if(! Gate::allows('delete-post',$post)){
+            abort(403);
+        }
+
         $post->delete();
         return redirect()->route('backend.posts.list');
     }
@@ -187,6 +213,7 @@ class PostController extends Controller
     public function updatestatus($id)
     {
         $post = Post::find($id);
+        
         if($post->status==1){
             $post->status = 0;
         }
