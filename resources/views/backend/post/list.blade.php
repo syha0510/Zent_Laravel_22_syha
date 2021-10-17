@@ -71,7 +71,7 @@
                                     <th>Nội dung</th>
                                     <th>Tags</th>
                                     <th>Người tạo</th>
-                                    <th>Người cập nhật</th>
+                                    {{-- <th>Người cập nhật</th> --}}
                                     <th class="text-center">Trạng thái</th>
                                     <th>Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
@@ -96,8 +96,7 @@
 
                                     </td>
                                     <td>{{ $post->user->name }}</td>
-                                    <td> {{ $post->userUpdate->name }} </td>
-                                   
+
                                     <td class="text-center">
                                         {{-- {{$post->status_text}} --}}
                                         
@@ -125,13 +124,14 @@
                                     <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                                     <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
                                     <td class="text-center">
+
                                         @can('update',$post)
                                         <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}"
                                             class="btn btn-primary "> <i class="fas fa-edit"></i>
                                         </a>
                                         @endcan
 
-                                        @can('delete',$post)
+                                        @can('delete-post',$post)
                                         <form style="display: inline-block" method="POST" action="{{route('backend.posts.delete',$post->id)}}">
                                             @csrf
                                             @method('DELETE')

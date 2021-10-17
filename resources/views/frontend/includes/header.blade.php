@@ -10,44 +10,27 @@
                     <ul class="pull-left">
                         <li>
                             <a href="#">
-                                USD
-                                <span class="fa fa-angle-down tz-down"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="#">EURO</a>
-                                </li>
-                                <li>
-                                    <a href="#">USD</a>
-                                </li>
-                                <li>
-                                    <a href="#">EGP</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">
-                                English
+                                Tiếng việt
                                 <span class="fa fa-angle-down tz-down"></span>
                             </a>
                         </li>
                         <li>
-                            <a href="#">Call us:   (012) 3456 7890</a>
+                            <a href="#">Liên hệ: 0814791595</a>
                         </li>
                     </ul>
                     <ul class="pull-right">
-                        <li>
-                            <a href="shop-register.html">My Account</a>
+                        {{-- <li>
+                            <a href="shop-register.html"></a>
                         </li>
                         <li>
                             <a href="#">Wishlist</a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="shop-cart.html">My Cart</a>
+                            <a href="#">Giỏ hàng </a>
                         </li>
-                        <li>
-                            <a href="shop-checkout.html">Checkout</a>
-                        </li>
+                        {{-- <li>
+                            <a href="shop-checkout.html"></a>
+                        </li> --}}
                         <li class="tz-header-login">
                             @if (auth()->check())
                                 <a href="#" style="font-size: 14px; padding: 0 18px;font-family: 'Lato', sans-serif;">
@@ -57,7 +40,7 @@
                                     <form method="post" action="{{ route('auth.logout') }}">
                                         @csrf
                                         <a class="btn btn-danger" href="#" style="margin-left:15px;font-size: 14px; padding: 5px 10px;font-family: 'Lato', sans-serif;"  onclick="this.closest('form').submit(); return false;">
-                                            Đăng xuất
+                                            <i class="fa fa-power-off" aria-hidden="true"></i>
                                         </a>
                                       </form>
                                 </li>
@@ -92,22 +75,19 @@
 
                 <!--Start header content-->
                 <div class="header-content">
-                    <h3 class="tz-logo pull-left"><a href="index.html"><img src="/frontend/images/logo.png" alt="home"></a></h3>
+                    <h3 class="tz-logo pull-left"><a href="index.html"><img style="width:220px;height:80px" src="/frontend/images/syhalogo.jpg" alt="home"></a></h3>
                     <div class="tz-search pull-right">
 
                         <!--Start form search-->
                         <form>
-                            <label class="select-arrow">
+                            {{-- <label class="select-arrow">
                                 <select name="category">
-                                    <option value>All Category</option>
-                                    <option value="#">Baby Seats</option>
-                                    <option value="#">Halfwheelers</option>
-                                    <option value="#">Locks/Security</option>
-                                    <option value="#">WheelSystems</option>
-                                    <option value="#">Rim Tape</option>
-                                </select>
-                            </label>
-                            <input type="text" class="tz-query" id="tz-query" value placeholder="Search for product">
+                                @foreach ($posts as $post )                     
+                                    <option> {{ $post->category->name }} </option>                             
+                                @endforeach
+                                </select>                    
+                            </label> --}}
+                            <input type="text" class="tz-query" id="tz-query" value placeholder="Tìm kiếm sản phẩm">
                             <button type="submit"></button>
                         </form>
                         <!--End Form search-->
@@ -174,30 +154,30 @@
                     <!--Main Menu-->
                     <ul class="tz-main-menu pull-left nav-collapse">
                         <li>
-                            <a href="{{ route('frontend.home') }}">Home</a>
-                            <ul class="sub-menu">
+                            <a href="{{ route('frontend.home') }}">Trang chủ</a>
+                            {{-- <ul class="sub-menu">
                                 <li>
                                     <a href="home-boxed.html">Home Boxed</a>
                                 </li>
                                 <li>
                                     <a href="mega-menu.html">Mega Menu</a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </li>
                         <li>
                             <a href="shop.html">
-                                category
-                                <span class="red-light">On sale!</span>
+                                Danh mục
+                                {{-- <span class="red-light">On sale!</span> --}}
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="shop.html">Bikes</a>
                         </li>
                         <li>
                             <a href="shop.html">Gear</a>
-                        </li>
+                        </li> --}}
                         <li>
-                            <a href="shop.html">Shop</a>
+                            <a href="shop.html">Cửa hàng</a>
                             <ul class="sub-menu">
                                 <li>
                                     <a href="shop-rightsidebar.html">Shop Right</a>
@@ -217,21 +197,24 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="{{ route('frontend.post.post_category') }}">
+                            <a href="#">
                                 Blog
-                                <span class="cyan-dark">Best off!</span>
+                                {{-- <span class="cyan-dark">Best off!</span> --}}
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{ route('frontend.posts.index') }}"> List posts</a>
+                                    <a href="{{ route('frontend.posts.index') }}"> Danh sách bài viết</a>
                                 </li>
+                                @foreach ( $categories as $category )
                                 <li>
-                                    <a href="{{ route('frontend.posts.show') }}"> Detail post</a>
-                                </li>
-                            </ul>
+                                    <a href="{{ route('frontend.post.post_category',$category->slug) }}"> {{ $category->name }}</a>
+                                </li>  
+                                @endforeach
+                                
+                            </ul>        
                         </li>
                         <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="contact.html">Liên hệ</a>
                         </li>
                     </ul>
                     <!--End Main menu-->
@@ -242,7 +225,7 @@
                             <a href="#"><strong>0</strong></a>
                         </li>
                         <li class="tz-mini-cart">
-                            <a href="shop-cart.html"><strong>2</strong>Cart : $199.00</a>
+                            <a href="shop-cart.html"><strong>2</strong>Giỏ hàng : $199.00</a>
 
                             <!--Mini cart-->
                             <ul class="cart-inner">

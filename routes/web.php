@@ -110,11 +110,11 @@ Route::group([
 ], function (){ 
    Route::get('/','HomeController@index')->name('frontend.home');
    
-   Route::get('/post_category','PostController@postbycategory')->name('frontend.post.post_category');
+   Route::get('/post_category/{slug}','PostController@postbycategory')->name('frontend.post.post_category');
    
    Route::get('/list','PostController@index')->name('frontend.posts.index');
 
-   Route::get('/show','PostController@show')->name('frontend.posts.show');
+   Route::get('/show/{slug}','PostController@show')->name('frontend.posts.show');
 
    Route::get('/register','HomeController@register')->name('frontend.register');
 });
@@ -141,7 +141,47 @@ Route::group([
 });
 
 
+Route::group([
+   'prefix' => 'roles',
+   'namespace'=> 'backend',
+   'middleware' => ['auth'],
+], function (){
+   
+   Route::get('/create','RoleController@create')->name('backend.roles.create');
+
+   Route::post('/store', 'RoleController@store')->name('backend.roles.store');
+  
+   Route::get('/list','RoleController@index')->name('backend.roles.list');
+
+   Route::get('/edit/{id}','RoleController@edit')->name('backend.roles.edit');
+
+   Route::post('/update/{id}', 'RoleController@update')->name('backend.roles.update');
+
+   Route::delete('/delete/{id}','RoleController@destroy')->name('backend.roles.destroy');
+
+});
+
+Route::group([
+   'prefix' => 'permissions',
+   'namespace'=> 'backend',
+   'middleware' => ['auth'],
+], function (){
+   
+   Route::get('/create','PermissionController@create')->name('backend.permissions.create');
+
+   Route::post('/store', 'PermissionController@store')->name('backend.permissions.store');
+  
+   Route::get('/list','PermissionController@index')->name('backend.permissions.list');
+
+   Route::get('/edit/{id}','PermissionController@edit')->name('backend.permissions.edit');
+
+   Route::post('/update/{id}', 'PermissionController@update')->name('backend.permissions.update');
+
+   Route::delete('/delete/{id}','PermissionController@destroy')->name('backend.permissions.destroy');
+  
+
+});
 
 // Route::get('/mail',function(){
-//        return view('admin.permission.index');
+//        return view('backend.roles.create');
 //    });

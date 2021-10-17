@@ -149,7 +149,69 @@
           </ul>
           
         </li>
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-wrench"></i>
+            <p>
+              Quản lý vai trò
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('backend.roles.create')}}" class="nav-link @if (request()->routeIs('backend.roles.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới vai trò</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.roles.list')}}" class="nav-link @if (request()->routeIs('backend.roles.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách vai trò </p>
+              </a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Quản lý permission
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('backend.users.create')}}" class="nav-link @if (request()->routeIs('backend.users.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới permission</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.users.list')}}" class="nav-link @if (request()->routeIs('backend.users.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách permission</p>
+              </a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        
       </ul>
+      
     </nav>
     <!-- /.sidebar-menu -->
   </div>

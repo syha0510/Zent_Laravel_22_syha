@@ -5,29 +5,29 @@
             <!--Start footer left-->
             <div class="footer-left">
                 <div class="contact-info widget">
-                    <h3 class="widget-title">Contact info</h3>
-                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium</p>
+                    <h3 class="widget-title">Thông tin liên hệ:</h3>
+                    <p><i class="fa fa-heart" aria-hidden="true"></i> Chào mừng đến với SYHA SHOP <i class="fa fa-heart" aria-hidden="true"></i></p>
                     <ul>
                         <li>
-                            <span>Address :</span>
+                            <span>Địa chỉ :</span>
                             <address>
-                                123 Sky Tower address name, Los Algeles, ,<br> USA, Country, 01234
+                               113 ngõ 9 tổ 26 thị trấn Đông Anh,Hà Nội
                             </address>
                         </li>
                         <li>
-                            <span>Phone :</span>
-                            (012) 345 6789
+                            <span>Số điện thoại : </span>
+                                0814791595
                         </li>
                         <li>
                             <span>Email :</span>
-                            info@templaza.com
+                           syha2257@gmail.com
                         </li>
                     </ul>
                 </div>
                 <div class="widget">
                     <form class="tz-subcribe">
-                        <input type="text" name="sub" value placeholder="Enter your email...">
-                        <input type="submit" name="subscribe" value="Subscribe">
+                        <input type="text" name="sub" value placeholder="Vui lòng nhập email...">
+                        <input type="submit" name="subscribe" value="Đăng kí">
                     </form>
                 </div>
                 <div class="widget">
@@ -58,79 +58,63 @@
             <!--Start footer right-->
             <div class="footer-right">
                 <div class="tz-widget-clients widget">
-                    <h3 class="widget-title">What clients say?</h3>
+                    <h3 class="widget-title">Giới thiệu</h3>
                     <div class="tz-widget-say">
-                        <img src="/frontend/images/say.jpg" alt="Kathy Young">
+                        <img style="width:100px;height:110px" src="/frontend/images/somi.jpg" alt="Sỹ Hà">
                         <div class="entry-say">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor     incididunt ut labore et dolore magna aliqua.</p>
-                            <span>Kathy Young</span>
+                            <p>"Bạn không thể chỉ hỏi khách hàng xem họ muốn gì và rồi cố đem nó cho họ. Tới lúc bạn hoàn thiện nó, họ đã muốn thứ mới mẻ khác rồi."</p>
+                            <span>Sỹ Hà</span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-sm-6">
                         <div class="widget widget_nav_menu">
-                            <h3 class="widget-title">HOW TO BUY</h3>
+                            <h3 class="widget-title">Tiện Ích</h3>
                             <ul>
                                 <li>
-                                    <a href="#">Contact Us</a>
+                                    <a href="#">Facebook</a>
                                 </li>
                                 <li>
-                                    <a href="#">Returns</a>
+                                    <a href="#">Youtube</a>
                                 </li>
                                 <li>
-                                    <a href="#">Site Map</a>
-                                </li>
-                                <li>
-                                    <a href="#">Brands</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gift Vouchers</a>
+                                    <a href="#">Instagram</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
                         <div class="widget widget_nav_menu">
-                            <h3 class="widget-title">MY ACCOUNT</h3>
+                            <h3 class="widget-title">Tài Khoản</h3>
                             <ul>
                                 <li>
-                                    <a href="#">My Account</a>
+                                    <a href="#">Facebook</a>
                                 </li>
                                 <li>
-                                    <a href="#">Order History</a>
+                                    <a href="#">Youtube</a>
                                 </li>
                                 <li>
-                                    <a href="#">Wish List</a>
+                                    <a href="#">Instagram</a>
                                 </li>
-                                <li>
-                                    <a href="#">Newsletter</a>
-                                </li>
-                                <li>
-                                    <a href="#">Specials</a>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6">
                         <div class="widget widget_nav_menu">
-                            <h3 class="widget-title">Infomation</h3>
+                            <h3 class="widget-title">Thông Tin</h3>
                             <ul>
                                 <li>
-                                    <a href="#">About Us</a>
+                                    <a href="#">Sỹ Hà</a>
                                 </li>
                                 <li>
-                                    <a href="#">Returns</a>
+                                    <a href="#">Admin</a>
                                 </li>
                                 <li>
-                                    <a href="#">Contact Us</a>
+                                    <a href="#">Writer</a>
                                 </li>
-                                <li>
-                                    <a href="#">Term & Conditions</a>
-                                </li>
-                                <li>
-                                    <a href="#">Privacy Policy</a>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
@@ -144,7 +128,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    <p>Copyright &copy; 2015 <a href="http://templaza.com/" target="_blank">BikeSport</a> by TemPlaza. All rights reserved.</p>
+                    <p>Bản quyền &copy; 2021 SYHA</p>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="pull-right">

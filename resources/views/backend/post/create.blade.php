@@ -55,7 +55,7 @@
                         </div> --}}
                         
                         <div class="form-group " style="display:flex;justify-content: space-between">
-                          <div style="width:48%" >
+                          <div style="width:100%" >
                             <label>Danh mục</label>
                             <select class="form-control select2" style="width: 100%;" name="category_id">
                                 @foreach ( $categories as $category )
@@ -63,14 +63,14 @@
                                @endforeach
                             </select>
                           </div>
-                          <div style="width:48%">
+                          {{-- <div style="width:48%">
                             <label>Trạng thái</label>
                             <select class="form-control select2" style="width: 100%;" name="status">
                               @foreach (\App\Models\Post::$status_text as $key => $value)
                                   <option value="{{ $key }}">{{ $value }}</option>
                               @endforeach
                             </select>
-                          </div>
+                          </div> --}}
                            
                       </div>
                     </div>

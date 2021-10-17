@@ -27,131 +27,16 @@
                             </form>
                         </aside>
                         <aside class="widget widget_categories">
-                            <h4 class="widget-title">CATEGORIES</h4>
+                            <h4 class="widget-title">DANH MUC</h4>
                             <ul>
+                                @foreach ( $categories as $category  )
                                 <li>
-                                    <a href="blog.html">Creative <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Fashion <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Creative <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Image <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Photography <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Videos <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">WordPress <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Antiquarianism  <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Championship <span>(30)</span></a>
-                                </li>
-                                <li>
-                                    <a href="blog.html">Clerkship <span>(30)</span></a>
-                                </li>
+                                    <a href="">{{ $category->name }}<span>( {{ count($category->posts) }} )</span></a>
+                                </li>    
+                                @endforeach
                             </ul>
                         </aside>
-                        <aside class="widget widget_recent_posts">
-                            <h4 class="widget-title">RECENT POSTS</h4>
-                            <ul>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Ready tablet picture with rating review">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">Ready tablet picture with rating review</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Room Post Format with Beautiful Water Nature">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">Room Post Format with Beautiful Water Nature</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="15 cooking gadgets new rating review system">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">15 cooking gadgets new rating review system</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Apple iPad Mini is Gorgeous For Business">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">Apple iPad Mini is Gorgeous For Business</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="iPhone Fingerprint Scanner Hacked">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">iPhone Fingerprint Scanner Hacked</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </aside>
-                        <aside class="widget widget_instagram">
-                            <h4 class="widget-title">instagram</h4>
-                            <div class="img-instagram">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                                <img src="/frontend/images/parallax.jpg" alt="instangram1">
-                            </div>
-                        </aside>
-                        <aside class="widget widget_recent_posts">
-                            <h4 class="widget-title">FEATURES POSTS</h4>
-                            <ul>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="15 cooking gadgets new rating review system">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">15 cooking gadgets new rating review system</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Apple iPad Mini is Gorgeous For Business">
-                                    <div class="recent-info">
-                                        <h5><a href="#">Apple iPad Mini is Gorgeous For Business</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="iPhone Fingerprint Scanner Hacked">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">iPhone Fingerprint Scanner Hacked</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Ready tablet picture with rating review">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">Ready tablet picture with rating review</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img src="/frontend/images/parallax.jpg" alt="Room Post Format with Beautiful Water Nature">
-                                    <div class="recent-info">
-                                        <h5><a href="single-blog.html">Room Post Format with Beautiful Water Nature</a></h5>
-                                        <span class="date">Posted at March 19. 2015</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </aside>
+                        
                     </div>
                     <!--End Blog Sidebar-->
                 </div>
@@ -168,45 +53,33 @@
                                     <img src="/frontend/images/parallax.jpg" alt="will be distracted">
                                 </div>
 
-                                <h1><a href="#">It is a long established fact that a reader will be distracted</a></h1>
-                                <span class="date">Posted at March 19. 2015</span>
+                                <h1><a href="#">{{ $post->title }}</a></h1>
+                                <span class="date">{!! date('d/m/Y', strtotime($post->created_at)) !!}</span>
                                 <div class="single-content">
                                     <p>
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                                        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                                        {!! $post->content !!}
                                     </p>
-                                    <blockquote>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries</p>
-                                    </blockquote>
-                                    <p>
-                                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-                                        eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
-                                        sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                                    </p>
-                                    <p>
-                                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam,
-                                        quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
-                                    </p>
+                                   
                                 </div>
 
                                 <div class="entry-blog-meta">
                                     <span class="author">
-                                        Author:
-                                        <a href="blog.html">Admin</a>
+                                        Tác giả: 
+                                        <a href="blog.html">{{ $post->user->name }}</a>
                                     </span>
                                     <span class="cats">
-                                        Categories:
-                                        <a href="blog.html">Tips,</a>
-                                        <a href="blog.html">Tips</a>
+                                        Danh mục:
+                                        <a href="blog.html">{{ $post->category->name }}</a>
                                     </span>
+                                    @foreach ($post->tags as $tag )
+                                    
                                     <span class="tags">
                                         Tags:
-                                        <a href="blog.html">ullamcorper,</a>
-                                        <a href="blog.html">vulputate</a>
+                                        <a href="blog.html">{{ $tag->name }}</a>
                                     </span>
+
+                                    @endforeach
+                                    
                                 </div>
 
                                 <div class="entry-social">
@@ -219,15 +92,16 @@
                                 </div>
 
                                 <nav class="post-navigation">
-                                    <a class="prev pull-left" href="single-blog.html">Previous post</a>
-                                    <a class="Next pull-right" href="single-blog.html">Next post</a>
+                                    <a class="prev pull-left" href="single-blog.html">Bài viết trước</a>
+                                    <a class="Next pull-right" href="single-blog.html">Bài viết sau</a>
                                 </nav>
 
-                            </article>
+                            </article>  
+                            
                             <!--End content-->
 
                             <!--Comment-->
-                            <div class="single-comment">
+                            {{-- <div class="single-comment">
                                 <div id="comments">
                                     <h2>
                                         Comments
@@ -361,7 +235,7 @@
                                     <!--End comment form-->
 
                                 </div>
-                            </div>
+                            </div> --}}
                             <!--End comment-->
 
                         </div>

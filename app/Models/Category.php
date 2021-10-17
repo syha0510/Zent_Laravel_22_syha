@@ -20,6 +20,9 @@ class Category extends Model
         $this->attributes['slug'] = Str::slug($name);
     }
 
-    
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 
 }

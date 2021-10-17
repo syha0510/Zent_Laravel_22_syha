@@ -202,9 +202,13 @@ class PostController extends Controller
         // DB::table('posts')->where('id',$id)->delete();
         $post = Post::find($id);
 
-        if(! Gate::allows('delete-post',$post)){
-            abort(403);
+        if (Auth::user()->cannot('delete-post')){
+            return abort(403);
         }
+
+        // if(! Gate::allows('delete-post',$post)){
+        //     abort(403);
+        // }
 
         $post->delete();
         return redirect()->route('backend.posts.list');
