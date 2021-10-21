@@ -11,7 +11,7 @@
 
             <form action="{{ route('auth.register') }}" method="POST">
                 @csrf
-                <div class="input-group mb-3">
+                <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                     <input type="text" name='name' class="form-control" placeholder="Họ và tên">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -19,7 +19,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+                @error('name')
+                    <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                @enderror
+
+                <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                     <input type="email" name="email" class="form-control" placeholder="Email">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -27,7 +31,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+
+                @error('email')
+                    <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                @enderror
+
+                <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                     <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -35,7 +44,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+
+                @error('password')
+                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                @enderror
+                <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                     <input type="password" name="password_confirmation" class="form-control" placeholder="Nhập lại mật khẩu">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -43,6 +56,10 @@
                         </div>
                     </div>
                 </div>
+
+                @error('password_confirmation')
+                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                @enderror
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">

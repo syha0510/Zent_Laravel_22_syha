@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\backend;
 use App\Http\Controllers\backend\Tag;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -72,7 +75,7 @@ class PostController extends Controller
         // }
 
 
-        $data=$request->only(['title','content','status','category_id','user_id']);
+        
         // dd(1);
         // DB::table('posts')->insert([
         //     'tit'=>$data['title'],
@@ -98,6 +101,30 @@ class PostController extends Controller
         // }catch(\Exception $ex){
         //     Log::error($ex->getMessage());
         // }
+
+        // $validated= $request->validate([
+        //     'title' => 'required|unique:posts|max:255',
+        //     'content' => 'required',
+
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:posts|max:255',
+            'content' => 'required',
+        ],
+        [
+            'required' => 'Thuộc tính :attribute cần phải có',
+        ]
+    );
+
+        if ($validator->fails()) {
+            return redirect('posts/create')
+            ->withErrors($validator)
+            ->withInput();
+            }
+            
+
+        $data=$request->only(['title','content','status','category_id','user_id']);
 
         $post=new Post();
         $post->title= $data['title'];
@@ -155,7 +182,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
        $data=$request->only(['title','content','category_id','status']);
 
@@ -166,6 +193,15 @@ class PostController extends Controller
     //         'category_id'=>$data['category_id'],
     //         'status'=> $data['status']
     //    ]);
+
+    // $validated= $request->validate([
+    //     'title' => 'required|unique:posts|max:255',
+    //     'content' => 'required',
+
+    // ]);
+
+        
+        
 
         $post = Post::find($id);
 

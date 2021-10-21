@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use App\Models\Userinfo;
 use Illuminate\Validation\Rules;
@@ -15,7 +16,7 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request  $request)
+    public function store(RegisterRequest  $request)
     {
         // $request->validate([
         //     'name' => ['required','string','max:255' ],

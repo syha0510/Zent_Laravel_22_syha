@@ -12,22 +12,31 @@
 
                 <form action="{{ route('authenticate.login') }}" method="post">
                     @csrf
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                         <input type="email" name="email" class="form-control" placeholder="Email">
+                       
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+                        
                     </div>
-                    <div class="input-group mb-3">
+                         @error('email')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+                    <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
                         <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
+                       
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
+                    @error('password')
+                        <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                    @enderror
                     <div class="row">
                         <div class="col-8">
                             <div class="icheck-primary">

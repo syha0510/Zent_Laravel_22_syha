@@ -41,6 +41,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validated= $request->validate([
+            'name' => 'required|unique:posts|max:255',
+        ]);
+
         $data=$request->only(['name']);
 
         // DB::table('categories')->insert([
@@ -92,6 +97,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validated= $request->validate([
+            'name' => 'required|unique:posts|max:255',
+    
+        ]);
+        
         $data=$request->only(['name']);
 
     //    DB::table('categories')->where('id',$id)

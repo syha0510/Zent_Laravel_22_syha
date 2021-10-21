@@ -30,12 +30,27 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
+
+                {{-- @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ( $errors->all() as $error )
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif --}}
+
                 <form role="form" method="post" action="{{route('backend.categories.update',$category->id)}}">
                   @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Danh mục</label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Danh mục" value="{{ $category->name }}">
+
+                            @error('name')
+                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                            @enderror
                         </div>
                         <div class="form-group" >
                             <label>Trạng thái</label>

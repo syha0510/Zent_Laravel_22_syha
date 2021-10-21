@@ -30,18 +30,36 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
+                @if ($errors->any())
+                  <div class="alert alert-danger">
+                    <ul>
+                      @foreach ( $errors->all() as $error )
+                        <li>{{ $error }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                @endif
+
                 <form role="form" method="post" action="{{route('backend.posts.store')}}">
                   @csrf
                     <div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Tiêu đề</label>
-                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề">
+                            <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề" >
+                            @error('title')
+                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nội dung</label>
                             <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
                                           style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+
+                            @error('content')
+                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                            @enderror
                         </div>
+
                         {{-- <div class="col-sm-6">
                           <!-- Select multiple-->
                           <div class="form-group">
