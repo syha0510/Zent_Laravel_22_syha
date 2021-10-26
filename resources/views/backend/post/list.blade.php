@@ -65,8 +65,8 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
+                                    <th>Hình ảnh</th>
                                     <th>Tên bài viết</th>
-                                    <th>Đường dẫn</th>
                                     <th class="text-center">Danh mục</th>
                                     <th>Nội dung</th>
                                     <th>Tags</th>
@@ -83,10 +83,14 @@
                                 <tr>
                                     <td>{{$key+1}}</td>
                                     <td>
-                                        <a  href="{{ route('backend.posts.show', $post->id) }}">{{ $post->title }} </a>
-                                        
+                                        @if(!empty($post->image))
+                                            <img src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image)}}"
+                                            width="80px" height="50px">
+                                        @endif
                                     </td>
-                                    <td> {{ $post->slug }}</td>
+                                    <td>
+                                        <a  href="{{ route('backend.posts.show', $post->id) }}">{{ $post->title }} </a>          
+                                    </td>
                                     <td class="text-center">{{ $post->category->name }}</td>
                                     <td><span class="tag tag-success">{!! $post->content !!}</span></td>
                                     <td>

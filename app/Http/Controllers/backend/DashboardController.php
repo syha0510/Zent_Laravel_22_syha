@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -14,6 +16,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // $path =Storage::disk('public')->path('tshirts.png');
+        // $path = Storage::putFile('photos',new File($path));
+        // return Storage::disk('public')->path('tshirts.png');
+        // if (Storage::exists('file.txt')) {
+        // dd('co');
+        // } else {
+        //     dd('ko');
+        // }
+        
+        // // dd(asset('storage/tshirts.png'));        
+        // // $save=Storage::disk('local')->put('file.txt', 'Contents');
+        // $contents = Storage::disk('public')->get('tshirts.png');
+        // dd($contents);
         return view('backend.dashboard');
     }
 

@@ -21,7 +21,7 @@
                         <div class="col-md-12">
                             <article class="blog-item blog-heading">
                                 <div class="thumb">
-                                    <img src="/frontend/images/parallax.jpg" alt="will be distracted">
+                                    <img src="{{ Illuminate\Support\Facades\Storage::disk($newpost->disk)->url($newpost->image) }}" alt="will be distracted">
                                 </div>
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show',$newpost->slug) }}">{{ $newpost->title }}</a></h3>

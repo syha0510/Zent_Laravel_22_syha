@@ -30,7 +30,7 @@
                 
                 <!-- /.card-header -->
                 <!-- form start -->
-                @if ($errors->any())
+                {{-- @if ($errors->any())
                   <div class="alert alert-danger">
                     <ul>
                       @foreach ( $errors->all() as $error )
@@ -38,9 +38,9 @@
                       @endforeach
                     </ul>
                   </div>
-                @endif
+                @endif --}}
 
-                <form role="form" method="post" action="{{route('backend.posts.store')}}">
+                <form role="form" method="post" action="{{route('backend.posts.store')}}" enctype="multipart/form-data">
                   @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -59,7 +59,22 @@
                               <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
                             @enderror
                         </div>
-
+                        
+                        <div class="form-group">
+                          <label for="exampleInputFile">Tải lên ảnh</label>
+                          <div class="input-group">
+                          <div class="custom-file">
+                          <input type="file" class="custom-file-input" name="image">
+                          <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
+                          </div>
+                          <div class="input-group-append">
+                          <span class="input-group-text">Tải lên</span>
+                          </div>
+                          </div>
+                        </div>
+                        @error('image')
+                        <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                         @enderror
                         {{-- <div class="col-sm-6">
                           <!-- Select multiple-->
                           <div class="form-group">

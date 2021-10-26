@@ -32,7 +32,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{route('backend.users.store')}}">
+                <form role="form" method="post" action="{{route('backend.users.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -51,11 +51,23 @@
                         <div class="form-group">
                             <label>Quyền</label>
                             <select class="form-control select2" style="width: 100%;" name="status">
-                                <option>--Chọn quyền---</option>
-                                <option>Admin</option>
-                                <option>User</option>
+                              @foreach ( $roles as $role )
+                                <option value="{{ $role->id }}" >{{ $role->name }}</option>
+                              @endforeach
                             </select>
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">Tải lên ảnh</label>
+                            <div class="input-group">
+                            <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="image">
+                            <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
+                            </div>
+                            <div class="input-group-append">
+                            <span class="input-group-text">Tải lên</span>
+                            </div>
+                            </div>
+                          </div>
                     </div>
                     <!-- /.card-body -->
 

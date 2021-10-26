@@ -111,6 +111,7 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:posts|max:255',
             'content' => 'required',
+            'image' => 'required|file|mimes:png,jpg|max:24|min:20'
         ],
         [
             'required' => 'Thuộc tính :attribute cần phải có',
@@ -124,12 +125,22 @@ class PostController extends Controller
             }
             
 
+
         $data=$request->only(['title','content','status','category_id','user_id']);
 
         $post=new Post();
+
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $post->disk = $disk;
+            $post->image = $path;
+        }
+
         $post->title= $data['title'];
         // $post->slug= $data['title'];
-        $post->status=$data['status'];
+        // $post->status=$data['status'];
         $post->user_created_id = Auth::user()->id;
         $post->user_updated_id = Auth::user()->id;
         $post->category_id=$data['category_id'];
@@ -202,6 +213,7 @@ class PostController extends Controller
 
         
         
+        
 
         $post = Post::find($id);
 
@@ -212,6 +224,9 @@ class PostController extends Controller
         if($request->user()->cannot('update',$post)){
             abort(403);
         }
+
+       
+            
 
         $post->title= $data['title'];
         // $post->slug= $data['title'];

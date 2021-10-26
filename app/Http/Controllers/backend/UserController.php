@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Userinfo;
 use Illuminate\Http\Request;
@@ -63,8 +64,10 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        return view('backend.user.create');
+        $roles = Role::whereNotIn('id',[1])->get();
+        return view('backend.user.create')->with([
+            'roles'=>$roles,
+        ]);
     }
 
     /**
@@ -77,6 +80,15 @@ class UserController extends Controller
     {
         $data=$request->only(['name','password','status','email']);
         $user=new user();
+
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $user->disk = $disk;
+            $user->avatar = $path;
+        }
+
         $user->name= $data['name'];
         $user->password= $data['password'];
         // $user->address= $data['address'];

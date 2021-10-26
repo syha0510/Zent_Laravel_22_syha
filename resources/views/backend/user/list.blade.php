@@ -61,6 +61,7 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên người dùng</th>
+                                    <th>Ảnh đại diện</th>
                                     <th>Email</th>
                                     <th>Địa chỉ</th>
                                     <th>Số điện thoại</th>
@@ -73,6 +74,12 @@
                               <tr>
                                 <td>{{$key+1}}</td>
                                 <td><a href="{{ route('backend.users.show',$user->id ) }}">{{$user->name}}</a></td>
+                                <td>
+                                    @if(!empty($user->avatar))
+                                        <img src="{{ Illuminate\Support\Facades\Storage::disk($user->disk)->url($user->avatar)}}"
+                                        width="80px" height="50px">
+                                    @endif
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @if ( $user->userInfo->address == null )
