@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Userinfo;
@@ -76,7 +77,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $data=$request->only(['name','password','status','email']);
         $user=new user();
@@ -88,6 +89,8 @@ class UserController extends Controller
             $user->disk = $disk;
             $user->avatar = $path;
         }
+
+        
 
         $user->name= $data['name'];
         $user->password= $data['password'];

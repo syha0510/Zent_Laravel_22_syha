@@ -47,17 +47,17 @@
                             <label for="exampleInputEmail1">Tiêu đề</label>
                             <input name="title" type="text" class="form-control" id="" placeholder="Tiêu đề" >
                             @error('title')
-                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
-                            @enderror
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nội dung</label>
                             <textarea  cols="30" rows="10" class="textarea" name="content" placeholder="Place some text here"
                                           style="width: 100%; height: 500px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 
-                            @error('content')
-                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
-                            @enderror
+                              @error('content')
+                                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                              @enderror
                         </div>
                         
                         <div class="form-group">
@@ -73,7 +73,7 @@
                           </div>
                         </div>
                         @error('image')
-                        <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
                          @enderror
                         {{-- <div class="col-sm-6">
                           <!-- Select multiple-->
@@ -111,7 +111,7 @@
 
                     <div class="card-footer">
                         <button type="reset" class="btn btn-default">Huỷ bỏ</button>
-                        <button type="submit" class="btn btn-success">Tạo mới</button>
+                        <button type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>
             </div>

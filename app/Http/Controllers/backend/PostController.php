@@ -111,10 +111,16 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required|unique:posts|max:255',
             'content' => 'required',
-            'image' => 'required|file|mimes:png,jpg|max:24|min:20'
+            'image' => 'required|file|mimes:png,jpg'
         ],
         [
             'required' => 'Thuộc tính :attribute cần phải có',
+            'image.required' => 'Vui lòng chọn :attribute ',
+        ],
+        [
+            'title' => 'tiêu đề',
+            'content' => 'nội dung',
+            'image' => 'ảnh'
         ]
     );
 

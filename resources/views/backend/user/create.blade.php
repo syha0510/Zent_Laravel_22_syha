@@ -39,15 +39,29 @@
                             <label for="exampleInputEmail1">Tên</label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Tên người dùng">
                         </div>
+
+                        @error('name')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email</label>
                             <input name="email" type="email" class="form-control" id="" placeholder="Email">
                         </div>
                         
+                        @error('email')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+
                         <div class="form-group">
                             <label for="exampleInputEmail1">Mật khẩu</label>
-                            <input name="password" type="password" class="form-control" id="">
+                            <input name="password" type="password" class="form-control" id="" placeholder="Mật khẩu ">
                         </div>
+
+                        @error('password')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+
                         <div class="form-group">
                             <label>Quyền</label>
                             <select class="form-control select2" style="width: 100%;" name="status">
@@ -56,6 +70,11 @@
                               @endforeach
                             </select>
                         </div>
+
+                        @error('status')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+
                         <div class="form-group">
                             <label for="exampleInputFile">Tải lên ảnh</label>
                             <div class="input-group">
@@ -67,14 +86,19 @@
                             <span class="input-group-text">Tải lên</span>
                             </div>
                             </div>
-                          </div>
-                    </div>
+                        </div>
+                         
+                        @error('image')
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                         @enderror
+                      </div>
+                      
                     <!-- /.card-body -->
 
                     <div class="card-footer">
                         
                         <button type="reset" class="btn btn-default">Huỷ bỏ</button>
-                        <button  type="submit" class="btn btn-success">Tạo mới</button>
+                        <button  type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>
             </div>
