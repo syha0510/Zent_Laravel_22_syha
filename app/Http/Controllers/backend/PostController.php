@@ -154,8 +154,7 @@ class PostController extends Controller
         $post->user_id =Auth::user()->id;
         $post->save();
 
-
-       
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.posts.list');
     }
 
@@ -243,7 +242,7 @@ class PostController extends Controller
         $post->category_id=$data['category_id'];
         $post->content=$data['content'];
         $post->save();
-
+        $request->session()->flash('success', 'Cập nhật thành công');
 
        return redirect()->route('backend.posts.list');
     }

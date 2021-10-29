@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
@@ -14,7 +16,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $path =Storage::disk('public')->path('tshirts.png');
         // $path = Storage::putFile('photos',new File($path));
@@ -29,6 +31,12 @@ class DashboardController extends Controller
         // // $save=Storage::disk('local')->put('file.txt', 'Contents');
         // $contents = Storage::disk('public')->get('tshirts.png');
         // dd($contents);
+
+    //    $save=$request->session()->put('name', 'ha');
+    //    dd($save);
+
+
+        Cookie::queue(Cookie::forget('username'));
         return view('backend.dashboard');
     }
 

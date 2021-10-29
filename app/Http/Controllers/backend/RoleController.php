@@ -46,7 +46,7 @@ class RoleController extends Controller
         $role->slug=Str::slug($role->name);
         // dd($role);
         $role->save();
-
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.roles.list');
     }
 
@@ -88,7 +88,7 @@ class RoleController extends Controller
         $role->name =$request->get('name');
         $role->slug =Str::slug($request->get('name'));
         $role->save();
-
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.roles.list');
     }
 

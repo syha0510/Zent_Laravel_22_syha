@@ -13,7 +13,7 @@
                 <form action="{{ route('authenticate.login') }}" method="post">
                     @csrf
                     <div class="input-group mb-3" style="margin-bottom:0.5rem !important">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
+                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ Illuminate\Support\Facades\Cookie::get('email')}}">
                        
                         <div class="input-group-append">
                             <div class="input-group-text">

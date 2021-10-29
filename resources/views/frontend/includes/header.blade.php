@@ -25,27 +25,29 @@
                         <li>
                             <a href="#">Wishlist</a>
                         </li> --}}
-                        <li>
-                            <a href="#">Giỏ hàng </a>
-                        </li>
                         {{-- <li>
-                            <a href="shop-checkout.html"></a>
+                            <a href="#">Giỏ hàng </a>
                         </li> --}}
-                        <li class="tz-header-login">
+                        <li class="tz-header-login" style="display:flex;justify-content: center">
+                            @if(!empty(auth()->user()->avatar))
+                                <img src="{{ Illuminate\Support\Facades\Storage::disk(auth()->user()->disk)->url(auth()->user()->avatar)}}"
+                                 style="border-radius: 50%;width:40px;height:40px">
+                            @endif
                             @if (auth()->check())
-                                <a href="#" style="font-size: 14px; padding: 0 18px;font-family: 'Lato', sans-serif;">
+                                <a href="#" style="font-size: 14px;margin-top: 10px;;font-family: 'Lato', sans-serif;">
                                     {{ auth()->user()->name }}
                                 </a>
+                               
                                 <li >
                                     <form method="post" action="{{ route('auth.logout') }}">
                                         @csrf
                                         <a class="btn btn-danger" href="#" style="margin-left:15px;font-size: 14px; padding: 5px 10px;font-family: 'Lato', sans-serif;"  onclick="this.closest('form').submit(); return false;">
-                                            <i class="fa fa-power-off" aria-hidden="true"></i>
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>
                                         </a>
                                       </form>
                                 </li>
                             @else
-                            <a href="{{ route('auth.login') }}">Login</a>
+                            <a href="{{ route('auth.login') }}">Đăng nhập</a>
                             <div class="tz-login-form">
                                 <form>
                                     <p class="form-content">

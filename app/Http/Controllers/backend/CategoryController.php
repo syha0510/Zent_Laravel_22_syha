@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 class CategoryController extends Controller
@@ -56,6 +57,7 @@ class CategoryController extends Controller
         $category=new Category();
         $category->name= $data['name'];
         $category->save();
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.categories.list');
     }
 
@@ -99,7 +101,7 @@ class CategoryController extends Controller
     {
 
         $validated= $request->validate([
-            'name' => 'required|unique:posts|max:255',
+            'name' => 'required|max:255',
     
         ]);
         
@@ -113,8 +115,8 @@ class CategoryController extends Controller
         $category= Category::find($id);
         $category->name= $data['name'];
         $category->save();
-        
-
+        Cache::forget('categories');
+        $request->session()->flash('success', 'Cập nhật thành công');
        return redirect()->route('backend.categories.list');
     }
 

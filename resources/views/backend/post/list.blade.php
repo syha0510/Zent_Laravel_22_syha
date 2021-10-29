@@ -18,6 +18,20 @@
 @endsection
 
 @section('content')
+
+
+        @if (session('error'))
+        <div class="alert alert-danger" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
+        {{ session('error') }}
+        </div>
+        @endif
+        @if (session('success'))
+        <div class="alert alert-success" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
+        {{ session('success') }}
+        </div>
+        @endif
+
+
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">

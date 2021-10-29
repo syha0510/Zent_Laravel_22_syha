@@ -11,10 +11,8 @@ class HomeController extends Controller
     
     public function index()
     {
-        $categories = Category::all();
-       return view('frontend.home')->with([
-           'categories'=>$categories
-       ]);
+    
+       return view('frontend.home');
         
     }
     public function register()

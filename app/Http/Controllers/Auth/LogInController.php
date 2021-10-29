@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class LogInController extends Controller
 {
@@ -34,6 +35,7 @@ class LogInController extends Controller
         if( Auth::attempt($credential ,$remember))
         {
             $request->session()->regenerate();
+            Cookie::queue('email', $request->get('email'));
             return redirect()->intended('backend/dashboard');
         }
 

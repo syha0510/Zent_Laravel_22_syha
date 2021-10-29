@@ -46,7 +46,7 @@ class PermissionController extends Controller
         $permission->slug=Str::slug($permission->name);
         // dd($role);
         $permission->save();
-
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.permissions.list');
     }
 
@@ -88,7 +88,7 @@ class PermissionController extends Controller
         $permission->name =$request->get('name');
         $permission->slug =Str::slug($request->get('name'));
         $permission->save();
-
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.permissions.list');
     }
 

@@ -104,6 +104,7 @@ class UserController extends Controller
         $user_info=new Userinfo();
         $user_info->user_id=$user->id;
         $user_info->save();
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.dashboard.index');
     }
 
@@ -157,6 +158,7 @@ class UserController extends Controller
             'phone'=>$data['phone'],
             'address'=>$data['address']
        ]);
+       $request->session()->flash('success', 'Cập nhật thành công');
        return redirect()->route('backend.users.list');
     }
 
