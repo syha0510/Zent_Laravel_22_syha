@@ -182,6 +182,8 @@ Route::group([
 
 });
 
-// Route::get('/mail',function(){
-//        return view('backend.roles.create');
+
+
+// Route::get('/log-viewer',function(){
+//        return view('backend.logs.list');
 //    });

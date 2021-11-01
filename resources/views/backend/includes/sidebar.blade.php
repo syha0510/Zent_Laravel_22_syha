@@ -1,3 +1,4 @@
+
 <div class="sidebar">
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -209,7 +210,34 @@
           </ul>
           
         </li>
-        
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Quản lý logs
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            {{-- <li class="nav-item">
+              <a href="" class="nav-link @if (request()->routeIs('backend.users.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới logs</p>
+              </a>
+            </li> --}}
+            <li class="nav-item">
+              <a href="http://myweb.dev.com/log-viewer" class="nav-link  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách logs</p>
+              </a>
+            </li>
+            
+          </ul>
+          
+        </li>
       </ul>
       
     </nav>
