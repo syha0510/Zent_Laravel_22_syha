@@ -46,7 +46,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Tên danh mục</th>
-                                    <th class="text-center">Đường dẫn</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -57,7 +56,6 @@
                                         <td>{{ $key + 1 }}</td>
                                         <td><a href="{{ route('backend.categories.show', $category->id) }}">{{ $category->name }}</a>
                                         </td>
-                                        <td>{{ $category->slug }}</td>
                                         <td class="text-center">
                                             <a style="margin-right:10px;"
                                                 href="{{ route('backend.categories.restore', $category->id) }}"

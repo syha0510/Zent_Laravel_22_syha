@@ -19,19 +19,6 @@
 
 @section('content')
 
-
-        @if (session('error'))
-        <div class="alert alert-danger" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
-        {{ session('error') }}
-        </div>
-        @endif
-        @if (session('success'))
-        <div class="alert alert-success" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
-        {{ session('success') }}
-        </div>
-        @endif
-
-
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -105,7 +92,7 @@
                                     <td>
                                         <a  href="{{ route('backend.posts.show', $post->id) }}">{{ $post->title }} </a>          
                                     </td>
-                                    <td class="text-center">{{ $post->category->name }}</td>
+                                    <td class="text-center">{{ $post->category->name ?? 'Chưa xác định'}}</td>
                                     <td><span class="tag tag-success">{!! $post->content !!}</span></td>
                                     <td>
                                         @foreach ($post->tags as $tag )

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -13,8 +14,9 @@ class PostController extends Controller
     {
         
         $postcates = Category::where('slug',$slug)->first();
+        Cache::forget('categories');
         return view('frontend.posts.post_category')->with([
-            'postcates'=>$postcates,
+            'postcates'=> $postcates,
             
         ]);
     }
@@ -23,10 +25,11 @@ class PostController extends Controller
     {
        
         $newpost= Post::where('status',Post::STATUS_SHOW)->orderByDESC('created_at')->first();
-        $posts= Post::where('status',Post::STATUS_SHOW)->orderByDESC('created_at')->whereNotIn('id',[$newpost->id])->paginate(4);
+        $posts= Post::where('status',Post::STATUS_SHOW)->orderByDESC('created_at')
+        ->whereNotIn('id',[$newpost->id])->paginate(4);
         return view('frontend.posts.index')->with([
-            'posts'=>$posts,
-            'newpost'=>$newpost,
+            'posts'=> $posts,
+            'newpost'=> $newpost,
            
         ]);
     }
@@ -36,7 +39,7 @@ class PostController extends Controller
         
         $post =Post::where('slug',$slug)->first();
         return view('frontend.posts.show')->with([
-            'post'=>$post,
+            'post'=> $post,
             
         ]);
     }

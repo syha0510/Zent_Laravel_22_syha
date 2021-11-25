@@ -6,6 +6,7 @@
   <title>LARAVEL 22 | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/backend/plugins/fontawesome-free/css/all.min.css">
@@ -25,7 +26,7 @@
   <link rel="stylesheet" href="/backend/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/backend/plugins/summernote/summernote-bs4.min.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -60,6 +61,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+
 <script src="/backend/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="/backend/plugins/jquery-ui/jquery-ui.min.js"></script>
@@ -79,6 +81,7 @@
 <!-- jQuery Knob Chart -->
 <script src="/backend/plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
+@include('backend.includes.notification')
 <script src="/backend/plugins/moment/moment.min.js"></script>
 <script src="/backend/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
@@ -93,5 +96,13 @@
 <script src="/backend/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/backend/dist/js/pages/dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script>
+  $(function () {
+    $('#card').selectpicker({noneSelectedText: 'Vui lòng chọn thẻ'});
+    $('#status').selectpicker({noneSelectedText: 'Chọn trạng thái'});
+    $('#category').selectpicker({noneSelectedText: 'Chọn danh mục'});
+});
+</script>
 </body>
 </html>

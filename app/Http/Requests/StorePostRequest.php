@@ -28,6 +28,7 @@ class StorePostRequest extends FormRequest
             
             'title' => 'required|unique:posts|max:255',
             'content' => 'required',
+            'image' => 'required'
 
         ];
     }
@@ -38,6 +39,7 @@ class StorePostRequest extends FormRequest
             
             'title.required' => ' :attribute không được bỏ trống  ',
             'content.required' => ' :attribute không được bỏ trống ',
+            'image.required' => 'Vui lòng chọn :attribute'
 
         ];
     }
@@ -47,6 +49,7 @@ class StorePostRequest extends FormRequest
         return[
             'title'=>'Tiêu đề',
             'content'=>'Nội dung',
+            'image' => 'ảnh'
         ];
 
     }

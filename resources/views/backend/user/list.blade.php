@@ -19,18 +19,6 @@
 
 @section('content')
 
-
-    @if (session('error'))
-    <div class="alert alert-danger" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
-    {{ session('error') }}
-    </div>
-    @endif
-    @if (session('success'))
-    <div class="alert alert-success" role="alert" style="width: 99%;margin: 0 auto;margin-bottom: 40px;">
-    {{ session('success') }}
-    </div>
-    @endif
-
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
@@ -88,8 +76,8 @@
                                 <td>{{$key+1}}</td>
                                 <td><a href="{{ route('backend.users.show',$user->id ) }}">{{$user->name}}</a></td>
                                 <td>
-                                    @if(!empty($user->avatar))
-                                        <img src="{{ Illuminate\Support\Facades\Storage::disk($user->disk)->url($user->avatar)}}"
+                                    @if(!empty($user->image))
+                                        <img src="{{ Illuminate\Support\Facades\Storage::disk($user->disk)->url($user->image)}}"
                                         width="80px" height="50px">
                                     @endif
                                 </td>
@@ -135,7 +123,7 @@
                                     <form style="display: inline-block" method="POST" action="{{route('backend.users.destroy',$user->id)}}">
                                         @csrf
                                         @method('DELETE')
-                                        <button style="" class="btn btn-danger">
+                                        <button style="" class="btn btn-danger delete-confirm" data-name="{{ $user->name }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         </form>
@@ -161,4 +149,38 @@
         </div>
 
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <script>
+        var showstatus = document.getElementsByClassName('showstatus');
+                console.log(showstatus)          
+                var formshow = document.getElementsByClassName('formshow');
+                
+                //console.log(formshow)
+                for(let i=0;i< showstatus.length;i++){
+                    showstatus[i].addEventListener('click',function(){
+                        formshow[i].submit();
+                    })
+                }
+
+
+
+         $('.delete-confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Bạn có muốn xóa ${name}?`,
+                    text: "Nếu bạn xóa nó, bạn sẽ không thể khôi phục lại được",
+                    icon: "error",
+                    buttons: ["Không", "Xóa"],
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        }); 
+    </script>
 @endsection

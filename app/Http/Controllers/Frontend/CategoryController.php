@@ -8,5 +8,15 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    public function product()
+    {
+        return view('frontend.products.list');
+    }
+
     
+
+    // public function detail()
+    // {
+    //     return view('frontend.products.detail');
+    // }
 }

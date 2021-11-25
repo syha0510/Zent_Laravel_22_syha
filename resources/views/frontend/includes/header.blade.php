@@ -29,8 +29,8 @@
                             <a href="#">Giỏ hàng </a>
                         </li> --}}
                         <li class="tz-header-login" style="display:flex;justify-content: center">
-                            @if(!empty(auth()->user()->avatar))
-                                <img src="{{ Illuminate\Support\Facades\Storage::disk(auth()->user()->disk)->url(auth()->user()->avatar)}}"
+                            @if(!empty(auth()->user()->image))
+                                <img src="{{ Illuminate\Support\Facades\Storage::disk(auth()->user()->disk)->url(auth()->user()->image)}}"
                                  style="border-radius: 50%;width:40px;height:40px">
                             @endif
                             @if (auth()->check())
@@ -48,7 +48,7 @@
                                 </li>
                             @else
                             <a href="{{ route('auth.login') }}">Đăng nhập</a>
-                            <div class="tz-login-form">
+                            {{-- <div class="tz-login-form">
                                 <form>
                                     <p class="form-content">
                                         <label for="username">Username / Email</label>
@@ -66,10 +66,9 @@
                                         Don't have an account? <a href="shop-register.html">Register Here</a>
                                     </p>
                                 </form>
-                            </div>
+                            </div> --}}
                             @endif
-                            
-                            
+                                             
                         </li>
                     </ul>
                 </div>
@@ -167,8 +166,8 @@
                             </ul> --}}
                         </li>
                         <li>
-                            <a href="shop.html">
-                                Danh mục
+                            <a href="{{ route('frontend.products.list') }}">
+                                Sản phẩm
                                 {{-- <span class="red-light">On sale!</span> --}}
                             </a>
                         </li>
@@ -182,20 +181,18 @@
                             <a href="shop.html">Cửa hàng</a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="shop-rightsidebar.html">Shop Right</a>
+                                    <a href="">Thanh toán</a>
                                 </li>
                                 <li>
-                                    <a href="shop-cart.html">Shop Cart</a>
+                                    <a href="{{ route('frontend.carts.index') }}">Giỏ hàng</a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="shop-checkout.html">Shop Checkout</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('frontend.register') }}">Shop Register</a>
-                                </li>
-                                <li>
-                                    <a href="single-product.html">Shop Single</a>
-                                </li>
+                                </li> --}}
+                                
                             </ul>
                         </li>
                         <li>

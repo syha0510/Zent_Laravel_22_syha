@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +18,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=DB::table('categories')->paginate(3);
+        // $categories=DB::table('categories')->orderBy('created_at','desc')->paginate(3);
+        $categories = Category::orderBy('created_at','desc')->paginate(10);
         return view('backend.category.list')->with([
             'categories'=>$categories
         ]);
@@ -40,12 +42,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
 
-        $validated= $request->validate([
-            'name' => 'required|unique:posts|max:255',
-        ]);
+        // $validated= $request->validate([
+        //     'name' => 'required|unique:categories|max:255',
+        // ]);
 
         $data=$request->only(['name']);
 
@@ -139,7 +141,7 @@ class CategoryController extends Controller
         return redirect()->route('backend.categories.list');
     }
 
-    public function delete( Request $request)
+    public function delete(Request $request)
     {
         $categorydelete=Category::onlyTrashed()->get();
         return view('backend.category.delete')->with([

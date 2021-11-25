@@ -14,98 +14,213 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-
-
 Route::group([
-    'prefix' => 'categories',
+   'prefix' => 'admin',
     'namespace'=> 'backend',
-    'middleware' => ['auth','role:admin,admod'],
+    'middleware' => ['auth','role:admin,admod','PreventBackHistory'],
+
+],function(){
+
+   // Dashboard
+   Route::get('/', 'DashboardController@index')->middleware(['auth','role:admin,admod,writer','PreventBackHistory'])->name('backend.dashboard.index');
+
+   // category
+   Route::group([
+      'prefix' => 'categories',
+   ], function (){ 
+      Route::get('/list', 'CategoryController@index')->name('backend.categories.list');
       
- ], function (){ 
-    Route::get('/list', 'CategoryController@index')->name('backend.categories.list');
-    
-    Route::get('/create', 'CategoryController@create')->name('backend.categories.create');
-    
-    Route::post('/store','CategoryController@store')->name('backend.categories.store');
-    
-    Route::get('/edit/{id}', 'CategoryController@edit')->name('backend.categories.edit');
-    
-    Route::post('/update/{id}', 'CategoryController@update')->name('backend.categories.update');
-    
-    Route::delete('/destroy/{id}', 'CategoryController@destroy')->name('backend.categories.destroy');
-    
-    Route::get('/show/{id}', 'CategoryController@show')->name('backend.categories.show');
-
-    Route::get('/restore/{id}', 'CategoryController@restore')->name('backend.categories.restore');
-
-    Route::get('/delete', 'CategoryController@delete')->name('backend.categories.delete');
- });
- 
-// viewhome
-Route::get('/', function () {
+      Route::get('/create', 'CategoryController@create')->name('backend.categories.create');
+      
+      Route::post('/store','CategoryController@store')->name('backend.categories.store');
+      
+      Route::get('/edit/{id}', 'CategoryController@edit')->name('backend.categories.edit');
+      
+      Route::post('/update/{id}', 'CategoryController@update')->name('backend.categories.update');
+      
+      Route::delete('/destroy/{id}', 'CategoryController@destroy')->name('backend.categories.destroy');
+      
+      Route::get('/show/{id}', 'CategoryController@show')->name('backend.categories.show');
   
-    return view('welcome');
-})->name('home');
+      Route::get('/restore/{id}', 'CategoryController@restore')->name('backend.categories.restore');
+  
+      Route::get('/delete', 'CategoryController@delete')->name('backend.categories.delete');
+   });
+   
+         // user
+      Route::group([
+         'prefix' => 'users',
+      ], function (){ 
+         Route::get('/list', 'UserController@index')->name('backend.users.list');
+         
+         Route::get('/create', 'UserController@create')->name('backend.users.create');
+         
+         Route::post('/store','UserController@store')->name('backend.users.store');
+         
+         Route::get('/edit/{id}', 'UserController@edit')->name('backend.users.edit');
+         
+         Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
+         
+         Route::delete('/destroy/{id}', 'UserController@destroy')->name('backend.users.destroy');
+
+         Route::get('/show/{id}', 'UserController@show')->name('backend.users.show');
+
+         Route::get('/restore/{id}', 'UserController@restore')->name('backend.users.restore');
+
+         Route::get('/delete', 'UserController@delete')->name('backend.users.delete');
+
+         Route::post('/login/user/{id}', 'UserController@loginWithUser')->name('backend.users.login');
+   
+
+      });
+
+               // post
+         Route::group([
+            'prefix' => 'posts',
+            'middleware' => ['auth','role:admin,admod,writer','PreventBackHistory'],
+         ], function (){
+            Route::get('/list', 'PostController@index')->name('backend.posts.list');
+            
+            Route::get('/create', 'PostController@create')->name('backend.posts.create');
+            
+            Route::post('/store', 'PostController@store')->name('backend.posts.store');
+            
+            Route::get('/edit/{id}', 'PostController@edit')->name('backend.posts.edit');
+            
+            Route::post('/update/{id}', 'PostController@update')->name('backend.posts.update');
+            
+            Route::delete('/delete/{id}', 'PostController@destroy')->name('backend.posts.delete');
+
+            Route::get('/show/{id}', 'PostController@show')->name('backend.posts.show');
+            
+            Route::post('/updatestatus/{id}', 'PostController@updatestatus')->name('backend.posts.updatestatus');
+
+         
+         });
+
+         // role
+         Route::group([
+            'prefix' => 'roles',
+         ], function (){
+            
+            Route::get('/create','RoleController@create')->name('backend.roles.create');
+         
+            Route::post('/store', 'RoleController@store')->name('backend.roles.store');
+           
+            Route::get('/list','RoleController@index')->name('backend.roles.list');
+         
+            Route::get('/edit/{id}','RoleController@edit')->name('backend.roles.edit');
+         
+            Route::post('/update/{id}', 'RoleController@update')->name('backend.roles.update');
+         
+            Route::delete('/delete/{id}','RoleController@destroy')->name('backend.roles.destroy');
+         
+         });
+
+         // permisson
+         Route::group([
+            'prefix' => 'permissions',
+         ], function (){
+            
+            Route::get('/create','PermissionController@create')->name('backend.permissions.create');
+         
+            Route::post('/store', 'PermissionController@store')->name('backend.permissions.store');
+           
+            Route::get('/list','PermissionController@index')->name('backend.permissions.list');
+         
+            Route::get('/edit/{id}','PermissionController@edit')->name('backend.permissions.edit');
+         
+            Route::post('/update/{id}', 'PermissionController@update')->name('backend.permissions.update');
+         
+            Route::delete('/delete/{id}','PermissionController@destroy')->name('backend.permissions.destroy');
+           
+         
+         });
+         
+         // tag
+         Route::group([
+            'prefix' => 'tags',
+         ], function (){
+            
+            Route::get('/create','TagController@create')->name('backend.tags.create');
+         
+            Route::post('/store', 'TagController@store')->name('backend.tags.store');
+           
+            Route::get('/list','TagController@index')->name('backend.tags.list');
+         
+            Route::get('/edit/{id}','TagController@edit')->name('backend.tags.edit');
+         
+            Route::post('/update/{id}', 'TagController@update')->name('backend.tags.update');
+         
+            Route::delete('/delete/{id}','TagController@destroy')->name('backend.tags.destroy');
+            
+         
+         });
+
+         //categoryproduct
+
+         Route::group([
+            'prefix' => 'categoryproducts',
+         ], function (){ 
+            Route::get('/list', 'CategoryProductController@index')->name('backend.categoryproducts.list');
+            
+            Route::get('/create', 'CategoryProductController@create')->name('backend.categoryproducts.create');
+            
+            Route::post('/store','CategoryProductController@store')->name('backend.categoryproducts.store');
+            
+            Route::get('/edit/{id}', 'CategoryProductController@edit')->name('backend.categoryproducts.edit');
+            
+            Route::post('/update/{id}', 'CategoryProductController@update')->name('backend.categoryproducts.update');
+            
+            Route::delete('/destroy/{id}', 'CategoryProductController@destroy')->name('backend.categoryproducts.destroy');
+            
+            Route::get('/show/{id}', 'CategoryProductController@show')->name('backend.categoryproducts.show');
+        
+            Route::get('/restore/{id}', 'CategoryProductController@restore')->name('backend.categoryproducts.restore');
+        
+            Route::get('/delete', 'CategoryProductController@delete')->name('backend.categoryproducts.delete');
+         });
+
+         // product
+
+         Route::group([
+            'prefix' => 'products',
+         ], function (){
+            
+            Route::get('/create','ProductController@create')->name('backend.products.create');
+         
+            Route::post('/store', 'ProductController@store')->name('backend.products.store');
+           
+            Route::get('/list','ProductController@index')->name('backend.products.list');
+         
+            Route::get('/edit/{id}','ProductController@edit')->name('backend.products.edit');
+         
+            Route::post('/update/{id}', 'ProductController@update')->name('backend.products.update');
+         
+            Route::delete('/delete/{product}','ProductController@destroy')->name('backend.products.destroy');
+            
+         
+         });
+
+});
 
 
-// Dashboard
-Route::get('/backend/dashboard', 'backend\DashboardController@index')->middleware(['auth','role:admin,admod'])->name('backend.dashboard.index');
 
-// user
-Route::group([
-    'prefix' => 'users',
-    'namespace'=> 'backend',
-    'middleware' => ['auth','role:admin,admod'],
- ], function (){ 
-    Route::get('/list', 'UserController@index')->name('backend.users.list');
-    
-    Route::get('/create', 'UserController@create')->name('backend.users.create');
-    
-    Route::post('/store','UserController@store')->name('backend.users.store');
-    
-    Route::get('/edit/{id}', 'UserController@edit')->name('backend.users.edit');
-    
-    Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
-    
-    Route::delete('/destroy/{id}', 'UserController@destroy')->name('backend.users.destroy');
+// // viewhome
+// Route::get('/', function () {
+  
+//     return view('welcome');
+// })->name('home');
 
-    Route::get('/show/{id}', 'UserController@show')->name('backend.users.show');
 
-    Route::get('/restore/{id}', 'UserController@restore')->name('backend.users.restore');
 
-    Route::get('/delete', 'UserController@delete')->name('backend.users.delete');
 
-    Route::post('/login/user/{id}', 'UserController@loginWithUser')->name('backend.users.login');
-    
 
- });
 
-// post
-
-Route::group([
-    'prefix' => 'posts',
-    'namespace'=> 'backend',
-    'middleware' => ['auth','role:admin,admod'],
- ], function (){
-    Route::get('/list', 'PostController@index')->name('backend.posts.list');
-    
-    Route::get('/create', 'PostController@create')->name('backend.posts.create');
-    
-    Route::post('/store', 'PostController@store')->name('backend.posts.store');
-    
-    Route::get('/edit/{id}', 'PostController@edit')->name('backend.posts.edit');
-    
-    Route::post('/update/{id}', 'PostController@update')->name('backend.posts.update');
-    
-    Route::delete('/delete/{id}', 'PostController@destroy')->name('backend.posts.delete');
-
-    Route::get('/show/{id}', 'PostController@show')->name('backend.posts.show');
-    
-    Route::post('/updatestatus/{id}', 'PostController@updatestatus')->name('backend.posts.updatestatus');
- });
 
 //  fontend
 Route::group([
+   'prefix' => '/',
    'namespace'=> 'Frontend'
 ], function (){ 
    Route::get('/','HomeController@index')->name('frontend.home');
@@ -117,6 +232,28 @@ Route::group([
    Route::get('/show/{slug}','PostController@show')->name('frontend.posts.show');
 
    Route::get('/register','HomeController@register')->name('frontend.register');
+
+   Route::get('/product','ProductController@getCategory')->name('frontend.products.list');
+
+   Route::get('/detail/{id}','ProductController@detailProduct')->name('frontend.products.detail');
+
+   Route::get('/pay','ProductController@pay')->name('frontend.products.pay');
+
+
+   Route::group([
+      'prefix' => 'carts',
+   ], function (){
+      Route::get('/index','CartController@index')->name('frontend.carts.index');
+
+      Route::get('/add/{id}','CartController@add')->name('frontend.carts.add');
+
+      Route::get('/update','CartController@update')->name('frontend.carts.update');
+
+      Route::get('/remove/{id}','CartController@remove')->name('frontend.carts.remove');
+
+      Route::get('/destroy','CartController@destroy')->name('frontend.carts.destroy');
+   
+   });
 });
 
 
@@ -141,49 +278,10 @@ Route::group([
 });
 
 
-Route::group([
-   'prefix' => 'roles',
-   'namespace'=> 'backend',
-   'middleware' => ['auth'],
-], function (){
-   
-   Route::get('/create','RoleController@create')->name('backend.roles.create');
-
-   Route::post('/store', 'RoleController@store')->name('backend.roles.store');
-  
-   Route::get('/list','RoleController@index')->name('backend.roles.list');
-
-   Route::get('/edit/{id}','RoleController@edit')->name('backend.roles.edit');
-
-   Route::post('/update/{id}', 'RoleController@update')->name('backend.roles.update');
-
-   Route::delete('/delete/{id}','RoleController@destroy')->name('backend.roles.destroy');
-
-});
-
-Route::group([
-   'prefix' => 'permissions',
-   'namespace'=> 'backend',
-   'middleware' => ['auth'],
-], function (){
-   
-   Route::get('/create','PermissionController@create')->name('backend.permissions.create');
-
-   Route::post('/store', 'PermissionController@store')->name('backend.permissions.store');
-  
-   Route::get('/list','PermissionController@index')->name('backend.permissions.list');
-
-   Route::get('/edit/{id}','PermissionController@edit')->name('backend.permissions.edit');
-
-   Route::post('/update/{id}', 'PermissionController@update')->name('backend.permissions.update');
-
-   Route::delete('/delete/{id}','PermissionController@destroy')->name('backend.permissions.destroy');
-  
-
-});
 
 
 
-// Route::get('/log-viewer',function(){
-//        return view('backend.logs.list');
+
+// Route::get('/product',function(){
+//        return view('frontend.product.list');
 //    });

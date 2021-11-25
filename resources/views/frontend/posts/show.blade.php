@@ -6,12 +6,12 @@
 
         <!--Start breadcrumbs-->
         <ul class="tz-breadcrumbs">
-            <li>
+            {{-- <li>
                 <a href="#">Home</a>
             </li>
             <li class="current">
                 Deatil post
-            </li>
+            </li> --}}
         </ul>
         <!--End breadcrumbs-->
         <div class="blog-container">
@@ -50,7 +50,7 @@
                             <article class="single-blog">
 
                                 <div class="thumb">
-                                    <img src="/frontend/images/parallax.jpg" alt="will be distracted">
+                                    <img src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image) }}" alt="will be distracted">
                                 </div>
 
                                 <h1><a href="#">{{ $post->title }}</a></h1>
@@ -69,16 +69,18 @@
                                     </span>
                                     <span class="cats">
                                         Danh mục:
-                                        <a href="blog.html">{{ $post->category->name }}</a>
+                                        <a href="blog.html">{{ $post->category->name ?? 'Chưa xác định'}}</a>
                                     </span>
-                                    @foreach ($post->tags as $tag )
+                                    
                                     
                                     <span class="tags">
-                                        Tags:
-                                        <a href="blog.html">{{ $tag->name }}</a>
+                                        Thẻ:
+                                        @foreach ($post->tags as $tag )
+                                        <a href="#">{{ $tag->name }}|</a>
+                                        @endforeach
                                     </span>
 
-                                    @endforeach
+                                    
                                     
                                 </div>
 
@@ -91,17 +93,17 @@
                                     <a href="#" class="fa fa-pinterest"></a>
                                 </div>
 
-                                <nav class="post-navigation">
+                                {{-- <nav class="post-navigation">
                                     <a class="prev pull-left" href="single-blog.html">Bài viết trước</a>
                                     <a class="Next pull-right" href="single-blog.html">Bài viết sau</a>
-                                </nav>
+                                </nav> --}}
 
                             </article>  
                             
                             <!--End content-->
 
                             <!--Comment-->
-                            {{-- <div class="single-comment">
+                             {{-- <div class="single-comment">
                                 <div id="comments">
                                     <h2>
                                         Comments
@@ -235,7 +237,7 @@
                                     <!--End comment form-->
 
                                 </div>
-                            </div> --}}
+                            </div>  --}}
                             <!--End comment-->
 
                         </div>

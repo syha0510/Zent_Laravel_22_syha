@@ -52,14 +52,6 @@
                               <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
                             @enderror
                         </div>
-                        <div class="form-group" >
-                            <label>Trạng thái</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option>--Chọn trạng thái---</option>
-                                <option>Hoạt động</option>
-                                <option>Không hoạt động</option>
-                            </select>
-                          </div>
                         
                        
                     </div>
@@ -67,7 +59,7 @@
 
                     <div class="card-footer">
                         <button type="reset" class="btn btn-default">Huỷ bỏ</button>
-                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <button type="submit" class="btn btn-success mt-3 float-right mr-6">Cập nhật</button>
                     </div>
                 </form>
             </div>

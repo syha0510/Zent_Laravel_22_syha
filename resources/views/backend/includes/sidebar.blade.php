@@ -38,10 +38,10 @@
               </p>
           </a>
           </li>
-        <li class="nav-header">Quản lý chung</li>
-        <li class="nav-item @if (request()->routeIs('backend.posts.*'))
+        <li class="nav-header text-center">--Quản lý hệ thống--</li>
+          <li class="nav-item @if (request()->routeIs('backend.posts.*'))
           menu-open
-        @endif">
+          @endif">
           <a href="#2" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
@@ -69,47 +69,52 @@
             </li>
           </ul>
         </li>
-        <li class="nav-header">Hệ thống</li>
+        
         {{-- user --}}
-        <li class="nav-item">
-          <a href="#2" class="nav-link">
-            <i class="nav-icon fas fa-user"></i>
-            <p>
-              Quản lý người dùng
-              <i class="fas fa-angle-left right"></i>
-
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{route('backend.users.create')}}" class="nav-link @if (request()->routeIs('backend.users.create'))
-                active
-              @endif  ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Tạo mới người dùng</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{route('backend.users.list')}}" class="nav-link @if (request()->routeIs('backend.users.list'))
-                active
-              @endif ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách người dùng</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{route('backend.users.delete')}}" class="nav-link @if (request()->routeIs('backend.users.delete'))
-                active
-              @endif ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách người dùng bị xóa </p>
-              </a>
-            </li>
+        @foreach ( Auth::user()->roles as $value )
+          @if ( $value->name == 'Admin' )
+          <li class="nav-item">
+            <a href="#2" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Quản lý người dùng
+                <i class="fas fa-angle-left right"></i>
+  
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('backend.users.create')}}" class="nav-link @if (request()->routeIs('backend.users.create'))
+                  active
+                @endif  ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tạo mới người dùng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('backend.users.list')}}" class="nav-link @if (request()->routeIs('backend.users.list'))
+                  active
+                @endif ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách người dùng</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('backend.users.delete')}}" class="nav-link @if (request()->routeIs('backend.users.delete'))
+                  active
+                @endif ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách người dùng bị xóa </p>
+                </a>
+              </li>
+              
+            </ul>
             
-          </ul>
-          
-        </li>
-
+          </li>
+          @endif
+        @endforeach
+        
+        
         {{-- category --}}
 
         <li class="nav-item">
@@ -180,30 +185,32 @@
           </ul>
           
         </li>
+        
+       
         <li class="nav-item">
           <a href="#2" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
+            <i class="nav-icon fas fa-tag"></i>
             <p>
-              Quản lý permission
+              Quản lý thẻ
               <i class="fas fa-angle-left right"></i>
 
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('backend.users.create')}}" class="nav-link @if (request()->routeIs('backend.users.create'))
+              <a href="{{route('backend.tags.create')}}" class="nav-link @if (request()->routeIs('backend.tags.create'))
                 active
               @endif  ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Tạo mới permission</p>
+                <p>Tạo mới thẻ</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('backend.users.list')}}" class="nav-link @if (request()->routeIs('backend.users.list'))
+              <a href="{{route('backend.tags.list')}}" class="nav-link @if (request()->routeIs('backend.tags.list'))
                 active
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách permission</p>
+                <p>Danh sách thẻ </p>
               </a>
             </li>
             
@@ -212,28 +219,110 @@
         </li>
         <li class="nav-item">
           <a href="#2" class="nav-link">
-            <i class="nav-icon fas fa-cog"></i>
+            <i class="nav-icon fas fa-project-diagram"></i>
             <p>
-              Quản lý logs
+              Danh mục sản phẩm
               <i class="fas fa-angle-left right"></i>
 
             </p>
           </a>
           <ul class="nav nav-treeview">
-            {{-- <li class="nav-item">
-              <a href="" class="nav-link @if (request()->routeIs('backend.users.create'))
+            <li class="nav-item">
+              <a href="{{route('backend.categoryproducts.create')}}" class="nav-link @if (request()->routeIs('backend.categoryproducts.create'))
                 active
               @endif  ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Tạo mới logs</p>
-              </a>
-            </li> --}}
-            <li class="nav-item">
-              <a href="http://myweb.dev.com/log-viewer" class="nav-link  ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách logs</p>
+                <p>Tạo mới danh mục sản phẩm</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="{{route('backend.categoryproducts.list')}}" class="nav-link @if (request()->routeIs('backend.categoryproducts.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách danh mục sản phẩm </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.categoryproducts.delete')}}" class="nav-link @if (request()->routeIs('backend.categoryproducts.delete'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh mục sản phẩm bị xóa </p>
+              </a>
+            </li>
+            
+          </ul>
+          
+        </li>
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-shopping-cart"></i>
+            <p>
+              Quản lý sản phẩm
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('backend.products.create')}}" class="nav-link @if (request()->routeIs('backend.products.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới sản phẩm</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.products.list')}}" class="nav-link @if (request()->routeIs('backend.products.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách sản phẩm </p>
+              </a>
+            </li>
+            
+            
+          </ul>
+          
+        </li>
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-shopping-basket"></i>
+            <p>
+              Quản lý đơn hàng
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#2" class="nav-link">
+            <i class="nav-icon fas fa-copyright"></i>
+            <p>
+              Quản lý nhãn hiệu
+              <i class="fas fa-angle-left right"></i>
+
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('backend.products.create')}}" class="nav-link @if (request()->routeIs('backend.products.create'))
+                active
+              @endif  ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tạo mới nhãn hiệu</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('backend.products.list')}}" class="nav-link @if (request()->routeIs('backend.products.list'))
+                active
+              @endif ">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách nhãn hiệu</p>
+              </a>
+            </li>
+            
             
           </ul>
           

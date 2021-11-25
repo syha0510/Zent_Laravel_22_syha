@@ -37,6 +37,6 @@ class RegisteredUserController extends Controller
                 'user_id' => $user_id->id,
             ]);
         }
-        return redirect('backend/dashboard');
+        return redirect('/admin');
     }
 }

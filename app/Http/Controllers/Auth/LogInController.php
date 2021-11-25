@@ -32,14 +32,25 @@ class LogInController extends Controller
             $remember = false;
         }
 
+
+
         if( Auth::attempt($credential ,$remember))
         {
+            if( Auth::user()->status ==0 )
+            {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Tài khoản đã bị khóa'
+                ]);
+            }
             $request->session()->regenerate();
             Cookie::queue('email', $request->get('email'));
-            return redirect()->intended('backend/dashboard');
+            return redirect()->intended('/admin');
+            
         }
 
-       
+        
+
         return back()->withErrors([
             'email' => 'Lỗi đăng nhập'
         ]);
@@ -47,7 +58,7 @@ class LogInController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('web')-> logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

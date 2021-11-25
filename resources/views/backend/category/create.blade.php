@@ -52,14 +52,7 @@
                             <span style="color:red;margin-bottom:8px;display:block;margin-left:8px; margin-top:10px; "> {{ $message }} </span> 
                             @enderror
                         </div>
-                        <div class="form-group" >
-                            <label>Trạng thái</label>
-                            <select class="form-control select2" style="width: 100%;">
-                                <option>--Chọn trạng thái---</option>
-                                <option>Hoạt động</option>
-                                <option>Không hoạt động</option>
-                            </select>
-                          </div>
+                        
                         
                        
                     </div>

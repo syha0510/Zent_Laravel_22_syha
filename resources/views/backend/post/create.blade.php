@@ -60,32 +60,18 @@
                               @enderror
                         </div>
                         
-                        <div class="form-group">
-                          <label for="exampleInputFile">Tải lên ảnh</label>
-                          <div class="input-group">
-                          <div class="custom-file">
-                          <input type="file" class="custom-file-input" name="image">
-                          <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
-                          </div>
-                          <div class="input-group-append">
-                          <span class="input-group-text">Tải lên</span>
-                          </div>
-                          </div>
-                        </div>
-                        @error('image')
-                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
-                         @enderror
-                        {{-- <div class="col-sm-6">
+                      
+                        <div class="col-sm-12">
                           <!-- Select multiple-->
                           <div class="form-group">
-                            <label>Tags</label>
-                            <select multiple="" class="form-control" name="tags[]">
+                            <label>Thẻ</label>
+                            <select data-live-search="true" id="card" multiple class="form-control" name="tags[]" >
                               @foreach ($tags as $item )
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                               @endforeach
                             </select>
                           </div>
-                        </div> --}}
+                        </div>
                         
                         <div class="form-group " style="display:flex;justify-content: space-between">
                           <div style="width:100%" >
@@ -106,6 +92,25 @@
                           </div> --}}
                            
                       </div>
+                      <div class="form-group">
+                        <label for="exampleInputFile">Tải lên ảnh</label>
+                        <div class="input-group">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image" id='anh'>
+                        <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
+                        </div>
+                        <div class="input-group-append">
+                        <span class="input-group-text">Tải lên</span>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div class="gallery mt-5" style="display: flex; flex-wrap: wrap;"></div>
+                      @error('image')
+                          <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                       @enderror
+
+
                     </div>
                     <!-- /.card-body -->
 
@@ -119,4 +124,42 @@
     </div>
     <!-- /.row (main row) -->
 </div><!-- /.container-fluid -->
+<script>
+  function previewImages()
+{
+    var gallery = document.querySelector('.gallery');
+
+    if(this.files)
+    {
+        [].forEach.call(this.files, readAndPreview);
+    }
+
+    function readAndPreview(file)
+    {
+        if (!/\.(jpe?g|png|gif)$/i.test(file.name))
+        {
+            return alert(file.name + " is not an image");
+        }
+
+        var reader = new FileReader();
+
+        reader.addEventListener("load", function() {
+          var image = new Image();
+          image.width = 150;
+          image.height = 150;
+          image.title  = file.name;
+          image.src = this.result;
+          gallery.appendChild(image);
+        });
+
+        reader.readAsDataURL(file);
+
+
+    }
+    
+}
+    
+  document.querySelector('#anh').addEventListener("change", previewImages);
+</script>
+
 @endsection

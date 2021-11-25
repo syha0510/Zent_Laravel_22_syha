@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\backend;
-use App\Http\Controllers\backend\Tag;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +39,7 @@ class PostController extends Controller
         $posts = $posts_query;
 
         // $posts = Post::where('status','=', Post::STATUS_SHOW)->paginate(3);
-        $posts=Post::paginate(20);
+        // $posts=Post::paginate(20);
         return view('backend.post.list') -> with([
             'posts' => $posts
         ]);
@@ -53,11 +53,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        // $tags=Tag::get();
+        $tags=Tag::get();
         $categories=DB::table('categories')->get();
         return view('backend.post.create')->with([
             'categories'=>$categories,
-            // 'tags'=> $tags
+            'tags'=> $tags
         ]);
     }
 
@@ -67,7 +67,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
         // if($request->user()->cannot('create',Post::class))
         // {
@@ -108,27 +108,27 @@ class PostController extends Controller
 
         // ]);
 
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:posts|max:255',
-            'content' => 'required',
-            'image' => 'required|file|mimes:png,jpg'
-        ],
-        [
-            'required' => 'Thuộc tính :attribute cần phải có',
-            'image.required' => 'Vui lòng chọn :attribute ',
-        ],
-        [
-            'title' => 'tiêu đề',
-            'content' => 'nội dung',
-            'image' => 'ảnh'
-        ]
-    );
+    //     $validator = Validator::make($request->all(), [
+    //         'title' => 'required|unique:posts|max:255',
+    //         'content' => 'required',
+    //         'image' => 'required|file|mimes:png,jpg'
+    //     ],
+    //     [
+    //         'required' => 'Thuộc tính :attribute cần phải có',
+    //         'image.required' => 'Vui lòng chọn :attribute ',
+    //     ],
+    //     [
+    //         'title' => 'tiêu đề',
+    //         'content' => 'nội dung',
+    //         'image' => 'ảnh'
+    //     ]
+    // );
 
-        if ($validator->fails()) {
-            return redirect('posts/create')
-            ->withErrors($validator)
-            ->withInput();
-            }
+        // if ($validator->fails()) {
+        //     return redirect('posts/create')
+        //     ->withErrors($validator)
+        //     ->withInput();
+        //     }
             
 
 
@@ -138,11 +138,17 @@ class PostController extends Controller
 
         if($request->hasFile('image'))
         {
+            // $files = $request->file('image');
+                // foreach($files as $file)
+                // {
+                // $name = $file->getClientOriginalName().rand(0,999);
             $disk = 'public';
             $path = $request->file('image')->store('blogs', $disk);
             $post->disk = $disk;
             $post->image = $path;
+                
         }
+        
 
         $post->title= $data['title'];
         // $post->slug= $data['title'];
@@ -153,6 +159,11 @@ class PostController extends Controller
         $post->content=$data['content'];
         $post->user_id =Auth::user()->id;
         $post->save();
+
+        foreach($request->tags as $value)
+        {
+            $post->tags()->attach($value);
+        }
 
         $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.posts.list');
@@ -180,11 +191,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $tags=Tag::get();
         $post=DB::table('posts')->find($id);
         $categories=DB::table('categories')->get();
         return view('backend.post.edit')->with([
             'post'=>$post,
             'categories'=>$categories,
+            'tags'=>$tags
             
             
         ]);
@@ -230,7 +243,13 @@ class PostController extends Controller
             abort(403);
         }
 
-       
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $post->disk = $disk;
+            $post->image = $path;
+        }
             
 
         $post->title= $data['title'];
@@ -242,6 +261,11 @@ class PostController extends Controller
         $post->category_id=$data['category_id'];
         $post->content=$data['content'];
         $post->save();
+
+        foreach($request->tags as $value)
+        {
+            $post->tags()->attach($value);
+        }
         $request->session()->flash('success', 'Cập nhật thành công');
 
        return redirect()->route('backend.posts.list');

@@ -39,13 +39,16 @@
                             <label for="exampleInputEmail1">Tên</label>
                             <input name="name" type="text" class="form-control" id="" placeholder="Tên vai trò">
                         </div>
+                        @error('name')
+                          <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                       @enderror
                     </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">
                         
-                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
-                        <button  type="submit" class="btn btn-success">Tạo mới</button>
+                        <a href="{{ route('backend.roles.list') }}" type="reset" class="btn btn-default">Huỷ bỏ</a>
+                        <button  type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>
             </div>

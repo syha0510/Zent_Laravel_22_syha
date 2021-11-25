@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\Foreach_;
 
 class CheckRole
 {
@@ -19,10 +20,19 @@ class CheckRole
     {
         foreach($roles as $role)
         {
-            if(Auth::user()->role == $role)
+            // dd(Auth::user()->roles );
+            foreach(Auth::user()->roles as $r)
             {
-            return $next($request);
+                if( $r->slug == $role )
+                {
+                    return $next($request);
+                }
             }
+
+            // if(Auth::user()->role->name == $role)
+            // {
+            
+            // }
         }
         
             return abort(403);

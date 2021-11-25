@@ -6,12 +6,12 @@
 <div class="blog">
     <div class="container">
         <ul class="tz-breadcrumbs">
-            <li>
+            {{-- <li>
                 <a href="#">Home</a>
             </li>
             <li class="current">
                 Post-Category
-            </li>
+            </li> --}}
         </ul>
         <div class="blog-container">
             <div class="row">
@@ -48,7 +48,7 @@
                         <div class="col-md-6 col-sm-6">
                             <article class="blog-item">
                                 <div class="thumb">
-                                    <img src="/frontend/images/post-lg-1.jpg" alt="Room Post Format with Beautiful">
+                                    <img style="width:350px;height:350px;" src="{{ Illuminate\Support\Facades\Storage::disk($postcate->disk)->url($postcate->image) }}" alt="Room Post Format with Beautiful">
                                 </div>
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show',$postcate->slug) }}">{{ $postcate->title }}</a></h3>

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -79,6 +80,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        DB::beginTransaction();
+        try {
+
         $data=$request->only(['name','password','status','email']);
         $user=new user();
 
@@ -87,16 +91,16 @@ class UserController extends Controller
             $disk = 'public';
             $path = $request->file('image')->store('blogs', $disk);
             $user->disk = $disk;
-            $user->avatar = $path;
+            $user->image = $path;
         }
 
         
 
         $user->name= $data['name'];
-        $user->password= $data['password'];
+        $user->password= bcrypt($request->password);
         // $user->address= $data['address'];
         // $user->phone= $data['phone'];
-        $user->status= $data['status'];
+        $user->status= 1;
         $user->email= $data['email'];
         // dd($user);
         $user->save();
@@ -104,8 +108,16 @@ class UserController extends Controller
         $user_info=new Userinfo();
         $user_info->user_id=$user->id;
         $user_info->save();
-        $request->session()->flash('success', 'Thêm mới thành công');
-        return redirect()->route('backend.dashboard.index');
+        $user->roles()->attach($request->roles);
+        
+        DB::commit();
+            Session::flash('success', 'Thêm mới thành công!');
+            return redirect()->route('backend.users.list');
+        } catch (\Exception $e) {
+            Session::flash('error', 'Thêm mới thất bại!');
+            DB::rollBack();
+            return redirect()->back();
+        }
     }
 
     /**
@@ -138,6 +150,7 @@ class UserController extends Controller
     {
         $user=DB::table('users')->find($id);
         return view('backend.user.edit')->with(compact('user'));
+        
     }
 
     /**
@@ -149,17 +162,48 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data=$request->only(['name','email','phone','address']);
+        DB::beginTransaction();
+        try {
 
-       DB::table('users')->where('id',$id)
-       ->update([
-            'name'=>$data['name'],
-            'email'=>$data['email'],
-            'phone'=>$data['phone'],
-            'address'=>$data['address']
-       ]);
-       $request->session()->flash('success', 'Cập nhật thành công');
-       return redirect()->route('backend.users.list');
+        $data=$request->only(['name','password','status','email']);
+        $user= User::find($id);
+
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $user->disk = $disk;
+            $user->image = $path;
+        }
+
+        
+        if($request->get('password') == null){
+            $user->password  =  $user->password;
+        }else{
+            $user->password = bcrypt($request->get('password'));
+        }
+        $user->name= $data['name'];
+        
+        // $user->address= $data['address'];
+        // $user->phone= $data['phone'];
+        $user->status= 1;
+        $user->email= $data['email'];
+        // dd($user);
+        $user->save();
+
+        $user_info=new Userinfo();
+        $user_info->user_id=$user->id;
+        $user_info->save();
+        $user->roles()->attach($request->roles);
+        
+        DB::commit();
+            Session::flash('success', 'Chỉnh sửa thành công!');
+            return redirect()->route('backend.users.list');
+        } catch (\Exception $e) {
+            Session::flash('error', 'Chỉnh sửa thất bại!');
+            DB::rollBack();
+            return redirect()->back();
+        }
     }
 
     /**

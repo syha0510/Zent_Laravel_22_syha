@@ -46,7 +46,6 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Tên danh mục</th>
-                                    <th>Đường dẫn</th>
                                     <th >Ngày tạo</th>
                                     <th>Ngày cập nhật</th>
                                    
@@ -56,7 +55,6 @@
                               <tr>
                                   <td>{{ $category->id }}</td>
                                   <td>{{ $category->name }}</td>
-                                  <td>{{ $category->slug }}</td>
                                   <td>{{ $category->created_at }}</td>
                                   <td>{{ $category->updated_at }}</td>
                               </tr>

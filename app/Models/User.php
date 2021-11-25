@@ -49,6 +49,11 @@ class User extends Authenticatable
         return ucfirst($this->name);
     }
 
+    public function categoryproduct()
+    {
+        return $this->hasMany(CategoryProduct::class); 
+    }
+
     public function userInfo()
     {
         return $this->hasOne(Userinfo::class);
@@ -89,6 +94,10 @@ class User extends Authenticatable
   
           return (bool) $this->permissions->where('slug', $permission->slug)->count();
         }
-  
+        
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
     
 }

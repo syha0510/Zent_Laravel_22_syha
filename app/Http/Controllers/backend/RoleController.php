@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\StoreTagRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +41,7 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
         $role= new Role();
         $role->name=$request->get('name');
@@ -88,7 +90,7 @@ class RoleController extends Controller
         $role->name =$request->get('name');
         $role->slug =Str::slug($request->get('name'));
         $role->save();
-        $request->session()->flash('success', 'Thêm mới thành công');
+        $request->session()->flash('success', 'Chỉnh sửa thành công');
         return redirect()->route('backend.roles.list');
     }
 

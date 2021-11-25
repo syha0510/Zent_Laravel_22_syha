@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|unique:users',
             'password' => 'required',
-            'status' => 'required',
             'image' => 'required|file|mimes:png,jpg',
         ];
     }

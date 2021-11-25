@@ -5,12 +5,12 @@
 <div class="blog">
     <div class="container">
         <ul class="tz-breadcrumbs">
-            <li>
+            {{-- <li>
                 <a href="#">Home</a>
             </li>
             <li class="current">
                 Category
-            </li>
+            </li> --}}
         </ul>
         <div class="blog-container">
             <div class="row">
@@ -37,7 +37,7 @@
                         <div class="col-md-6 col-sm-6">
                             <article class="blog-item">
                                 <div class="thumb">
-                                    <img src="/frontend/images/post-lg-1.jpg" alt="Room Post Format with Beautiful Water Nature">
+                                    <img   style="width:450px;height:350px" src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image) }}" alt="Room Post Format with Beautiful Water Nature" >
                                 </div>
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
