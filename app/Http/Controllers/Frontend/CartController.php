@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrderRequest;
+use App\Models\Order;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -25,14 +29,7 @@ class CartController extends Controller
         return redirect()->route('frontend.carts.index')->with('success','Thêm vào giỏ hàng thành công');
     }
 
-    public function increase(){
-
-    }
-
-    public function decrease(){
-
-    }
-
+    
 
     public function remove($id){
         Cart::remove($id);
@@ -54,45 +51,46 @@ class CartController extends Controller
     //     return view('frontend.checkout')->with(['items' => $items])->with(['user' => $user]);
     // }
 
-    // public function pay(Request $request){
-    //     $order = new Order();
-    //     $order->user_id = Auth::user()->id;
-    //     $order->name = $request->get('name');
-    //     $order->address = $request->get('address');
-    //     $order->phone = $request->get('phone');
-    //     $order->note = $request->get('note');
-    //     $order->total = $request->get('total');
-    //     $order->status = 0;
-    //     $order->created_at = Carbon::now();
-    //     $order->updated_at = Carbon::now();
-    //     $items = Cart::content();
-    //     $order->save();
-    //     foreach ($items as $item) {
-    //         $order->products()->attach($item->id, [
-    //             'name'          => $item->name,
-    //             'price'         => $item->price,
-    //             'quantity'      => $item->qty,
-    //             'created_at'    => Carbon::now(),
-    //             'updated_at'    => Carbon::now()
-    //         ]);
-    //     }
-    //     $data['info'] = $request->all();
-    //     $data['cart'] = Cart::content();
-    //     $data['tax'] = Cart::tax();
-    //     $data['total'] = Cart::total();
-    //     $email = $request->email;
+    public function pay(Request $request){
+        $order = new Order();
+        $order->user_id = Auth::user()->id;
+        $order->name = $request->get('name');
+        $order->address = $request->get('address');
+        $order->phone = $request->get('phone');
+        $order->note = $request->get('note');
+        $order->total = Cart::total();
+        $order->status = 0;
+        $order->created_at = Carbon::now();
+        $order->updated_at = Carbon::now();
+        $items = Cart::content();
+        $order->save();
+        foreach ($items as $item) {
+            $order->products()->attach($item->id, [
+                'name'          => $item->name,
+                'price'         => $item->price,
+                'quantity'      => $item->qty,
+                'created_at'    => Carbon::now(),
+                'updated_at'    => Carbon::now()
+            ]);
+        }
+        // $data['info'] = $request->all();
+        // $data['cart'] = Cart::content();
+        // $data['tax'] = Cart::tax();
+        // $data['total'] = Cart::total();
+        // $email = $request->email;
         
-    //     Mail::send('frontend.email', $data, function ($message) use($email){
-    //         $message->from('syha2257@gmail.com', 'Trần Sỹ Hà');
-    //         $message->to($email, $email);
-    //         $message->subject('Xác nhận hóa đơn thanh toán mua hàng tại cửa hàng Laravel Shop');
-    //     });
-    //     Cart::destroy();
-    //     if ($order) {
-    //          return redirect()->route('frontend.cart.complete');
-    //     }
+        // Mail::send('frontend.email', $data, function ($message) use($email){
+        //     $message->from('syha2257@gmail.com', 'Trần Sỹ Hà');
+        //     $message->to($email, $email);
+        //     $message->subject('Xác nhận hóa đơn thanh toán mua hàng tại cửa hàng Laravel Shop');
+        // });
+        Cart::destroy();
+        if ($order) {
+            alert()->success('Thanh toán thành công');
+             return redirect()->route('frontend.home');
+        }
          
-    // }
+    }
 
 
     // public function sendComplete(){
@@ -114,4 +112,12 @@ class CartController extends Controller
     //     $order->save();
     //     return redirect()->back();
     // }
+
+    public function checkout()
+    {
+        $items = Cart::content();
+        return view('frontend.carts.checkout')->with([
+            'items'=>$items,
+        ]);
+    }
 }

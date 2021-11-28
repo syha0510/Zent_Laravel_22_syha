@@ -49,7 +49,7 @@
                             <input name="name" type="text" class="form-control" id="" placeholder="Danh mục" value="{{ $category->name }}">
 
                             @error('name')
-                              <div style="margin-top:20px;" class="alert alert-danger"> {{ $message }} </div> 
+                            <span style="color:red;margin-bottom:8px;display:block;margin-left:8px; margin-top:10px; "> {{ $message }} </span> 
                             @enderror
                         </div>
                         

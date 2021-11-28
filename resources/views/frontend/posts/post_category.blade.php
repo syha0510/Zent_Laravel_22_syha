@@ -53,9 +53,9 @@
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show',$postcate->slug) }}">{{ $postcate->title }}</a></h3>
                                     <span class="entry-meta">{!! date('d/m/Y', strtotime($postcate->created_at)) !!}</span>
-                                    <p>
+                                    {{-- <p>
                                         {!! $postcate->content !!}
-                                    </p>
+                                    </p> --}}
                                     <a class="continue" href="{{ route('frontend.posts.show',$postcate->slug) }}">Xem thêm...</a>
                                 </div>
                             </article>

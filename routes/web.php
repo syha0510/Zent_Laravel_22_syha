@@ -38,13 +38,15 @@ Route::group([
       
       Route::post('/update/{id}', 'CategoryController@update')->name('backend.categories.update');
       
-      Route::delete('/destroy/{id}', 'CategoryController@destroy')->name('backend.categories.destroy');
+      Route::get('/destroy/{id}', 'CategoryController@destroy')->name('backend.categories.destroy');
       
       Route::get('/show/{id}', 'CategoryController@show')->name('backend.categories.show');
   
       Route::get('/restore/{id}', 'CategoryController@restore')->name('backend.categories.restore');
   
-      Route::get('/delete', 'CategoryController@delete')->name('backend.categories.delete');
+      Route::delete('/delete/{id}', 'CategoryController@delete')->name('backend.categories.delete');
+
+      Route::get('/listdelete', 'CategoryController@listdelete')->name('backend.categories.listdelete');
    });
    
          // user
@@ -61,17 +63,25 @@ Route::group([
          
          Route::post('/update/{id}', 'UserController@update')->name('backend.users.update');
          
-         Route::delete('/destroy/{id}', 'UserController@destroy')->name('backend.users.destroy');
+         Route::get('/destroy/{id}', 'UserController@destroy')->name('backend.users.destroy');
 
          Route::get('/show/{id}', 'UserController@show')->name('backend.users.show');
 
          Route::get('/restore/{id}', 'UserController@restore')->name('backend.users.restore');
 
-         Route::get('/delete', 'UserController@delete')->name('backend.users.delete');
+         Route::get('/listdelete', 'UserController@listdelete')->name('backend.users.listdelete');
 
          Route::post('/login/user/{id}', 'UserController@loginWithUser')->name('backend.users.login');
    
+         Route::get('/lock/{id}', 'UserController@lock')->name('backend.users.lock');
 
+         Route::get('/edit_profile/{id}', 'UserController@edit_profile')->name('backend.users.edit_profile');
+
+         Route::post('/profile-avatar-update/{id}','usercontroller@profileupdateavatar')->name('backend.user.update-profile-avatar');
+
+         Route::post('/update_profile/{id}', 'UserController@profileUpdate')->name('backend.users.profileUpdate');
+
+         Route::delete('/delete/{user}', 'UserController@delete')->name('backend.users.delete');
       });
 
                // post
@@ -95,7 +105,7 @@ Route::group([
             
             Route::post('/updatestatus/{id}', 'PostController@updatestatus')->name('backend.posts.updatestatus');
 
-         
+            
          });
 
          // role
@@ -199,7 +209,46 @@ Route::group([
          
             Route::delete('/delete/{product}','ProductController@destroy')->name('backend.products.destroy');
             
+            Route::post('/show','ProductController@show')->name('backend.products.show');
+
+            Route::get('/filter','ProductController@filterProduct')->name('backend.products.filter');
+
+            Route::get('/search','ProductController@search')->name('backend.products.search');
+
+            Route::post('/autocomplete-ajax','Product@autocomplete_ajax')->name('backend.products.searchauto');
+         });
+
+         // brand
+
+         Route::group([
+            'prefix' => 'brands',
+         ], function (){
+            
+            Route::get('/create','BrandController@create')->name('backend.brands.create');
          
+            Route::post('/store', 'BrandController@store')->name('backend.brands.store');
+           
+            Route::get('/list','BrandController@index')->name('backend.brands.list');
+         
+            Route::get('/edit/{id}','BrandController@edit')->name('backend.brands.edit');
+         
+            Route::post('/update/{id}', 'BrandController@update')->name('backend.brands.update');
+         
+            Route::delete('/delete/{id}','BrandController@destroy')->name('backend.brands.destroy');
+            
+         
+         });
+
+         Route::group([
+            'prefix' => 'orders',
+         ], function (){
+            Route::get('/list','OrderController@index')->name('backend.orders.list');
+      
+            Route::get('/show/{id}','OrderController@show')->name('backend.orders.show');
+
+            Route::post('/update/{id}','OrderController@update')->name('backend.orders.update');
+
+            Route::delete('/destroy/{order}','OrderController@delete')->name('backend.orders.destroy');
          });
 
 });
@@ -237,7 +286,7 @@ Route::group([
 
    Route::get('/detail/{id}','ProductController@detailProduct')->name('frontend.products.detail');
 
-   Route::get('/pay','ProductController@pay')->name('frontend.products.pay');
+   ;
 
 
    Route::group([
@@ -252,8 +301,16 @@ Route::group([
       Route::get('/remove/{id}','CartController@remove')->name('frontend.carts.remove');
 
       Route::get('/destroy','CartController@destroy')->name('frontend.carts.destroy');
+
+      Route::get('/checkout','CartController@checkout')->name('frontend.carts.checkout');
+
+      Route::post('/pay','CartController@pay')->name('frontend.carts.pay');
    
    });
+
+   
+
+   
 });
 
 

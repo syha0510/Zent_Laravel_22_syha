@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\File;
+use App\Models\Product;
+use App\Models\User;
+use App\Models\UserInfo;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Image;
+use App\Models\Statistical;
+use Carbon\Carbon;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+
 
 class DashboardController extends Controller
 {
@@ -18,26 +27,16 @@ class DashboardController extends Controller
      */
     public function index(Request $request)
     {
-        // $path =Storage::disk('public')->path('tshirts.png');
-        // $path = Storage::putFile('photos',new File($path));
-        // return Storage::disk('public')->path('tshirts.png');
-        // if (Storage::exists('file.txt')) {
-        // dd('co');
-        // } else {
-        //     dd('ko');
-        // }
-        
-        // // dd(asset('storage/tshirts.png'));        
-        // // $save=Storage::disk('local')->put('file.txt', 'Contents');
-        // $contents = Storage::disk('public')->get('tshirts.png');
-        // dd($contents);
+    
+        $products = Product::orderBy('created_at', 'desc')->simplePaginate();
 
-    //    $save=$request->session()->put('name', 'ha');
-    //    dd($save);
-
-
+        $countproducts = Product::all();
+        $countusers = User::all();
+        $orders = Order::all();
+        $statis = Statistical::all();
+    
         Cookie::queue(Cookie::forget('username'));
-        return view('backend.dashboard');
+        return view('backend.dashboard')->with(['products' => $products])->with(compact('countproducts','countusers','orders','statis'));
     }
 
     /**

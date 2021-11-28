@@ -8,7 +8,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('backend.dashboard.index') }}">Trang chủ</a></li>
                         <li class="breadcrumb-item active">Danh sách bài viết</li>
                     </ol>
                 </div><!-- /.col -->
@@ -29,10 +29,10 @@
                         <a href="{{ route('backend.posts.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo bài viết</a>
                         @endcan
                         
-
-                        <div class="card-tools">
+                        <form style="margin: 10px 0;display:inline-flex;margin-left:71%" method="GET" action="{{ route('backend.posts.list')}}"  >
+                        <div class="card-tools ">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
+                                <input  value="{{ request()->get('title')}}"  type="text" name="title" class="form-control float-right"
                                     placeholder="Tìm kiếm">
 
                                 <div class="input-group-append">
@@ -42,15 +42,16 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
                     </div>
-                    <form style="margin: 20px 0" method="GET" action="{{ route('backend.posts.list')}}" class="form-inline"  >
+                    {{-- <form style="margin: 20px 0" method="GET" action="{{ route('backend.posts.list')}}" class="form-inline"  >
                         <div class="col-3">
                           <input value="{{ request()->get('title')}}" name="title" type="text" class="form-control" placeholder="Nhập dữ liệu cần tìm..">
                         </div>
                         
-                        {{-- <div class="col-3">
+                        <div class="col-3">
                           <input value="{{ request()->get('status')}}" name="status" type="text" class="form-control" placeholder=" Nhập trạng thái">
-                        </div> --}}
+                        </div>
 
                         <div style="margin-right: 5px">
                             <button class="btn btn-info">Lọc</button>
@@ -58,10 +59,10 @@
                         <div >
                             <a href="{{ route('backend.posts.list')}}" class="btn btn-default"> Quay lại</a>
                         </div>
-                    </form>
+                    </form> --}}
                     <!-- /.card-header -->
                     
-                    <div class="card-body table-responsive p-0" style="height: 300px;">
+                    <div class="card-body table-responsive p-0" >
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
@@ -69,7 +70,7 @@
                                     <th>Hình ảnh</th>
                                     <th>Tên bài viết</th>
                                     <th class="text-center">Danh mục</th>
-                                    <th>Nội dung</th>
+                                    {{-- <th>Nội dung</th> --}}
                                     <th>Tags</th>
                                     <th>Người tạo</th>
                                     {{-- <th>Người cập nhật</th> --}}
@@ -90,10 +91,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a  href="{{ route('backend.posts.show', $post->id) }}">{{ $post->title }} </a>          
+                                        <a  href="#">{{ $post->title }} </a>          
                                     </td>
                                     <td class="text-center">{{ $post->category->name ?? 'Chưa xác định'}}</td>
-                                    <td><span class="tag tag-success">{!! $post->content !!}</span></td>
+                                    {{-- <td><span class="tag tag-success">{!! $post->content !!}</span></td> --}}
                                     <td>
                                         @foreach ($post->tags as $tag )
                                             <span class="badge badge-info">{{ $tag->name }}</span>

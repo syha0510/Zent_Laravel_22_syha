@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -32,7 +33,7 @@ class UserController extends Controller
         // $users_query= DB::table('users');
 
         
-        $users_query= User::orderBy('created_at','desc')->paginate(3);
+        $users_query= User::orderBy('created_at','desc')->paginate(4);
         $name = $request -> get('name');
    
         if(!empty($name)) 
@@ -51,13 +52,15 @@ class UserController extends Controller
         ]);
         
     }
-    public function delete( Request $request)
+    public function listdelete( Request $request)
     {
         $userdelete=User::onlyTrashed()->get();
-        return view('backend.user.delete')->with([
+        return view('backend.user.listdelete')->with([
             'userdelete'=>$userdelete
         ]);
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -128,12 +131,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        // $user=User::find($id);
+        $user=User::find($id);
         // $userInfo= $user->userInfo;
-        $posts = User::find($id)->posts;
-
-        $userInfo = Userinfo::where('phone','087979765')->first();
-        $user =$userInfo->user;
         return view('backend.user.show')->with([
             'user'=>$user
         ]);
@@ -165,7 +164,7 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
 
-        $data=$request->only(['name','password','status','email']);
+        $data=$request->only(['name','password','status','email','address','phone']);
         $user= User::find($id);
 
         if($request->hasFile('image'))
@@ -184,8 +183,8 @@ class UserController extends Controller
         }
         $user->name= $data['name'];
         
-        // $user->address= $data['address'];
-        // $user->phone= $data['phone'];
+        $user->address= $data['address'];
+        $user->phone= $data['phone'];
         $user->status= 1;
         $user->email= $data['email'];
         // dd($user);
@@ -214,16 +213,27 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
         $user = User::find($id);
 
         if(! Gate::allows('delete-user',$user)){
             abort(403);
         }
         // DB::table('users')->where('id',$id)->delete();
-        User::destroy($id);
+        $user = User::withTrashed()->where('id', $id)->forceDelete();
+        $user_info=Userinfo::where('user_id',$id)->delete();
     
-        return redirect()->route('backend.users.list');
+        return redirect()->route('backend.users.listdelete');
     }
+
+    public function delete(User $user)
+    {
+        $user_info=Userinfo::where('user_id',$user->id)->delete();
+        $user->delete();
+ 
+        return redirect()->route('backend.users.list'); 
+    }
+
 
     public function restore($id)
     {
@@ -238,5 +248,62 @@ class UserController extends Controller
 
         return redirect()->route('backend.dashboard.index');
     }
+
+    public function lock($id)
+    {
+        $user = User::find($id);
+        if ($user->status == 0)
+        {
+            $user->status =1;
+
+        }
+        else{
+            $user->status=0;
+        }
+
+        $user->save();
+        return redirect()->route('backend.users.list');
+    }
     
+    public function edit_profile($id)
+    {
+        $user=User::find($id);
+        return view('backend.user.edit_profile')->with([
+            'user'=>$user,
+        ]);
+    }
+
+    public function profileUpdateAvatar(Request $request,$id)
+    {   
+        $user = User::find($id);
+
+        $data = $request->except('_token');
+
+
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $user->disk = $disk;
+            $user->image = $path;
+        }
+
+
+        $user->save();
+
+        return back()->with('success','Cập nhật thành công');
+    }
+
+    public function profileUpdate(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $data = $request->except('_token');
+
+        $user->phone = $request->get('phone');
+        $user->name = $request->get('name');
+        $user->address = $request->get('address');
+        $user->update($data);
+        return back()->with('success','Cập nhật thành công');
+    }
 }

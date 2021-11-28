@@ -8,8 +8,7 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{route('backend.dashboard.index')}}">Home</a></li>
-          <li class="breadcrumb-item active">Trang chủ</li>
+          <li class="breadcrumb-item"><a href="{{route('backend.dashboard.index')}}">Trang chủ</a></li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -26,14 +25,14 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{ count($countproducts) }}</h3>
 
             <p>Sản phẩm</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
           </div>
-          <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('backend.products.list') }}" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -41,7 +40,15 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>53<sup style="font-size: 20px">%</sup></h3>
+            <h3>@php
+              $tong =0;
+             foreach ($statis as $key => $value) {
+                 $tong +=$value->profit;
+                 
+             }
+             echo number_format($tong).'đ';
+          @endphp
+          <sup style="font-size: 20px"></sup></h3>
 
             <p>Doanh thu</p>
           </div>
@@ -56,14 +63,14 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>44</h3>
+            <h3>{{ count($countusers) }}</h3>
 
-            <p>Users</p>
+            <p>Người dùng</p>
           </div>
           <div class="icon">
             <i class="ion ion-person-add"></i>
           </div>
-          <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('backend.users.list') }}" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
@@ -71,21 +78,21 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>65</h3>
+            <h3>{{ count($orders) }}</h3>
 
-            <p>Số Blog</p>
+            <p>Đơn hàng</p>
           </div>
           <div class="icon">
             <i class="ion ion-pie-graph"></i>
           </div>
-          <a href="#" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="{{ route('backend.orders.list') }}" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
         </div>
       </div>
       <!-- ./col -->
     </div>
     <!-- /.row -->
     <!-- Main row -->
-    <div class="row">
+    {{-- <div class="row">
       <!-- Left col -->
       <section class="col-lg-7 connectedSortable">
         <!-- Custom tabs (Charts with tabs)-->
@@ -171,7 +178,7 @@
         <!-- /.card -->
 
         <!-- Calendar -->
-        <div class="card bg-gradient-success">
+        {{-- <div class="card bg-gradient-success">
           <div class="card-header border-0">
 
             <h3 class="card-title">
@@ -207,11 +214,11 @@
             <div id="calendar" style="width: 100%"></div>
           </div>
           <!-- /.card-body -->
-        </div>
+        </div> --}}
         <!-- /.card -->
       </section>
       <!-- right col -->
-    </div>
+    {{-- </div> --}} 
     <!-- /.row (main row) -->
   </div><!-- /.container-fluid -->
 </section>

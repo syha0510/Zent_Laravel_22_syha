@@ -43,4 +43,50 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function brand(){
+        return $this->belongsTo(Brand::class);
+    }
+
+    public function scopeStatus($query, $request)
+    {
+        if ($request->has('status')) 
+        {
+            if($request->get('status') == -1){
+                $query->orderBy('created_at','desc');
+            }else{
+                $query->where('status', $request->status)->orderBy('created_at','desc');
+            }
+           
+        }
+
+    return $query;
+    }
+    public function scopeCategory($query, $request)
+    {
+        if ($request->has('category')) 
+        {
+            if($request->get('category') == -1){
+                $query->orderBy('created_at','desc');
+            }else{
+                $query->where('category_id', $request->category)->orderBy('created_at','desc');
+            }
+           
+        }
+
+    return $query;
+    }
+    public function scopeBrand($query, $request)
+    {
+        if ($request->has('brand')) 
+        {
+            if($request->get('brand') == -1){
+                $query->orderBy('created_at','desc');
+            }else{
+                $query->where('brand_id', $request->brand)->orderBy('created_at','desc');
+            }
+           
+        }
+
+    return $query;
+    }
 }

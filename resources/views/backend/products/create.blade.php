@@ -76,6 +76,19 @@
                               @enderror
                         </div>
                         
+                        <div class="col-sm-12">
+                          <!-- Select multiple-->
+                          <div class="form-group">
+                            <label>Thương hiệu sản phẩm</label>
+                            <select data-live-search="true" id="brand"  class="form-control" name="brand_id" >
+                                <option selected disabled hidden>--Chọn thương hiệu--</option>
+                              @foreach ($brands as $brand )
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+
                       
                         <div class="col-sm-12">
                           <!-- Select multiple-->
@@ -125,7 +138,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
+                        <a href="{{ route('backend.products.list') }}" type="reset" class="btn btn-default">Huỷ bỏ</a>
                         <button type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>

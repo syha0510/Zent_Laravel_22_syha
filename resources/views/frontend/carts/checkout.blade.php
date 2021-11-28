@@ -1,4 +1,16 @@
 @extends('frontend.layouts.master')
+<style>
+    label.error,.red{
+  color: red;
+}
+#thanhtoan{
+  width: 100%;
+  margin: 0 auto;
+}
+/* input{
+ margin: 10px 0;
+} */
+</style>
 @section('container')
 <section class="shop-cart">
     <div class="container">
@@ -15,75 +27,68 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h1 class="page-title">Checkout</h1>
+                <h1 class="page-title">Thanh toán</h1>
 
                 <!--Shop info-->
                 <div class="shop-info">
-                    <p>Returning customer? <a href="#">Click here to login</a></p>
-                    <p>Have a coupon?  <a href="#">Click here to enter your code</a></p>
+                    {{-- <p>Returning customer? <a href="#">Click here to login</a></p> --}}
+                    {{-- <p>Có mã giảm giá ?<a href="{{ route('frontend.carts.index') }}"> Chọn để nhập code</a></p> --}}
                 </div>
                 <!--End shop info-->
 
                 <!--Start form checkout-->
-                <form>
+                <form action="{{ route('frontend.carts.pay') }}" method="POST" id="thanhtoan">
+                    @csrf
                     <div class="shop-billing-fields">
-                        <h3>Billing Details</h3>
-                        <p class="form-row">
-                            <label>Country <span class="required">*</span></label>
-                            <select>
-                                <option>United States (US)</option>
-                            </select>
-                        </p>
-                        <p class="form-row form-row-first">
-                            <label for="billing_first_name" class="">First Name <span class="required">*</span></label>
-                            <input type="text" class="input-text " name="billing_first_name" id="billing_first_name" placeholder="" value="">
-                        </p>
-                        <p class="form-row form-row-last">
-                            <label for="billing_last_name" class="">Last Name <span class="required">*</span></label>
-                            <input type="text" class="input-text " name="billing_last_name" id="billing_last_name" placeholder="" value="">
-                        </p>
+                        <h3>Thông tin khách hàng</h3>
+                        
                         <div class="clear"></div>
                         <p class="form-row">
-                            <label for="company_name">Company Name</label>
-                            <input type="text" class="input-text " name="company_name" id="company_name" placeholder="" value="">
+                            <label for="address">Họ và tên<span class="required">*</span></label>
+                            <input type="text" class="input-text " name="name" id="name" placeholder="" value="">
                         </p>
+
+                        @error('name')
+                                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                        @enderror
+
+                        <div class="clear"></div>
                         <p class="form-row">
-                            <label for="address">Address  <span class="required">*</span></label>
+                            <label for="address">Địa chỉ  <span class="required">*</span></label>
                             <input type="text" class="input-text " name="address" id="address" placeholder="" value="">
                         </p>
-                        <p class="form-row">
-                            <label for="city">Town / City<span class="required">*</span></label>
-                            <input type="text" class="input-text " name="city" id="city" placeholder="" value="">
-                        </p>
-                        <p class="form-row form-row-first">
-                            <label for="state">State <span class="required">*</span></label>
-                            <input type="text" class="input-text " name="state" id="state" placeholder="" value="">
-                        </p>
-                        <p class="form-row form-row-last">
-                            <label for="zip">Zip  <span class="required">*</span></label>
-                            <input type="text" class="input-text " name="zip" id="zip" placeholder="" value="">
-                        </p>
+
+                        @error('address')
+                                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                        @enderror
+                        
                         <div class="clear"></div>
-                        <p class="form-row form-row-first">
-                            <label for="email">Email Address<span class="required">*</span></label>
-                            <input type="email" class="input-text " name="email" id="email" placeholder="" value="">
-                        </p>
-                        <p class="form-row form-row-last">
-                            <label for="phone">Phone  <span class="required">*</span></label>
+                        <p class="form-row">
+                            <label for="phone">Số điện thoại  <span class="required">*</span></label>
                             <input type="text" class="input-text " name="phone" id="phone" placeholder="" value="">
                         </p>
+
+                        @error('phone')
+                                <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
+                        @enderror
+
                         <div class="clear"></div>
-                        <p class="form-row create-account">
+                        {{-- <p class="form-row create-account">
                             <input class="createaccount" id="createaccount" type="checkbox" name="createaccount" value="1"> <label for="createaccount" class="checkbox">Create an account?</label>
-                        </p>
-                        <p class="form-row ship-to-different-address-checkbox">
+                        </p> --}}
+                        {{-- <p class="form-row ship-to-different-address-checkbox">
                             <input class="input-checkbox" id="ship-to-different-address-checkbox" type="checkbox" name="ship-to-different-address-checkbox" value="1">
                             <label for="ship-to-different-address-checkbox" class="ship-to-different-address-checkbox">Ship to a different address?</label>
-                        </p>
+                        </p> --}}
                         <p class="form-row notes">
-                            <label for="order_comments" class="">Order Notes</label>
-                            <textarea name="order_comments" class="input-text " id="order_comments" placeholder="Notes about your order, e.g. special notes for delivery." rows="2" cols="5"></textarea>
+                            <label for="order_comments" class="">Ghi chú</label>
+                            <textarea name="note" class="input-text " id="order_comments" placeholder="vui lòng nhập tại đây" rows="2" cols="5"></textarea>
                         </p>
+
+                        
+                        
+                        <button  type="submit"  class="btn btn-danger btn-lg"> <i style="margin-right:8px;" class="fa fa-shopping-cart"></i>Đặt hàng</button>
+                        
                     </div>
                 </form>
                 <!--End form checkout-->
@@ -92,60 +97,46 @@
             <div class="col-md-6">
 
                 <!--Order review-->
-                <div id="order_review">
-                    <h3>Your Order</h3>
+                <div id="order_review" style="padding: 156px 70px;">
+                    <h3>Thông tin đơn hàng</h3>
 
                     <!--Shop table-->
                     <table class="shop_table">
                         <thead>
                             <tr>
-                                <th class="product-name">Product</th>
-                                <th class="product-total">Total</th>
+                                <th class="product-name">Sản phẩm</th>
+                                <th class="product-total">Tổng </th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ( $items as $item )
                             <tr class="cart_item">
                                 <td class="product-name">
-                                    Liv Race Day Short
-                                    <strong class="product-quantity">× 1</strong>
+                                    {{ $item->name }}
+                                    <strong class="product-quantity">× {{ $item->qty }}</strong>
                                 </td>
                                 <td class="product-total">
-                                    <span class="amount">$30.00</span>
+                                    <span class="amount">{{ number_format($item->qty*$item->price) }} đ</span>
                                 </td>
                             </tr>
-                            <tr class="cart_item">
-                                <td class="product-name">
-                                    City Pedals Sport
-                                    <strong class="product-quantity">× 1</strong>
-                                </td>
-                                <td class="product-total">
-                                    <span class="amount">$18.00</span>
-                                </td>
-                            </tr>
-                            <tr class="cart_item">
-                                <td class="product-name">
-                                    Gloss
-                                    <strong class="product-quantity">× 1</strong>
-                                </td>
-                                <td class="product-total">
-                                    <span class="amount">$325.00</span>
-                                </td>
-                            </tr>
+                            @endforeach
+                            
+                            
                         </tbody>
                         <tfoot>
-                        <tr class="cart-subtotal">
-                            <th>Cart Subtotal</th>
-                            <td><span class="amount">$490.00</span></td>
-                        </tr>
+                            <tr class="cart-subtotal">
+                                <th>Thuế</th>
+                                <td><span class="amount">{{ number_format(Cart::tax()) }} đ</span></td>
+                            </tr>
 
-                        <tr class="shipping">
-                            <th>Shipping and Handling</th>
+                        {{-- <tr class="shipping">
+                            <th>Đơn vị vận chuyển</th>
                             <td>
                                 <form class="shop-shipping-calculator" method="post">
                                     <p class="form-r">
                                         <input type="checkbox" name="rate" value="1">
                                         <span>
-                                           Flat Rate:
+                                           Giao hàng nhanh:
                                            <span class="price">
                                                $30.00
                                            </span>
@@ -154,7 +145,7 @@
                                     <p class="form-r">
                                         <input type="checkbox" name="international" value="1">
                                         <span>
-                                           International Delivery:
+                                           Giao hàng quốc tế:
                                            <span class="price">
                                                $150.00
                                            </span>
@@ -163,7 +154,7 @@
                                     <p class="form-r">
                                         <input type="checkbox" name="rate" value="1">
                                         <span>
-                                           Local Delivery:
+                                           Giao nội địa:
                                            <span class="price">
                                                $90.00
                                            </span>
@@ -171,21 +162,21 @@
                                     </p>
                                     <p class="form-r">
                                         <input type="checkbox" name="pickup" value="1">
-                                        <span>Local Pickup (Free)</span>
+                                        <span>Giao hàng thường (Free)</span>
                                     </p>
                                 </form>
                             </td>
-                        </tr>
+                        </tr> --}}
 
                         <tr class="order-total">
-                            <th>Order Total</th>
-                            <td><strong><span class="amount">$520.00</span></strong> </td>
+                            <th>Tổng tiền</th>
+                            <td><strong><span class="amount">{{ number_format(Cart::total()) }} đ</span></strong> </td>
                         </tr>
                         </tfoot>
                     </table>
                     <!--End shop table-->
 
-                    <button type="button" class="btn btn-danger btn-lg"> <i style="margin-right: 8px;" class="fa fa-shopping-cart"></i>Thanh toán</button>
+                    
                     <!--Start payment-->
                     {{-- <div id="payment" class="checkout-payment">
                         <ul class="payment_methods methods">
@@ -225,4 +216,24 @@
 
     </div>
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+jQuery(document).ready(function($){
+    $('#thanhtoan').validate({
+        rules: {
+            name: "required",
+            address:"required",
+            phone:"required",
+
+            
+        },
+        messages: {
+            name: "Vui lòng nhập họ tên",
+            address:"Vui lòng nhập địa chỉ",
+            phone:"Vui lòng nhập số điện thoại"
+        },
+    });
+});
+</script>
 @endsection

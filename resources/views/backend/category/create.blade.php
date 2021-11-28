@@ -59,7 +59,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
+                        <a href="{{ route('backend.categories.list') }}"  type="reset" class="btn btn-default">Huỷ bỏ</a>
                         <button type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>

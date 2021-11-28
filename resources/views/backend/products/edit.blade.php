@@ -76,6 +76,18 @@
                               @enderror
                         </div>
                         
+                        <div class="col-sm-12">
+                          <!-- Select multiple-->
+                          <div class="form-group">
+                            <label>Thương hiệu sản phẩm</label>
+                            <select data-live-search="true" id="brand"  class="form-control" name="brand_id" >
+                                <option selected disabled hidden>--Chọn thương hiệu--</option>
+                              @foreach ($brands as $brand )
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
                       
                         <div class="col-sm-12">
                           <!-- Select multiple-->

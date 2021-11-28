@@ -84,17 +84,17 @@
         <div class="row">
             <div class="col-md-6 col-sm-6">
                 <!--Coupon-->
-                <div class="coupon">
+                {{-- <div class="coupon">
                     <h3>MÃ GIAM GIÁ</h3>
                     <form>
                         <p>Vui lòng nhập mã giảm giá</p>
                         <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Nhập mã giảm giá tại đây">
                         <input type="submit" class="button" name="apply_coupon" value="Xác nhận">
                     </form>
-                </div>
+                </div> --}}
                 <!--End coupon-->
             </div>
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-12 col-sm-12">
 
                 <!--Cart totals-->
                 <div class="cart_totals">
@@ -109,7 +109,7 @@
                                     <th>Tổng tiền</th>
                                     <td><span class="amount">{{ number_format(Cart::total()) }} đ</span></td>
                                 </tr>
-                                <tr class="shipping">
+                                {{-- <tr class="shipping">
                                     <th>Chọn đơn vị vận chuyển</th>
                                     <td>
                                         <form class="shop-shipping-calculator" method="post">
@@ -146,7 +146,7 @@
                                             </p>
                                         </form>
                                     </td>
-                                </tr>
+                                </tr> --}}
                                 <tr class="order-total">
                                     <th>Tổng hóa đơn</th>
                                     <td><span class="amount">{{ number_format(Cart::total()) }} đ</span></td>                                   
@@ -154,7 +154,7 @@
                             </tbody>
                             
                         </table>
-                        <a class="back-shop" href="{{ route('frontend.products.pay') }}">Thanh toán hàng hóa</a><i style="margin-left: 10px" class="fa fa-angle-right"></i>
+                        <a class="back-shop" href="{{ route('frontend.carts.checkout') }}">Thanh toán </a><i style="margin-left: 10px" class="fa fa-angle-right"></i>
                     </div>
 
                 </div>

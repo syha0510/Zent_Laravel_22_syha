@@ -102,6 +102,7 @@
     $('#card').selectpicker({noneSelectedText: 'Vui lòng chọn thẻ'});
     $('#status').selectpicker({noneSelectedText: 'Chọn trạng thái'});
     $('#category').selectpicker({noneSelectedText: 'Chọn danh mục'});
+    $('#brand').selectpicker({noneSelectedText: 'Chọn thương hiệu'});
 });
 </script>
 </body>

@@ -8,15 +8,8 @@
                 <!--Start class header top-->
                 <div class="header-top">
                     <ul class="pull-left">
-                        <li>
-                            <a href="#">
-                                Tiếng việt
-                                <span class="fa fa-angle-down tz-down"></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">Liên hệ: 0814791595</a>
-                        </li>
+                        <img style="width:220px;height:80px" src="/frontend/images/syhalogo.jpg" alt="home"></a>
+                        
                     </ul>
                     <ul class="pull-right">
                         {{-- <li>
@@ -76,11 +69,11 @@
 
                 <!--Start header content-->
                 <div class="header-content">
-                    <h3 class="tz-logo pull-left"><a href="index.html"><img style="width:220px;height:80px" src="/frontend/images/syhalogo.jpg" alt="home"></a></h3>
+                    <h3 style="width:100%" class="tz-logo pull-left"><marquee direction='left'>CHÀO MỪNG BẠN ĐẾN VỚI SYHA SHOP !!</marquee></h3>
                     <div class="tz-search pull-right">
 
                         <!--Start form search-->
-                        <form>
+                         {{-- <form>
                             {{-- <label class="select-arrow">
                                 <select name="category">
                                 @foreach ($posts as $post )                     
@@ -88,9 +81,9 @@
                                 @endforeach
                                 </select>                    
                             </label> --}}
-                            <input type="text" class="tz-query" id="tz-query" value placeholder="Tìm kiếm sản phẩm">
+                            {{-- <input type="text" class="tz-query" id="tz-query" value placeholder="Tìm kiếm sản phẩm">
                             <button type="submit"></button>
-                        </form>
+                        </form>  --}} 
                         <!--End Form search-->
 
                         <!--live search-->
@@ -178,10 +171,10 @@
                             <a href="shop.html">Gear</a>
                         </li> --}}
                         <li>
-                            <a href="shop.html">Cửa hàng</a>
+                            <a href="#">Cửa hàng</a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="">Thanh toán</a>
+                                    <a href="{{ route('frontend.carts.checkout') }}">Thanh toán</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('frontend.carts.index') }}">Giỏ hàng</a>
@@ -197,7 +190,7 @@
                         </li>
                         <li>
                             <a href="#">
-                                Blog
+                                Bài viết
                                 {{-- <span class="cyan-dark">Best off!</span> --}}
                             </a>
                             <ul class="sub-menu">
@@ -212,75 +205,53 @@
                                 
                             </ul>        
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="contact.html">Liên hệ</a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <!--End Main menu-->
 
                     <!--Shop meta-->
                     <ul class="tz-ecommerce-meta pull-right">
-                        <li class="tz-menu-wishlist">
+                        {{-- <li class="tz-menu-wishlist">
                             <a href="#"><strong>0</strong></a>
-                        </li>
+                        </li> --}}
                         <li class="tz-mini-cart">
-                            <a href="shop-cart.html"><strong>2</strong>Giỏ hàng : $199.00</a>
+                            <a href="{{ route('frontend.carts.index') }}"><strong>{{Cart::count()}}</strong>Giỏ hàng : {{number_format(Cart::total())}} đ</a>
 
                             <!--Mini cart-->
+                            {{-- @if (Cart::count()>0)      
+                            
+                            @foreach ( $items as $item )
                             <ul class="cart-inner">
+                                
                                 <li class="mini-cart-content">
-                                    <div class="mini-cart-img"><img src="/frontend/images/product-cart1.png" alt="product search one"></div>
+                                    <div class="mini-cart-img"><img src="{{ $item->options->image }}" alt="product search one"></div>
                                     <div class="mini-cart-ds">
-                                        <h6><a href="single-product.html">Liv Race Day Short</a></h6>
+                                        <h6><a href="single-product.html"></a></h6>
                                         <span class="mini-cart-meta">
-                                            <a href="single-product.html">$2650.00</a>
-                                            <span class="mini-meta">
-                                               <span class="mini-color">Color: <i class="orange"></i></span>
-                                               <span class="mini-qty">Qty: 5</span>
-                                            </span>
+                                            <span class="mini-qty" >{{ number_format($item->price) }} đ
+                                        </span>
+                                        <span class="mini-meta">
+                                            <span class="mini-qty">Số lượng: {{ $item->qty }}</span>
+                                        </span>
                                         </span>
                                     </div>
-                                    <span class="mini-cart-delete"><img src="/frontend/images/delete.png" alt="delete"></span>
-                                </li>
-                                <li class="mini-cart-content">
-                                    <div class="mini-cart-img"><img src="/frontend/images/product-cart2.png" alt="product search one"></div>
-                                    <div class="mini-cart-ds">
-                                        <h6><a href="single-product.html">City Pedals Sport</a></h6>
-                                        <span class="mini-cart-meta">
-                                            <a href="single-product.html">$2650.00</a>
-                                            <span class="mini-meta">
-                                               <span class="mini-color">Color: <i class="orange"></i></span>
-                                               <span class="mini-qty">Qty: 5</span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                    <span class="mini-cart-delete"><img src="/frontend/images/delete.png" alt="delete"></span>
-                                </li>
-                                <li class="mini-cart-content">
-                                    <div class="mini-cart-img"><img src="/frontend/images/product-cart3.png" alt="product search one"></div>
-                                    <div class="mini-cart-ds">
-                                        <h6><a href="single-product.html">Gloss</a></h6>
-                                        <span class="mini-cart-meta">
-                                            <a href="single-product.html">$2650.00</a>
-                                            <span class="mini-meta">
-                                               <span class="mini-color">Color: <i class="orange"></i></span>
-                                               <span class="mini-qty">Qty: 5</span>
-                                            </span>
-                                        </span>
-                                    </div>
-                                    <span class="mini-cart-delete"><img src="/frontend/images/delete.png" alt="delete"></span>
                                 </li>
                                 <li class="mini-subtotal">
                                     <span class="subtotal-content">
-                                        Subtotal:
-                                        <strong class="pull-right">$1,100.00</strong>
+                                        Tổng:
+                                        <strong class="pull-right">{{ number_format($item->qty*$item->price) }} đ</strong>
                                     </span>
                                 </li>
                                 <li class="mini-footer">
-                                    <a href="shop-cart.html" class="view-cart">View Cart</a>
-                                    <a href="shop-checkout.html" class="check-out">Checkout</a>
+                                    <a href="{{ route('frontend.carts.index') }}" class="view-cart"> Giỏ hàng</a>
+                                    <a href="{{ route('frontend.carts.checkout') }}" class="check-out">Thanh toán</a>
                                 </li>
+                               
                             </ul>
+                            @endforeach
+                            @endif --}}
                             <!--End mini cart-->
 
                         </li>

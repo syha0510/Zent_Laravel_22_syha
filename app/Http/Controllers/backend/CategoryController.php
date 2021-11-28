@@ -130,7 +130,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::destroy($id);
+        $category = Category::withTrashed()->where('id', $id)->forceDelete();
         return redirect()->route('backend.categories.list');
     }
 
@@ -141,12 +141,19 @@ class CategoryController extends Controller
         return redirect()->route('backend.categories.list');
     }
 
-    public function delete(Request $request)
+    public function listdelete(Request $request)
     {
         $categorydelete=Category::onlyTrashed()->get();
-        return view('backend.category.delete')->with([
+        return view('backend.category.listdelete')->with([
             'categorydelete'=>$categorydelete
         ]);
+    }
+
+    public function delete($id)
+    {
+        $category=Category::find($id);
+        $category->delete();
+        return redirect()->route('backend.categories.list');
     }
 
 }

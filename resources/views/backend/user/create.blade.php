@@ -99,7 +99,7 @@
 
                     <div class="card-footer">
                         
-                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
+                        <a href="{{ route('backend.users.list') }}" type="reset" class="btn btn-default">Quay lại</a>
                         <button  type="submit" class="btn btn-success mt-3 float-right mr-6">Tạo mới</button>
                     </div>
                 </form>

@@ -16,7 +16,7 @@
 
                 <!--Shop images-->
                 <div class="shop-images">
-                    <ul style="margin-top:30px;" class="single-gallery">
+                    <ul style="margin-top:52px;" class="single-gallery">
                         @foreach ($detail_product->images as $value )
                         <li>
                             <img style="height: 428px;" src="{{\Illuminate\Support\Facades\Storage::url($value->path)}}" alt="Propel Advanced Pro">
@@ -37,13 +37,9 @@
                 <!--Shop content-->
                 <div class="entry-summary">
                     <h1>{{ $detail_product->name }}</h1>
-                    <span class="p-vote">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-half-o"></i>
-                    </span>
+                    {{-- <span class="p-vote">
+                        <p>{{ $detail_product->brand_id->name  }}</p>
+                    </span> --}}
                     <p class="product-price">
                         <span class="price">{{ $detail_product->sale_price_format }}</span>
                         <span class="stock">Trạng thái:  <span>{{ $detail_product->status_text }}</span></span>

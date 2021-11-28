@@ -3,10 +3,10 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="/backend/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        <img style="width:40px;height:40px" src="{{ Illuminate\Support\Facades\Storage::url(auth()->user()->image) }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">
+        <a href="{{ route('backend.users.show',auth()->user()->id) }}" class="d-block">
             {{-- {{  Illuminate\Support\Facades\Auth::user()->name }} --}}
             {{ auth()->user()->name }}
         </a>
@@ -14,7 +14,7 @@
     </div>
 
     <!-- SidebarSearch Form -->
-    <div class="form-inline">
+    {{-- <div class="form-inline">
       <div class="input-group" data-widget="sidebar-search">
         <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
@@ -23,7 +23,7 @@
           </button>
         </div>
       </div>
-    </div>
+    </div> --}}
 
     <!-- Sidebar Menu -->
     <nav class="mt-2">
@@ -100,7 +100,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('backend.users.delete')}}" class="nav-link @if (request()->routeIs('backend.users.delete'))
+                <a href="{{route('backend.users.listdelete')}}" class="nav-link @if (request()->routeIs('backend.users.listdelete'))
                   active
                 @endif ">
                   <i class="far fa-circle nav-icon"></i>
@@ -144,7 +144,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('backend.categories.delete')}}" class="nav-link @if (request()->routeIs('backend.categories.delete'))
+              <a href="{{route('backend.categories.listdelete')}}" class="nav-link @if (request()->routeIs('backend.categories.listdelete'))
                 active
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
@@ -287,7 +287,7 @@
           
         </li>
         <li class="nav-item">
-          <a href="#2" class="nav-link">
+          <a href="{{ route('backend.orders.list') }}" class="nav-link">
             <i class="nav-icon fas fa-shopping-basket"></i>
             <p>
               Quản lý đơn hàng
@@ -300,26 +300,26 @@
           <a href="#2" class="nav-link">
             <i class="nav-icon fas fa-copyright"></i>
             <p>
-              Quản lý nhãn hiệu
+              Quản lý thương hiệu
               <i class="fas fa-angle-left right"></i>
 
             </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{{route('backend.products.create')}}" class="nav-link @if (request()->routeIs('backend.products.create'))
+              <a href="{{route('backend.brands.create')}}" class="nav-link @if (request()->routeIs('backend.brands.create'))
                 active
               @endif  ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Tạo mới nhãn hiệu</p>
+                <p>Tạo mới thương hiệu</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="{{route('backend.products.list')}}" class="nav-link @if (request()->routeIs('backend.products.list'))
+              <a href="{{route('backend.brands.list')}}" class="nav-link @if (request()->routeIs('backend.brands.list'))
                 active
               @endif ">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Danh sách nhãn hiệu</p>
+                <p>Danh sách thương hiệu</p>
               </a>
             </li>
             

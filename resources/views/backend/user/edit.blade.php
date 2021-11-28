@@ -64,7 +64,7 @@
                             <span style="color:red;margin-bottom:8px;display:block;margin-left:8px;"> {{ $message }} </span> 
                          @enderror
 
-                        {{-- <div class="form-group">
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Địa chỉ</label>
                             <input name="address" type="text" class="form-control" id="" placeholder="Địa chỉ" value="{{ $user->address }}">
                         </div>
@@ -76,7 +76,7 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Số điện thoại</label>
                             <input name="phone" type="text" class="form-control" id="" placeholder="Số điện thoại" value="{{ $user->phone }}">
-                        </div> --}}
+                        </div> 
                         {{-- <div class="form-group">
                             <label>Quyền</label>
                             <select class="form-control select2" style="width: 100%;" name="roles">
@@ -84,13 +84,13 @@
                                 <option value="{{ $role->id }}" >{{ $role->name }}</option>
                               @endforeach
                             </select>
-                        </div>
-                         --}}
+                        </div> --}}
+                        
                         <div class="form-group">
                             <label for="exampleInputFile">Tải lên ảnh</label>
                             <div class="input-group">
                             <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="image" id="uploadFile" value="{{ $user->image }}">
+                            <input type="file" class="custom-file-input" name="image" id="uploadFile">
                             <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
                             </div>
                             <div class="input-group-append">
@@ -98,10 +98,10 @@
                             </div>
                             
                             </div>
-                            {{-- <div class="gallery mt-5" style="display: flex; flex-wrap: wrap;"></div> --}}
+                             <div class="gallery mt-5" style="display: flex; flex-wrap: wrap;"></div>
                             @if(!empty($user->image))
                                 <img id="anh" src="{{ Illuminate\Support\Facades\Storage::disk($user->disk)->url($user->image)}}"
-                                width="100px" height="100px" style="margin-top:20px;">
+                                width="100px" height="100px" style="margin-top:10px;">
                             @endif
                         </div>
                          
@@ -116,8 +116,8 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <button type="reset" class="btn btn-default">Huỷ bỏ</button>
-                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <a href="{{ route('backend.users.list') }}" type="reset" class="btn btn-default">Huỷ bỏ</a>
+                        <button type="submit" class="btn btn-success mt-3 float-right mr-6">Cập nhật</button>
                     </div>
                 </form>
             </div>

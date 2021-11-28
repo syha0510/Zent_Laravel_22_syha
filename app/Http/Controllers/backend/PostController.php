@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function index(Request $request )
     {
-        $posts_query= Post::orderBy('created_at','desc')->paginate(3);
+        $posts_query= Post::orderBy('created_at','desc')->paginate(4);
         $title = $request -> get('title');
 
         if(!empty($title)){

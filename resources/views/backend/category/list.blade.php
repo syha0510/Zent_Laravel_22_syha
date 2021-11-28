@@ -61,7 +61,7 @@
                 <td>{!! date('d/m/Y', strtotime($category->updated_at)) !!}</td>
                 <td class="text-center">
                   <a  style="margin-right:10px;" href="{{route('backend.categories.edit', $category->id)}}" class="btn btn-primary "><i class="fas fa-edit"></i> </a>
-                  <form style="display: inline-block" method="POST" action="{{route('backend.categories.destroy',$category->id)}}">
+                  <form style="display: inline-block" method="POST" action="{{route('backend.categories.delete',$category->id)}}">
                     @csrf
                     @method('DELETE')
                     <button style="" class="btn btn-danger delete-confirm" data-name="{{ $category->name }}">

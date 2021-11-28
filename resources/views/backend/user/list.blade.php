@@ -27,9 +27,10 @@
                     <div class="card-header">
                         <h3 class="card-title">Tài khoản</h3>
 
+                        <form  method="GET" action="{{ route('backend.users.list')}}" style="display:inline-flex;margin-left:77%"  >
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
+                                <input value="{{ request()->get('name')}}" type="text" name="name" class="form-control float-right"
                                     placeholder="Tìm kiếm">
 
                                 <div class="input-group-append">
@@ -39,8 +40,9 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
                     </div>
-                    <form style="margin: 20px 0" method="GET" action="{{ route('backend.users.list')}}" class="form-inline"  >
+                    {{-- <form style="margin: 20px 0" method="GET" action="{{ route('backend.users.list')}}" class="form-inline"  >
                         <div class="col-3">
                           <input value="{{ request()->get('name')}}" name="name" type="text" class="form-control" placeholder="Nhập tên cần tìm..">
                         </div>
@@ -54,9 +56,9 @@
                         <div >
                             <a href="{{ route('backend.users.list')}}" class="btn btn-default"> Quay lại</a>
                         </div>
-                    </form>
+                    </form> --}}
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0" style="height: 300px;">
+                    <div class="card-body table-responsive p-0" >
                         <table class="table table-head-fixed text-nowrap">
                             <thead>
                                 <tr>
@@ -83,27 +85,27 @@
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    @if ( $user->userInfo->address == null )
+                                    @if ( $user->address == null )
                                         Đang cập nhật
                                     @else
-                                    {{ $user->userInfo->address }}  
+                                    {{ $user->address }}  
                                     @endif
                                 </td>
                                 <td>
 
-                                    @if ($user->userInfo->phone == null)
+                                    @if ($user->phone == null)
                                         Đang cập nhật
                                     @else
-                                    {{ $user->userInfo->phone }}
+                                    {{ $user->phone }}
                                     @endif
 
                                 </td>
                               <td class="text-center">
                                 <span class="tag tag-success">
                                   @if ($user->status==0)
-                                    <i  class="fas fa-lock " ></i>
+                                    <a href="{{ route('backend.users.lock', $user->id ) }}"  class="fas fa-lock " ></a>
                                   @else
-                                    <i class="fas fa-unlock text-primary"></i>
+                                    <a href="{{ route('backend.users.lock', $user->id) }}" class="fas fa-unlock " ></a>
                                   @endif  
                                 </span>
                               </td>
@@ -120,13 +122,19 @@
                                         </button>
                                       </form>
 
-                                    <form style="display: inline-block" method="POST" action="{{route('backend.users.destroy',$user->id)}}">
+                                    @if($user->id != auth()->user()->id)
+                                       <form style="display: inline-block" method="POST" action="{{route('backend.users.delete',$user->id)}}">
                                         @csrf
                                         @method('DELETE')
                                         <button style="" class="btn btn-danger delete-confirm" data-name="{{ $user->name }}">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                        </form>
+                                        </form> 
+                                    @endif
+                                    
+                                        {{-- <a   style="margin-right:10px;" href="{{ route('backend.users.delete', $user->id ) }}"
+                                            class="btn btn-danger"><i class="fas fa-trash"></i> 
+                                        </a> --}}
                                 
                               </tr>
                               @endforeach

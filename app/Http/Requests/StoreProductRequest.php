@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name'         => 'required|min:5|max:50',
-            'origin_price' => 'required|numeric',
+            'origin_price' => 'required|numeric|lt:sale_price',
             'quantity'     => 'required|numeric|max:50000',
             'sale_price'   => 'required|numeric',
             'content'      => 'required',
@@ -41,6 +41,7 @@ class StoreProductRequest extends FormRequest
             'name.required' => 'Tên không được để trống',
             'name.min' => 'Tên phải chứa it nhất 5 kí tự',
             'name.max' => 'Tên dài thế',
+            'origin_price.lt' =>' :attribute không được lớn hơn giá bán',
             'origin_price.required' => ':attribute không được để trống',
             'origin_price.numeric' => ':attribute phải là số',
             'quantity.required' => ':attribute không được để trống',

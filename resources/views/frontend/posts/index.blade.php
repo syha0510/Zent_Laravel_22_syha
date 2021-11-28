@@ -21,14 +21,12 @@
                         <div class="col-md-12">
                             <article class="blog-item blog-heading">
                                 <div class="thumb">
-                                    <img src="{{ Illuminate\Support\Facades\Storage::disk($newpost->disk)->url($newpost->image) }}" alt="will be distracted">
+                                    <img style="width:100%;" src="{{ Illuminate\Support\Facades\Storage::disk($newpost->disk)->url($newpost->image) }}" alt="will be distracted">
                                 </div>
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show',$newpost->slug) }}">{{ $newpost->title }}</a></h3>
                                     <span class="entry-meta">{!! date('d/m/Y', strtotime($newpost->created_at)) !!}</span>
-                                    <p>
-                                        {!! $newpost->content !!}
-                                    </p>
+                                    
                                     <a class="continue" href="{{ route('frontend.posts.show',$newpost->slug) }}">Xem thêm...</a>
                                 </div>
                             </article>
@@ -42,9 +40,7 @@
                                 <div class="blog-info">
                                     <h3><a href="{{ route('frontend.posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                                     <span class="entry-meta">{!! date('d/m/Y', strtotime($post->created_at)) !!}</span>
-                                    <p>
-                                       {!! $post->content !!} 
-                                    </p>
+                                    
                                     <a class="continue" href="{{ route('frontend.posts.show',$post->slug) }}">Xem thêm...</a>
                                 </div>
                             </article>

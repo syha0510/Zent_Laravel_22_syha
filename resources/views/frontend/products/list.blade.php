@@ -19,76 +19,23 @@
                             </ul>
                         </aside>
                         <aside class="product-catlog widget">
-                            <h3 class="widget-title">Catalog</h3>
-                            <div class="widget_price_filter">
-                                <h4 class="widget-title-children">
-                                    Price Filter
-                                </h4>
-                                <form>
-                                    <div id="slider-range"
-                                        class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                        <div class="ui-slider-range ui-widget-header ui-corner-all"
-                                            style="left: 15%; width: 45%;"></div><span
-                                            class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                            style="left: 15%;"></span><span
-                                            class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                            style="left: 60%;"></span>
-                                    </div>
-                                    <div class="price_label">
-                                        <button type="submit" class="button">Filter</button>
-                                        <span class="value-price">
-                                            <span class="from">$75</span>
-                                            -
-                                            <span class="to">$300</span>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+                            <h3 class="widget-title">Chức năng</h3>
+                    
                            
-                            <div class="widget-size-filter">
+                            
                                 <h4 class="widget-title-children">
-                                    Size Filter
+                                    Thương hiệu
                                 </h4>
                                 <ul>
+                                    @foreach ( $brands as $brand )
                                     <li>
-                                        <a href="shop.html">S - Small <span>(24)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">M - Medium <span>(18)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">L - Large <span>(9)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html"> XL - Extra Large <span>(39)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">xtra Extra Large <span>(24)</span></a>
-                                    </li>
+                                        <a href="">{{ $brand->name }}<span> ({{ count($brand->products) }}) </span></a>
+                                    </li> 
+                                    @endforeach
+                                    
+                                    
                                 </ul>
-                            </div>
-                            <div class="widget-size-filter">
-                                <h4 class="widget-title-children">
-                                    Brand Filter
-                                </h4>
-                                <ul>
-                                    <li>
-                                        <a href="shop.html">S - Small <span>(24)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">M - Medium <span>(18)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">L - Large <span>(9)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html"> XL - Extra Large <span>(39)</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="shop.html">xtra Extra Large <span>(24)</span></a>
-                                    </li>
-                                </ul>
-                            </div>
+                            
                         </aside>
 
                         
@@ -137,19 +84,12 @@
                                     <a class="nav-grid-view fa fa-th-large active"></a>
                                     {{-- <a class="nav-list-view fa fa-list"></a> --}}
                                 </span>
-                                <form class="shop-order">
+                                <form class="shop-order" method="GET" action="{{ route('frontend.products.list') }}">
                                     <label class="form-arrow">
                                         <select class="number-item" name="number_item">
-                                            <option value="12">12 items/page</option>
-                                            <option value="6">6 items/page</option>
-                                            <option value="3">3 items/page</option>
-                                        </select>
-                                    </label>
-                                    <label class="form-arrow">
-                                        <select name="orderby" class="orderby">
-                                            <option value="'">Sort By: Position</option>
-                                            <option value="rating">Sort by rating</option>
-                                            <option value="date">Sort by newness</option>
+                                            <option selected value="3">3 sản phẩm</option>
+                                            <option {{ Request::get('number_item') ==  6 ? "selected = 'selected '" : "" }}  value="6">6 sản phẩm</option>
+                                            <option {{ Request::get('number_item') ==  12 ? "selected = 'selected '" : "" }}  value="12">12 sản phẩm</option>
                                         </select>
                                     </label>
                                 </form>
@@ -183,9 +123,9 @@
                                                 </span>
                                             </span>
                                             
-                                            <p>
+                                            {{-- <p>
                                                 {!! $product->content !!}
-                                            </p>
+                                            </p> --}}
                                             <span class="p-mask">
                                                 @if ( $product->quantity>0 )
                                                 <a href="{{ route('frontend.carts.add', $product->id) }}" class="add-to-cart vancon">Thêm vào giỏ hàng</a>
@@ -220,4 +160,12 @@
             </div>
         </div>
     </div>
+    <script>
+        var loc = document.getElementsByClassName('number-item');
+        var locsanpham = document.getElementsByClassName('shop-order'); 
+        loc[0].addEventListener('change',function(event){
+            event.preventDefault();
+            locsanpham[0].submit();
+        });
+    </script>
 @endsection

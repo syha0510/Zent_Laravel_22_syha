@@ -50,7 +50,7 @@
                             <article class="single-blog">
 
                                 <div class="thumb">
-                                    <img src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image) }}" alt="will be distracted">
+                                    <img style="width:100%" src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image) }}" alt="will be distracted">
                                 </div>
 
                                 <h1><a href="#">{{ $post->title }}</a></h1>

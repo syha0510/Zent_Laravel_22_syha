@@ -74,6 +74,10 @@ class User extends Authenticatable
 
     }
 
+    public function brands(){
+        return $this->hasMany(Brand::class);
+    }
+
     public function hasPermissionTo($permission) {
 
         return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);

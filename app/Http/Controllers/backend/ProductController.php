@@ -22,20 +22,22 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $products = Product::orderBy('created_at', 'desc')->paginate(4);
-        return view('backend.products.list',['products' => $products]);
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('backend.products.list',['products' => $products,'categories' => $categories,'brands'=>$brands]);
     }
 
 
-    // public function filterProduct(Request $request){
-    //     if($request->get('status') == -1 && $request->get('category') == -1 && $request->get('brand') == -1){
-    //         return redirect()->route('backend.product.index');
-    //     }
+    public function filterProduct(Request $request){
+        if($request->get('status') == -1 && $request->get('category') == -1 && $request->get('brand') == -1){
+            return redirect()->route('backend.products.list');
+        }
 
-    //     $products = Product::query()->status($request)->category($request)->brand($request)->paginate(10);
-    //     $categories = Category::all();
-    //     $brands = Brand::all();
-    //     return view('backend.products.index',['products' => $products])->with(['categories' => $categories])->with(['brands' => $brands]);
-    // }
+        $products = Product::query()->status($request)->category($request)->brand($request)->paginate(10);
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('backend.products.list',['products' => $products])->with(['categories' => $categories])->with(['brands' => $brands]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,10 +47,10 @@ class ProductController extends Controller
     {
         
         $category_products = CategoryProduct::all();
-        // $brands = Brand::all();
+        $brands = Brand::all();
         return view('backend.products.create')->with([
             'category_products' => $category_products,
-            // 'brands' => $brands
+            'brands' => $brands
         ]);
     }
 
@@ -65,7 +67,7 @@ class ProductController extends Controller
         $product->name = $request->get('name');
         $product->slug = \Illuminate\Support\Str::slug($request->get('name')).rand(0,999);
         $product->category_id = $request->get('category_product');
-        // $product->brand_id = $request->get('brand_id');
+        $product->brand_id = $request->get('brand_id');
         $product->origin_price = $request->get('origin_price');
         $product->sale_price = $request->get('sale_price');
         $product->content = $request->get('content');
@@ -110,9 +112,30 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $id = $request->get('id');
+        $product = Product::find($id);
+        $product->NameProduct = $product->name;
+        $product->UserProduct = $product->user->name;
+        if ( $product->category_id != null){
+            $product->CategoryProduct = $product->category->name;
+        }else{
+            $product->CategoryProduct = 'Không có danh mục';
+        }
+        $product->QtyProduct = $product->quantity;
+        $product->ContentProduct = $product->content;
+        $product->OriginProduct = number_format($product->origin_price). 'VNĐ';
+        $product->SaleProduct = number_format($product->sale_price). 'VNĐ';
+        $product->DayProduct = $product->created_at->toDateString();
+        if ($product->brand_id !=null){
+            $product->BrandProduct =$product->brand->name;
+        }else{
+            $product->BrandProduct ='Không có thương hiệu' ;
+        }
+        
+        
+        echo json_encode($product);
     }
 
     public function showImages($id)
@@ -133,15 +156,15 @@ class ProductController extends Controller
         $category_products = CategoryProduct::all();
         $product = Product::find($id);
         $images = Image::find($product);
-        // $brands = Brand::all();
+        $brands = Brand::all();
         
         return view('backend.products.edit')->with([
             'category_products' => $category_products,
             'product' => $product,
             'images' => $images,
-            // 'brands' => $brands,
+            'brands' => $brands,
         ]); 
-        //return view('backend.products.edit')->with(['product',$product]);
+       
     }
 
     /**
@@ -163,7 +186,7 @@ class ProductController extends Controller
         $product->name = $request->get('name');
         //$product->slug = \Illuminate\Support\Str::slug($request->get('name'));
         $product->category_id = $request->get('category_product');
-        // $product->brand_id = $request->get('brand_id');
+        $product->brand_id = $request->get('brand_id');
         $product->origin_price = $request->get('origin_price');
         $product->sale_price = $request->get('sale_price');
         $product->quantity = $request->get('quantity');
@@ -232,7 +255,7 @@ class ProductController extends Controller
     }
     public function search(Request $request){
         $keyword = $request->get('keyword');
-
+        
         $searchs = Product::where('name','like','%'.$keyword.'%')->paginate(6);
 
         return view('backend.products.search')->with(['searchs' => $searchs]);
